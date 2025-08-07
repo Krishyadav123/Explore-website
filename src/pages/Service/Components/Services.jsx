@@ -17,7 +17,9 @@ import {
   Clock,
   Phone,
   Mail,
-  MapPin
+  MapPin,
+  Home,
+  PiggyBank
 } from 'lucide-react';
 
 const AnimatedCounter = ({ end, duration = 2 }) => {
@@ -98,27 +100,65 @@ const Services = () => {
   ];
 
   const additionalServices = [
-    {
-      icon: Calculator,
-      title: 'Financial Calculators',
-      description: 'Advanced tools to calculate SIP returns, loan EMIs, and investment projections.'
-    },
-    {
-      icon: Shield,
-      title: 'Insurance Planning',
-      description: 'Comprehensive insurance solutions including life, health, and property insurance.'
-    },
-    {
-      icon: Award,
-      title: 'Tax Planning',
-      description: 'Strategic tax planning to maximize savings and ensure compliance with regulations.'
-    },
-    {
-      icon: Target,
-      title: 'Goal-Based Investing',
-      description: 'Customized investment strategies aligned with your specific financial goals.'
-    }
-  ];
+  {
+    icon: Shield,
+    title: "Insurance Planning",
+    description: "Protect your assets and loved ones with comprehensive insurance strategies tailored to your needs.",
+    gradient: "from-emerald-500 to-teal-600",
+    bgColor: "bg-emerald-50"
+  },
+  {
+    icon: TrendingUp,
+    title: "Investment Advisory",
+    description: "Maximize your returns with expert investment guidance and portfolio optimization.",
+    gradient: "from-blue-500 to-indigo-600",
+    bgColor: "bg-blue-50"
+  },
+  {
+    icon: Calculator,
+    title: "Tax Planning",
+    description: "Minimize your tax burden through strategic planning and optimization strategies.",
+    gradient: "from-purple-500 to-violet-600",
+    bgColor: "bg-purple-50"
+  },
+  {
+    icon: Home,
+    title: "Real Estate Finance",
+    description: "Navigate property investments and mortgages with confidence and expertise.",
+    gradient: "from-orange-500 to-red-600",
+    bgColor: "bg-orange-50"
+  },
+  {
+    icon: PiggyBank,
+    title: "Retirement Planning",
+    description: "Secure your future with comprehensive retirement savings and investment strategies.",
+    gradient: "from-pink-500 to-rose-600",
+    bgColor: "bg-pink-50"
+  },
+  {
+    icon: Briefcase,
+    title: "Business Finance",
+    description: "Grow your business with tailored financing solutions and strategic financial planning.",
+    gradient: "from-cyan-500 to-blue-600",
+    bgColor: "bg-cyan-50"
+  },
+  {
+    icon: Users,
+    title: "Estate Planning",
+    description: "Protect your legacy with sophisticated estate planning and wealth transfer strategies.",
+    gradient: "from-indigo-500 to-purple-600",
+    bgColor: "bg-indigo-50"
+  },
+  {
+    icon: Award,
+    title: "Wealth Management",
+    description: "Preserve and grow your wealth with personalized management and advisory services.",
+    gradient: "from-amber-500 to-yellow-600",
+    bgColor: "bg-amber-50"
+  }
+];
+
+
 
   const stats = [
     { number: 5000, suffix: '+', label: 'Happy Clients' },
@@ -126,28 +166,56 @@ const Services = () => {
     { number: 500, suffix: 'Cr+', label: 'AUM Managed' },
     { number: 98, suffix: '%', label: 'Client Satisfaction' }
   ];
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2
     }
-  };
+  }
+};
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut"
-      }
+const itemVariants = {
+  hidden: { 
+    opacity: 0, 
+    y: 60,
+    scale: 0.9
+  },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.6,
+      ease: [0.25, 0.46, 0.45, 0.94]
     }
-  };
+  }
+};
+
+const cardHoverVariants = {
+  hover: {
+    y: -5,
+    scale: 1.03,
+    rotateY: 5,
+    transition: {
+      duration: 0.3,
+      ease: "easeOut"
+    }
+  }
+};
+
+const iconContainerVariants = {
+  hover: {
+    scale: 1.1,
+    rotate: [0, -5, 5, -5, 0],
+    transition: {
+      duration: 0.5,
+      ease: "easeInOut"
+    }
+  }
+};
 
   return (
     <div className="min-h-screen bg-white">
@@ -177,7 +245,7 @@ const Services = () => {
       </motion.section> */}
 
       {/* Stats Section */}
-      <motion.section
+      {/* <motion.section
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
@@ -204,7 +272,7 @@ const Services = () => {
             ))}
           </div>
         </div>
-      </motion.section>
+      </motion.section> */}
 
       {/* Main Services Section */}
       <motion.section
@@ -229,25 +297,25 @@ const Services = () => {
                 index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''
               }`}>
                 {/* Content Side */}
-                <div className={`p-12 lg:p-16 flex flex-col justify-center ${
+                <div className={`p-12 lg:p-10 flex flex-col justify-center ${
                   index % 2 === 1 ? 'lg:col-start-2' : ''
                 }`}>
                   <motion.h2
-                    className={`text-3xl lg:text-4xl font-bold mb-6 ${service.textColor}`}
+                    className={`text-3xl lg:text-2xl font-bold mb-2 ${service.textColor}`}
                     whileHover={{ scale: 1.02 }}
                   >
                     {service.title}
                   </motion.h2>
                   
                   <motion.p
-                    className={`text-lg mb-8 leading-relaxed ${
+                    className={`text-base mb-8 leading-relaxed ${
                       service.textColor === 'text-white' ? 'text-gray-300' : 'text-gray-600'
                     }`}
                   >
                     {service.description}
                   </motion.p>
                   
-                  <div className="grid grid-cols-2 gap-4 mb-8">
+                  <div className="grid grid-cols-2 gap-2 mb-8">
                     {service.features.map((feature, featureIndex) => (
                       <motion.div
                         key={featureIndex}
@@ -256,10 +324,10 @@ const Services = () => {
                         transition={{ delay: featureIndex * 0.1 }}
                         className="flex items-center gap-3"
                       >
-                        <CheckCircle className={`w-5 h-5 ${
+                        <CheckCircle className={`w-4 h-4 ${
                           service.textColor === 'text-white' ? 'text-green-400' : 'text-green-500'
                         }`} />
-                        <span className={`font-medium ${
+                        <span className={`font-medium text-sm ${
                           service.textColor === 'text-white' ? 'text-gray-200' : 'text-gray-700'
                         }`}>
                           {feature}
@@ -271,14 +339,14 @@ const Services = () => {
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className={`inline-flex items-center gap-2 px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 ${
+                    className={`inline-flex items-center gap-2 px-5 py-2 rounded-md font-semibold text-base transition-all duration-300 ${
                       service.textColor === 'text-white'
                         ? 'bg-white text-gray-900 hover:bg-gray-100'
                         : 'bg-blue-600 text-white hover:bg-blue-700'
                     } shadow-lg hover:shadow-xl`}
                   >
                     Learn More
-                    <ArrowRight className="w-5 h-5" />
+                    <ArrowRight className="w-4 h-4" />
                   </motion.button>
                 </div>
                 
@@ -287,27 +355,23 @@ const Services = () => {
                   index % 2 === 1 ? 'lg:col-start-1' : ''
                 }`}>
                   <motion.div
-                    className="h-80 lg:h-full bg-gradient-to-br from-blue-400 to-purple-600 flex items-center justify-center relative"
+                    className="h-80 lg:h-full w-full  flex items-center justify-center relative"
                     whileHover={{ scale: 1.02 }}
                     transition={{ duration: 0.3 }}
                   >
                     {/* Placeholder for financial imagery */}
-                    <motion.div
-                      animate={hoveredService === index ? { 
-                        rotate: [0, 5, -5, 0],
-                        scale: [1, 1.1, 1] 
-                      } : {}}
-                      transition={{ duration: 2, repeat: Infinity }}
-                      className="text-center"
+                    <div
+                     
+                      className="text-center w-full h-full"
                     >
-                      {index === 0 && <img src="https://ploutia.com/images/services/mutual-fund.png" alt="" /> }
-                      {index === 1 && <BarChart3 className="w-24 h-24 text-white mb-4" />}
-                      {index === 2 && <Users className="w-24 h-24 text-white mb-4" />}
+                      {index === 0 && <img src="https://ploutia.com/images/services/mutual-fund.png" className='h-full w-full object-cover' alt="" /> }
+                      {index === 1 && <img src="https://ploutia.com/images/services/wealth-management.png " className='h-full w-full object-cover' alt="" />}
+                      {index === 2 && <img src="https://ploutia.com/images/services/personal-finance-coaching.png" className='h-full w-full object-cover' alt="" />}
                       
                       <div className="text-white font-semibold text-lg opacity-90">
                         {service.title}
                       </div>
-                    </motion.div>
+                    </div>
                     
                     {/* Decorative elements */}
                     <div className="absolute inset-0 bg-black bg-opacity-10"></div>
@@ -327,42 +391,193 @@ const Services = () => {
       </motion.section>
 
       {/* Additional Services */}
-      <motion.section
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={containerVariants}
-        className="py-20 px-6 bg-gray-50"
-      >
-        <div className="max-w-6xl mx-auto">
-          <motion.div variants={itemVariants} className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">Additional Services</h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Comprehensive financial solutions to support every aspect of your financial journey
-            </p>
-          </motion.div>
+    <motion.section
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.1 }}
+      variants={containerVariants}
+      className="relative py-10 px-6 overflow-hidden bg-black"
+      // style={{
+      //   background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+      // }}
+    >
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0">
+        <div className="absolute top-10 left-10 w-72 h-72 bg-white bg-opacity-10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-10 right-10 w-96 h-96 bg-blue-300 bg-opacity-20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-purple-300 bg-opacity-15 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+      </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {additionalServices.map((service, index) => (
+      {/* Floating Particles */}
+      {[...Array(20)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute w-2 h-2 bg-white bg-opacity-30 rounded-full"
+          animate={{
+            y: [0, -100, 0],
+            x: [0, Math.random() * 100 - 50, 0],
+            opacity: [0.3, 0.8, 0.3]
+          }}
+          transition={{
+            duration: Math.random() * 3 + 2,
+            repeat: Infinity,
+            delay: Math.random() * 2
+          }}
+          style={{
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`
+          }}
+        />
+      ))}
+
+      <div className="relative z-10 max-w-7xl mx-auto">
+        <motion.div 
+          variants={itemVariants} 
+          className="text-center mb-20"
+        >
+          <motion.div
+            initial={{ scale: 0, rotate: -180 }}
+            whileInView={{ scale: 1, rotate: 0 }}
+            transition={{ duration: 0.8, type: "spring", bounce: 0.4 }}
+            className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white bg-opacity-20 backdrop-blur-sm mb-6"
+          >
+            <Briefcase className="w-8 h-8 text-white" />
+          </motion.div>
+          
+          <motion.h2 
+            className="text-5xl md:text-4xl font-bold text-white mb-4"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            Additional Services
+          </motion.h2>
+          
+          <motion.div
+            className="w-24 h-1 bg-gradient-to-r from-yellow-400 to-pink-400 mx-auto mb-2 rounded-full"
+            initial={{ width: 0 }}
+            whileInView={{ width: 96 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          />
+          
+          <motion.p 
+            className="text-base text-white text-opacity-90 max-w-3xl mx-auto leading-relaxed"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+          >
+            Comprehensive financial solutions designed to support every aspect of your financial journey with expertise and innovation
+          </motion.p>
+        </motion.div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+          {additionalServices.map((service, index) => (
+            <motion.div
+              key={index}
+              variants={itemVariants}
+              whileHover="hover"
+              className="relative group"
+            >
               <motion.div
-                key={index}
-                variants={itemVariants}
-                whileHover={{ y: -10, scale: 1.02 }}
-                className="p-8 rounded-2xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-xl transition-all duration-300 text-center"
+                variants={cardHoverVariants}
+                className="relative p-5 rounded-xl bg-white bg-opacity-95 backdrop-blur-lg border border-white border-opacity-20 shadow-2xl overflow-hidden text-center h-full"
+                style={{
+                  boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+                }}
               >
+                {/* Card Background Gradient */}
+                <div className={`absolute inset-0 ${service.bgColor} opacity-0 group-hover:opacity-50 transition-opacity duration-500`}></div>
+                
+                {/* Animated Border */}
                 <motion.div
-                  whileHover={{ rotate: 10 }}
-                  className="w-16 h-16 rounded-2xl bg-blue-600 flex items-center justify-center mb-6 mx-auto"
+                  className="absolute inset-0 rounded-3xl border-2 border-transparent"
+                  style={{
+                    background: `linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent) border-box`,
+                    WebkitMask: 'linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0)',
+                    WebkitMaskComposite: 'exclude'
+                  }}
+                  animate={{
+                    background: [
+                      'linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent)',
+                      'linear-gradient(145deg, transparent, rgba(255,255,255,0.1), transparent)',
+                      'linear-gradient(245deg, transparent, rgba(255,255,255,0.1), transparent)',
+                      'linear-gradient(345deg, transparent, rgba(255,255,255,0.1), transparent)'
+                    ]
+                  }}
+                  transition={{ duration: 3, repeat: Infinity }}
+                />
+                
+                <motion.div
+                  variants={iconContainerVariants}
+                  className={`relative w-16 h-16 rounded-xl bg-gradient-to-br ${service.gradient} flex items-center justify-center mb-6 mx-auto shadow-lg`}
                 >
                   <service.icon className="w-8 h-8 text-white" />
+                  
+                  {/* Icon Glow Effect */}
+                  <motion.div
+                    className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white to-transparent opacity-0 group-hover:opacity-20"
+                    animate={{
+                      scale: [1, 1.1, 1],
+                      opacity: [0.2, 0.4, 0.2]
+                    }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  />
                 </motion.div>
-                <h3 className="text-xl font-bold text-gray-900 mb-4">{service.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{service.description}</p>
+
+                <div className="relative z-10">
+                  <motion.h3 
+                    className="text-xl font-bold text-gray-900 mb-4 group-hover:text-gray-800 transition-colors duration-300"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ delay: 0.1 }}
+                  >
+                    {service.title}
+                  </motion.h3>
+                  
+                  <motion.p 
+                    className="text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors duration-300"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ delay: 0.2 }}
+                  >
+                    {service.description}
+                  </motion.p>
+                </div>
+
+                {/* Hover Shine Effect */}
+                <motion.div
+                  className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-10"
+                  animate={{
+                    x: ['-100%', '100%'],
+                  }}
+                  transition={{
+                    duration: 1.5,
+                    repeat: Infinity,
+                    repeatDelay: 2
+                  }}
+                />
               </motion.div>
-            ))}
-          </div>
+            </motion.div>
+          ))}
         </div>
-      </motion.section>
+
+        {/* Call to Action */}
+        <div
+          className="text-center mt-16"
+          // initial={{ opacity: 0, y: 40 }}
+          // whileInView={{ opacity: 1, y: 0 }}
+          // transition={{ duration: 0.8, delay: 0.4 }}
+        >
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="px-8 py-4 bg-white bg-opacity-20 backdrop-blur-sm text-white font-semibold rounded-full border border-white border-opacity-30 hover:bg-opacity-30 transition-all duration-300 shadow-lg"
+          >
+            Explore All Services
+          </motion.button>
+        </div>
+      </div>
+    </motion.section>
 
       {/* Why Choose Us */}
       <motion.section

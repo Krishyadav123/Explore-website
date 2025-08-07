@@ -8,7 +8,7 @@ const Navbar = () => {
   const [activeSubmenu, setActiveSubmenu] = useState(null);
 
   const navigationItems = [
-    { name: 'Home', href: '#', icon: Home },
+    { name: 'Home', href: '/', icon: Home },
     { 
       name: 'About Us', 
       href: 'about',
@@ -25,17 +25,17 @@ const Navbar = () => {
       hasDropdown: true,
       dropdownItems: [
         { 
-          name: 'Market Analysis',
+          name: 'Performance Comparison',
           hasSubmenu: true,
           submenu: [
-            { name: 'Daily Market Reports', href: '#' },
-            { name: 'Weekly Analysis', href: '#' },
-            { name: 'Monthly Outlook', href: '#' },
-            { name: 'Sector Analysis', href: '#' }
+            { name: 'Mutual Fund Trailing Returns', href: '#' },
+            { name: 'Mutual Fund Quartile Ranking', href: '#' },
+            { name: 'Top Consistent Mutual Fund', href: '#' },
+            { name: 'Mutual Fund Annual Returns', href: '#' }
           ]
         },
         { 
-          name: 'Fund Performance',
+          name: 'SIP Returns',
           hasSubmenu: true,
           submenu: [
             { name: 'Top Performers', href: '#' },
