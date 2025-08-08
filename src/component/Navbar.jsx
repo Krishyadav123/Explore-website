@@ -242,9 +242,9 @@ const Navbar = () => {
                         >
                           <a
                             href={dropdownItem.href || '#'}
-                            className="flex items-center justify-between px-4 py-3 text-gray-700 hover:text-teal-600 hover:bg-teal-50 transition-colors duration-200 text-sm group"
+                            className="flex items-center justify-between px-4 py-1 text-gray-700 hover:text-teal-600 hover:bg-teal-50 transition-colors duration-200 text-xs group"
                           >
-                            <span>{dropdownItem.name}</span>
+                            <span >{dropdownItem.name}</span>
                             {dropdownItem.hasSubmenu && (
                               <ChevronDown className="w-4 h-4 -rotate-90 group-hover:text-teal-600" />
                             )}
@@ -252,12 +252,12 @@ const Navbar = () => {
 
                           {/* Submenu */}
                           {dropdownItem.hasSubmenu && activeSubmenu === `${item.name}-${index}` && (
-                            <div className="absolute top-0 left-full w-40 bg-white rounded-lg shadow-xl border border-gray-100 py-2 z-50">
+                            <div className="absolute top-0 left-full w-40 bg-white rounded-lg  border border-gray-100 py-2 z-50">
                               {dropdownItem.submenu.map((submenuItem, subIndex) => (
                                 <a
                                   key={subIndex}
                                   href={submenuItem.href}
-                                  className="block px-4 py-3 text-gray-600 hover:text-teal-600 hover:bg-teal-50 transition-colors duration-200 text-sm"
+                                  className="block px-4 py-1 text-gray-600 hover:text-teal-600 hover:bg-teal-50 transition-colors duration-200 text-xs"
                                 >
                                   {submenuItem.name}
                                 </a>

@@ -30,7 +30,7 @@ const FinancialHero = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       {/* Hero Section */}
-      <div className="mx-auto px-32 py-16">
+      <div className="mx-auto px-5 md:px-32 py-16">
         <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[80vh]">
           
           {/* Left Content */}

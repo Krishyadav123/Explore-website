@@ -7,6 +7,7 @@ import AMCPartnersSection from './Components/AMCPartnersSection'
 import Footer from '@/component/Footer'
 import About from '../About/About'
 import Navbar from '@/component/Navbar'
+import TanStackTableExample from './Components/TanStackTableExample'
 
 
 function Home() {
@@ -18,6 +19,7 @@ function Home() {
       <InvestmentGoalsSection/>
       <CallbackSection/>
       <AMCPartnersSection/>
+      <TanStackTableExample/>
 
       {/* <About/> */}
       <Footer/>
