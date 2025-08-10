@@ -1,4 +1,6 @@
 import About from '@/pages/About/About'
+import Carousel from '@/pages/Carousel'
+import Contact from '@/pages/Contact/Contact'
 import Home from '@/pages/Home/Home'
 import Service from '@/pages/Service/Service'
 // import { Route } from 'lucide-react'
@@ -11,6 +13,8 @@ const AllRoutes = () => {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/services" element={<Service />} />
+        {/* <Route path="/demo" element={<Carousel />} /> */}
+        <Route path="/contact" element={<Contact />} />
         {/* Add more routes as needed */}
     </Routes>
   )
