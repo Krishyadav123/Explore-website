@@ -165,7 +165,7 @@ const InvestmentGoalsSection = () => {
                 className={`${investment.bgColor} rounded-xl p-6 text-center transform transition-all duration-200 cursor-pointer hover:scale-105 hover:shadow-xl ${
                   animatedValues[index] ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
                 }`}
-                style={{ transitionDelay: `${index * 150}ms` }}
+                // style={{ transitionDelay: `${index * 50}ms` }}
               >
                 <div className={`w-12 h-12 bg-gradient-to-r ${investment.color} rounded-lg flex items-center justify-center mx-auto mb-4 text-white`}>
                   {investment.icon}

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronDown, Menu, X, Mail, Phone, User, Home } from 'lucide-react';
-import Logo from '../assets/logo.jpg'; // Assuming you have a Logo component
+import Logo from '../assets/Logo.jpg'; // Assuming you have a Logo component
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -28,7 +28,7 @@ const Navbar = () => {
           name: 'Performance Comparison',
           hasSubmenu: true,
           submenu: [
-            { name: 'Mutual Fund Trailing Returns', href: '#' },
+            { name: 'Mutual Fund Trailing Returns', href: 'mutual-funds' },
             { name: 'Mutual Fund Quartile Ranking', href: '#' },
             { name: 'Top Consistent Mutual Fund', href: '#' },
             { name: 'Mutual Fund Annual Returns', href: '#' }
@@ -132,7 +132,7 @@ const Navbar = () => {
     },
     { 
       name: 'Contact Us', 
-      href: '#',
+      href: 'contact',
      
     }
   ];

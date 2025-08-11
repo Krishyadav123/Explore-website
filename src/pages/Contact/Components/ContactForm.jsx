@@ -213,7 +213,7 @@ const ContactForm = () => {
                     className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 resize-none"
                   />
                 </motion.div>
-
+ 
                 {/* Submit Button */}
                 <motion.button
                   type="submit"
