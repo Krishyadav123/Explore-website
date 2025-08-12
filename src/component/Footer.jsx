@@ -64,7 +64,7 @@ const Footer = () => {
 
       {/* Main Footer Content */}
       <div className="max-w-7xl mx-auto px-6 pt-16 pb-8">
-        <div className="flex justify-between w-full">
+        <div className="flex flex-col lg:flex-row justify-between gap-10 w-full">
           {/* Company Info */}
           <div className="max-w-[400px] w-full space-y-6">
             <div className="">
@@ -121,7 +121,7 @@ const Footer = () => {
           </div>
 
           {/* Useful Links */}
-          <div className="grid grid-cols-3 w-full">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 w-full">
             <div>
               <h3 className="text-xl font-bold mb-6 text-blue-400">
                 Useful Links

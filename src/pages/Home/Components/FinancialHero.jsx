@@ -111,7 +111,7 @@ const FinancialHero = () => {
               </div>
 
               {/* Floating Elements */}
-              <div className="absolute -top-6 -right-6 w-16 h-16 bg-orange-500 rounded-2xl flex items-center justify-center shadow-xl rotate-12 hover:rotate-0 transition-transform duration-500">
+              <div className="absolute right-0 -top-6 md:-top-6 md:-right-6 w-16 h-16 bg-orange-500 rounded-2xl flex items-center justify-center shadow-xl rotate-12 hover:rotate-0 transition-transform duration-500">
                 <TrendingUp className="w-8 h-8 text-white" />
               </div>
               

@@ -84,28 +84,13 @@ const Navbar = () => {
       href: '#',
       hasDropdown: true,
       dropdownItems: [
-        { 
-          name: 'Life Goals',
-          hasSubmenu: true,
-          submenu: [
-            { name: 'Retirement Planning', href: '#' },
-            { name: 'Child Education', href: '#' },
-            { name: 'Marriage Planning', href: '#' },
-            { name: 'Emergency Fund', href: '#' }
-          ]
-        },
-        { 
-          name: 'Asset Goals',
-          hasSubmenu: true,
-          submenu: [
-            { name: 'Home Purchase', href: '#' },
-            { name: 'Vehicle Purchase', href: '#' },
-            { name: 'Vacation Planning', href: '#' },
-            { name: 'Business Setup', href: '#' }
-          ]
-        },
+        
+        { name: 'Dream Home', href: '#' },
         { name: 'Wealth Creation', href: '#' },
-        { name: 'Tax Saving', href: '#' }
+        { name: 'Retirement', href: '#' },
+        { name: 'Child Education', href: '#' },
+        { name: 'Child Wedding', href: '#' },
+        { name: 'Emergency', href: '#' },
       ]
     },
     {
@@ -148,7 +133,7 @@ const Navbar = () => {
           <div className="absolute top-0 right-1/4 w-24 h-24 bg-orange-500/10 rounded-full blur-2xl animate-pulse delay-1000"></div>
         </div>
         
-        <div className="px-10 mx-auto flex justify-between items-center text-sm relative z-10">
+        <div className="md:px-10 mx-auto flex flex-col md:flex-row justify-between items-center text-sm relative z-10">
           <div className="flex items-center space-x-8">
             <div className="flex items-center space-x-3 group">
               <div className="p-1.5 bg-gradient-to-br from-orange-500/20 to-orange-600/20 rounded-lg backdrop-blur-sm border border-orange-400/20">
@@ -177,13 +162,13 @@ const Navbar = () => {
             </div>
           </div>
           
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-4 mt-3 md:mt-0">
             <div className="hidden lg:flex items-center space-x-2 text-gray-300">
               <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
               <span className="text-xs font-medium">Online Support Available</span>
             </div>
             
-            <button className="group relative bg-gradient-to-r from-orange-500 to-orange-600 px-6 py-2 rounded-full text-white text-sm font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-xl transform hover:scale-105">
+            <button className="group relative bg-gradient-to-r from-orange-500 to-orange-600 px-10 md:px-6 py-2 rounded-full text-white text-sm font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-xl transform hover:scale-105">
               <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <User className="w-4 h-4 group-hover:rotate-12 transition-transform duration-200" />
               <span>Login</span>
