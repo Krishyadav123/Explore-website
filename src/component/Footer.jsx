@@ -73,9 +73,9 @@ const Footer = () => {
                 <div className="flex items-start space-x-3">
                   <MapPin className="w-5 h-5 text-blue-400 mt-1 flex-shrink-0" />
                   <div className="text-gray-300">
-                    <p>Ploutia Finserv Pvt. Ltd.,</p>
-                    <p>Udyambag, Belagavi,</p>
-                    <p>Karnataka - 590008</p>
+                    <p>Office No.-26,Kapil Complex, Basement, Mukhani, Kaladhungi Road, Haldwani, Nainital, Uttarakhand</p>
+                    {/* <p>Udyambag, Belagavi,</p>
+                    <p>Karnataka - 590008</p> */}
                   </div>
                 </div>
 
@@ -85,17 +85,18 @@ const Footer = () => {
                     href="tel:+918147049936"
                     className="text-gray-300 hover:text-blue-400 transition-colors"
                   >
-                    +91-8147049936
+                    +91-7500372237
+
                   </a>
                 </div>
 
                 <div className="flex items-center space-x-3">
                   <Mail className="w-5 h-5 text-blue-400" />
                   <a
-                    href="mailto:contact@ploutia.com"
+                    href="mailto:help@explore.com"
                     className="text-gray-300 hover:text-blue-400 transition-colors"
                   >
-                    contact@ploutia.com
+                    help@explore.com
                   </a>
                 </div>
               </div>
@@ -185,7 +186,7 @@ const Footer = () => {
         </div>
 
         {/* AMFI Certification */}
-        <div className="border-t border-gray-800 mt-5 pt-8 mb-8">
+        {/* <div className="border-t border-gray-800 mt-5 pt-8 mb-8">
           <div className="bg-gray-800 rounded-lg p-6">
             <div className="flex items-start space-x-4">
               <div className="w-16 h-16 bg-gradient-to-r from-green-400 to-blue-500 rounded-lg flex items-center justify-center flex-shrink-0">
@@ -202,10 +203,10 @@ const Footer = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* Disclaimer */}
-        <div className="bg-yellow-900/20 border border-yellow-600/30 rounded-lg p-4 mb-8">
+        <div className="bg-yellow-900/20 border border-yellow-600/30 rounded-lg p-4 my-8">
           <div className="flex items-start space-x-3">
             <Shield className="w-5 h-5 text-yellow-400 mt-0.5 flex-shrink-0" />
             <p className="text-yellow-100 text-sm leading-relaxed">
@@ -220,7 +221,7 @@ const Footer = () => {
         <div className="border-t border-gray-800 pt-6">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="text-sm text-gray-400">
-              © 2024 Ploutia Finserv Pvt. Ltd - All Rights Reserved
+              © 2024 Explore Finserv Pvt. Ltd - All Rights Reserved
             </div>
             <div className="text-sm text-gray-400">
               Designed and Developed by{" "}
@@ -228,8 +229,9 @@ const Footer = () => {
                 href="#"
                 className="text-blue-400 hover:text-blue-300 transition-colors font-medium"
               >
-                Advisorkraj.com
+                Avrach
               </a>
+              <p>Contact :- 9171019136</p>
             </div>
           </div>
         </div>

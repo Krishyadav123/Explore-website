@@ -198,10 +198,10 @@ const InvestmentGoalsSection = () => {
           {/* Left Content */}
           <div>
             <h2 className="text-4xl font-bold text-gray-900 mb-6">
-              Let's Start Creating Your <span className="text-blue-600">Financial Goals</span>
+               Every stage of life comes with important <span className="text-blue-600">financial goals.</span>
             </h2>
             <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-              Every step of life has a specific monetary goal attached to it. You have to maneuver the steering wheel at the right time to reach them in time. We will help you plan to get you where you want to be.
+               Achieving them requires making the right moves at the right time. We’re here to guide you and help you reach your milestones with confidence.
             </p>
 
             {/* Goals Grid */}

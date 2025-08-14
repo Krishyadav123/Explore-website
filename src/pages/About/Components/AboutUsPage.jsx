@@ -18,7 +18,14 @@ import {
   Zap,
   Clock,
   Globe,
-  ChevronDown
+  ChevronDown,
+  Compass,
+  LineChart,
+  Building2,
+  ShieldCheck,
+  Scale,
+  Monitor,
+  RefreshCw
 } from 'lucide-react';
 
 const AboutUsPage = () => {
@@ -60,57 +67,71 @@ const AboutUsPage = () => {
     }
   };
 
-  const approaches = [
-    {
-      icon: Users,
-      title: "Personalized Solutions",
-      description: "Every client is unique, and so are their financial needs and goals. Our personalized approach ensures that our investment strategies are tailored to meet the specific requirements of our clients.",
-      gradient: "from-blue-500 to-cyan-500"
-    },
-    {
-      icon: BookOpen,
-      title: "Expert Guidance",
-      description: "Our team's extensive experience in the financial industry helps us with the approach to navigate the complexities of mutual fund investments, keeping our clients informed.",
-      gradient: "from-purple-500 to-pink-500"
-    },
-    {
-      icon: Headphones,
-      title: "Ongoing Support",
-      description: "We believe in building long-term relationships with our clients. Our commitment is to provide financial guidance that evolves with changing needs and market conditions.",
-      gradient: "from-green-500 to-emerald-500"
-    }
-  ];
-
+ const approaches = [
+  {
+    icon: Users,
+    title: "Personalized Solutions",
+    description:
+      "Every client is unique, and so are their financial needs and goals. Our personalized approach ensures that our investment strategies are tailored to meet the specific requirements of our clients.",
+    gradient: "from-blue-500 to-cyan-500"
+  },
+  {
+    icon: BookOpen,
+    title: "Expert Guidance",
+    description:
+      "Our team's extensive experience in the financial industry helps us with the approach to navigate the complexities of mutual fund investments, keeping our clients informed.",
+    gradient: "from-pink-500 to-purple-500"
+  },
+  {
+    icon: Headphones,
+    title: "Ongoing Support",
+    description:
+      "We believe in building long-term relationships with our clients. Our commitment is to provide financial guidance that evolves with changing needs and market conditions.",
+    gradient: "from-green-500 to-emerald-500"
+  }
+];
   const whyChooseUs = [
-    {
-      title: "Experience and Expertise",
-      description: "With years of experience in wealth management and investments, our team brings value-added expertise to the table.",
-      image: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&h=300&fit=crop",
-      stats: "15+ Years",
-      icon: Award
-    },
-    {
-      title: "Licensed Professionals",
-      description: "We hold all the necessary licenses for Mutual Fund Distribution, ensuring compliance at every step.",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop",
-      stats: "100% Certified",
-      icon: Shield
-    },
-    {
-      title: "Client-Centric Approach",
-      description: "Your financial goals and risk tolerance are our top priorities. We tailor our services to meet your specific needs.",
-      image: "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=400&h=300&fit=crop",
-      stats: "500+ Clients",
-      icon: Users
-    },
-    {
-      title: "Comprehensive Services",
-      description: "From mutual fund distribution to wealth management and personal financial coaching, we offer a holistic approach to financial planning.",
-      image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&h=300&fit=crop",
-      stats: "Full Service",
-      icon: Globe
-    }
-  ];
+  {
+    title: "SEBI-Registered Mutual Fund Distributor",
+    description:
+      "We are officially registered with SEBI, ensuring your investments are handled with complete compliance and reliability.",
+    image: "https://res.cloudinary.com/dhf8eyjee/image/upload/f_auto,q_auto,w_1200/v1755166950/person-using-wax-seal-certificate_gmuheu.jpg",
+    stats: "SEBI Certified",
+    icon: ShieldCheck
+  },
+  {
+    title: "Transparent & Unbiased Advice",
+    description:
+      "Our recommendations are always transparent, unbiased, and in your best interest—no hidden agendas, just honest advice.",
+    image: "https://res.cloudinary.com/dhf8eyjee/image/upload/f_auto,q_auto,w_1200/v1755167185/analytics-plan-strategy-insight-concept_vcv1hc.jpg",
+    stats: "100% Transparent",
+    icon: Scale
+  },
+  {
+    title: "Goal-Based Investment Planning",
+    description:
+      "We focus on helping you achieve specific life goals through a structured investment strategy tailored to your needs.",
+    image: "https://res.cloudinary.com/dhf8eyjee/image/upload/v1755167248/graph-growth-development-improvement-profit-success-concept_kcxxo4.jpg",
+    stats: "Target Oriented",
+    icon: Target
+  },
+  {
+    title: "Easy Online Access & Tracking",
+    description:
+      "Track and manage your investments anytime, anywhere with our seamless online tools and platform.",
+    image: "https://res.cloudinary.com/dhf8eyjee/image/upload/f_auto,q_auto,w_1200/v1755167758/shipping-logistic-delivery-freight-cargo-concept_dhwk8n.jpg",
+    stats: "24/7 Access",
+    icon: Monitor
+  },
+  {
+    title: "Regular Portfolio Reviews",
+    description:
+      "We review your portfolio regularly to ensure it stays aligned with your goals and adapts to changing market conditions.",
+    image: "https://res.cloudinary.com/dhf8eyjee/image/upload/f_auto,q_auto,w_1200/v1755168160/work-with-magnifying-glass-calculator-papers_pr23dl.jpg",
+    stats: "Consistent Monitoring",
+    icon: RefreshCw
+  }
+];
 
   const teamMembers = [
     {
@@ -138,24 +159,26 @@ const AboutUsPage = () => {
       certifications: ["CFA", "CAIA"]
     }
   ];
-
-  const philosophyTabs = [
-    {
-      title: "Our Mission",
-      content: "To empower individuals and families to achieve financial independence through innovative investment strategies and personalized financial planning.",
-      icon: Target
-    },
-    {
-      title: "Our Vision",
-      content: "To be the most trusted financial partner, transforming lives through exceptional wealth management services and sustainable growth strategies.",
-      icon: Lightbulb
-    },
-    {
-      title: "Our Values",
-      content: "Integrity, transparency, and client success form the foundation of everything we do. We believe in building lasting relationships based on trust and mutual respect.",
-      icon: Shield
-    }
-  ];
+const philosophyTabs = [
+  {
+    icon: Compass, // replace with your actual icon import
+    title: "Discovering Possibilities",
+    content:
+      "Every financial journey is unique. We help you uncover opportunities that align with your life goals—be it buying a home, planning for retirement, or funding your child’s education."
+  },
+  {
+    icon: LineChart, // replace with your actual icon import
+    title: "Understanding Risk & Potential",
+    content:
+      "Through advanced risk profiling and data-driven analysis, we guide you to explore the right investment avenues suited to your risk appetite and financial objectives."
+  },
+  {
+    icon: Building2, // replace with your actual icon import
+    title: "Building with Vision",
+    content:
+      "Exploring is about progress—step by step. Whether you’re a first-time investor or managing a legacy portfolio, we help you build long-term wealth with intention and intelligence."
+  }
+];
 
   return (
     <div className="min-h-screen bg-white overflow-hidden">
@@ -269,141 +292,140 @@ const AboutUsPage = () => {
 
       {/* Enhanced Company Overview */}
       <motion.section 
-        className="py-24 px-4 bg-gradient-to-br from-slate-50 to-blue-50"
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-      >
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 xl:grid-cols-2 gap-16 items-center">
-            <motion.div className="space-y-8" variants={itemVariants}>
-              <div className="space-y-4">
-                <motion.div 
-                  className="inline-flex items-center px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm font-medium"
-                  whileHover={{ scale: 1.05 }}
-                >
-                  <TrendingUp className="w-4 h-4 mr-2" />
-                  Financial Excellence
-                </motion.div>
-                <h2 className="text-5xl font-extralight text-gray-900 leading-tight">
-                  Explore Financial 
-                  <span className="block text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text font-medium">
-                    Opportunities with Ploutia
-                  </span>
-                </h2>
-              </div>
-              
-              <div className="prose prose-lg text-gray-600">
-                <p className="leading-relaxed">
-                  Welcome to our firm, where your financial aspirations meet seasoned expertise and 
-                  personalized guidance. We are a dedicated team of professionals with extensive 
-                  experience in the financial industry, and our primary mission is to empower individuals 
-                  and families to achieve their financial goals through prudent and personalized investment strategies.
-                </p>
-              </div>
-
-              <motion.div 
-                className="grid grid-cols-2 gap-6"
-                variants={containerVariants}
-              >
-                {[
-                  { label: "Client Retention", value: "98%", icon: Users },
-                  { label: "Average Return", value: "12.5%", icon: TrendingUp },
-                  { label: "Response Time", value: "< 2hrs", icon: Clock },
-                  { label: "Success Rate", value: "95%", icon: Target }
-                ].map((stat, index) => {
-                  const IconComponent = stat.icon;
-                  return (
-                    <motion.div 
-                      key={index} 
-                      className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100"
-                      variants={scaleVariants}
-                      whileHover={{ 
-                        scale: 1.05,
-                        boxShadow: "0 10px 40px rgba(0,0,0,0.1)"
-                      }}
-                      transition={{ type: "spring", stiffness: 300 }}
-                    >
-                      <div className="flex items-center gap-3 mb-2">
-                        <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center">
-                          <IconComponent className="w-4 h-4 text-white" />
-                        </div>
-                        <span className="text-2xl font-bold text-gray-900">{stat.value}</span>
-                      </div>
-                      <p className="text-sm text-gray-600">{stat.label}</p>
-                    </motion.div>
-                  );
-                })}
-              </motion.div>
-
-              <div className="flex items-center gap-6">
-                <motion.button 
-                  className="group bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-2xl font-medium flex items-center gap-2"
-                  whileHover={{ 
-                    scale: 1.05,
-                    boxShadow: "0 10px 30px rgba(59, 130, 246, 0.3)"
-                  }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Start Your Journey
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-                </motion.button>
-                <motion.button 
-                  className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors duration-300 group"
-                  whileHover={{ scale: 1.05 }}
-                >
-                  <div className="w-12 h-12 bg-white shadow-lg rounded-full flex items-center justify-center">
-                    <Play className="w-5 h-5 ml-0.5" />
-                  </div>
-                  Watch Our Story
-                </motion.button>
-              </div>
-            </motion.div>
-
-            <motion.div className="relative" variants={itemVariants}>
-              <div className="relative">
-                <motion.div 
-                  className="absolute -top-6 -left-6 w-full h-full bg-gradient-to-r from-blue-500 to-purple-500 rounded-3xl blur-xl opacity-20"
-                  animate={{
-                    scale: [1, 1.1, 1],
-                    opacity: [0.2, 0.3, 0.2]
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                />
-                <motion.img 
-                  src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=700&h=500&fit=crop"
-                  alt="Financial Planning"
-                  className="relative w-full h-96 object-cover rounded-3xl shadow-2xl"
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.3 }}
-                />
-                
-                <motion.div 
-                  className="absolute -bottom-8 -right-8 bg-white p-6 rounded-2xl shadow-xl border border-gray-100 max-w-sm"
-                  initial={{ opacity: 0, x: 50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.5 }}
-                >
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center">
-                      <Award className="w-6 h-6 text-white" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-gray-900">Industry Recognition</h4>
-                      <p className="text-sm text-gray-600">Top Financial Advisor 2024</p>
-                    </div>
-                  </div>
-                </motion.div>
-              </div>
-            </motion.div>
-          </div>
+  className="py-24 px-4 bg-gradient-to-br from-slate-50 to-blue-50"
+  variants={containerVariants}
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: true, amount: 0.2 }}
+>
+  <div className="max-w-7xl mx-auto">
+    <div className="grid grid-cols-1 xl:grid-cols-2 gap-16 items-center">
+      
+      {/* Text Section */}
+      <motion.div className="space-y-8" variants={itemVariants}>
+        <div className="space-y-4">
+          <motion.div 
+            className="inline-flex items-center px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm font-medium"
+            whileHover={{ scale: 1.05 }}
+          >
+            <TrendingUp className="w-4 h-4 mr-2" />
+            About Us
+          </motion.div>
+          <h2 className="text-5xl font-extralight text-gray-900 leading-tight">
+            Your Trusted Partner in 
+            <span className="block text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text font-medium">
+              Financial Growth
+            </span>
+          </h2>
         </div>
-      </motion.section>
+        
+        <div className="prose prose-lg text-gray-600">
+          <p className="leading-relaxed">
+            At Explore, we are committed to delivering exceptional financial solutions 
+            tailored to your goals. With years of industry expertise, our team provides 
+            strategic insights, innovative investment opportunities, and personalized 
+            guidance to help you achieve sustainable growth. We believe in building 
+            long-term relationships based on trust, transparency, and proven results.
+          </p>
+        </div>
+
+        {/* Stats */}
+        <motion.div 
+          className="grid grid-cols-2 gap-6"
+          variants={containerVariants}
+        >
+          {[
+            { label: "Client Retention", value: "98%", icon: Users },
+            { label: "Average Return", value: "12.5%", icon: TrendingUp },
+            { label: "Response Time", value: "< 2hrs", icon: Clock },
+            { label: "Success Rate", value: "95%", icon: Target }
+          ].map((stat, index) => {
+            const IconComponent = stat.icon;
+            return (
+              <motion.div 
+                key={index} 
+                className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100"
+                variants={scaleVariants}
+                whileHover={{ 
+                  scale: 1.05,
+                  boxShadow: "0 10px 40px rgba(0,0,0,0.1)"
+                }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center">
+                    <IconComponent className="w-4 h-4 text-white" />
+                  </div>
+                  <span className="text-2xl font-bold text-gray-900">{stat.value}</span>
+                </div>
+                <p className="text-sm text-gray-600">{stat.label}</p>
+              </motion.div>
+            );
+          })}
+        </motion.div>
+
+        {/* Buttons */}
+        <div className="flex items-center gap-6">
+          <motion.button 
+            className="group bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-2xl font-medium flex items-center gap-2"
+            whileHover={{ 
+              scale: 1.05,
+              boxShadow: "0 10px 30px rgba(59, 130, 246, 0.3)"
+            }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Start Your Journey
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+          </motion.button>
+         
+        </div>
+      </motion.div>
+
+      {/* Image Section */}
+      <motion.div className="relative" variants={itemVariants}>
+        <div className="relative">
+          <motion.div 
+            className="absolute -top-6 -left-6 w-full h-full bg-gradient-to-r from-blue-500 to-purple-500 rounded-3xl blur-xl opacity-20"
+            animate={{
+              scale: [1, 1.1, 1],
+              opacity: [0.2, 0.3, 0.2]
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+          <motion.img 
+            src="https://res.cloudinary.com/dhf8eyjee/image/upload/v1755164731/wealth-management_ofjxi5.png" // Replace with your actual image path
+            alt="Our Team"
+            className="relative w-full h-96 object-cover rounded-3xl shadow-2xl"
+            whileHover={{ scale: 1.02 }}
+            transition={{ duration: 0.3 }}
+          />
+          
+          <motion.div 
+            className="absolute -bottom-8 -right-8 bg-white p-6 rounded-2xl shadow-xl border border-gray-100 max-w-sm"
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.5 }}
+          >
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center">
+                <Award className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h4 className="font-semibold text-gray-900">Industry Recognition</h4>
+                <p className="text-sm text-gray-600">Top Financial Advisor 2024</p>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </motion.div>
+
+    </div>
+  </div>
+</motion.section>
 
       {/* Philosophy Section with Tabs */}
       <motion.section 
@@ -415,13 +437,13 @@ const AboutUsPage = () => {
       >
         <div className="max-w-7xl mx-auto">
           <motion.div className="text-center mb-16" variants={itemVariants}>
-            <h2 className="text-5xl font-extralight text-gray-900 mb-6">Our Philosophy</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              At the core of our philosophy is a commitment to understanding and prioritizing the 
-              unique financial goals and risk appetites of our clients.
-            </p>
-          </motion.div>
-
+  <h2 className="text-5xl font-extralight text-gray-900 mb-6">Our Philosophy</h2>
+  <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+    At Explore, our philosophy is rooted in integrity, insight, and innovation.
+    We are committed to simplifying the investment journey while maximizing outcomes
+    through personalized, data-driven strategies tailored to each client.
+  </p>
+</motion.div>
           <motion.div 
             className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16"
             variants={containerVariants}

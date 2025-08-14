@@ -4,30 +4,31 @@ import { ChevronLeft, ChevronRight, TrendingUp, Shield, Users } from 'lucide-rea
 
 const slides = [
   {
-    title: "A roof on our head is the most coveted dream that fuels our investments.",
+    title: "Global Investment Solutions for Indians and NRIs",
     description:
-      "Making a home of your own features as one of the top three financial goals of most investors. We help you plan for a home for you and your loved ones with investment into mutual funds or availing a home loan at the best interest rates.",
-    image: "https://ploutia.com/images/home/home-banner-3.png",
-    primaryButton: "Plan Dream Home",
-    secondaryButton: "Contact us",
+      "Serving clients across India and overseas, we combine market insight, innovation, and integrity to help you build a secure and prosperous future — wherever life takes you.",
+    image: "https://res.cloudinary.com/dhf8eyjee/image/upload/f_auto,q_auto,w_1200/v1755160727/dynamic-data-visualization-3d_jpemgp.jpg",
+    primaryButton: "Explore Solutions",
+    secondaryButton: "Contact Us",
   },
   {
-    title: "Smart investments for your future financial security.",
+    title: "Where Intelligent Investing Meets Personalized Strategy",
     description:
-      "Build wealth systematically with our expert-guided investment strategies. From mutual funds to retirement planning, we provide comprehensive solutions tailored to your financial goals.",
-    image: "https://ploutia.com/images/home/home-banner.png",
-    primaryButton: "Start Investing",
-    secondaryButton: "Learn More",
+      "With 13+ years of expertise and SEBI registration, Explore helps you turn your financial goals into reality. From buying your dream home to building long-term wealth, we design strategies tailored just for you.",
+    image: "https://res.cloudinary.com/dhf8eyjee/image/upload/v1755161109/imgi_1_home-about_fwt1au.png",
+    primaryButton: "Start Your Journey",
+    secondaryButton: "Know More",
   },
   {
-    title: "Secure your family's tomorrow with comprehensive planning.",
+    title: "Plan. Invest. Grow — With Clarity and Confidence",
     description:
-      "Protect what matters most with our insurance and financial planning services. Create a safety net that ensures your family's financial stability through all of life's uncertainties.",
-    image: "https://ploutia.com/images/home/home-about.png",
-    primaryButton: "Get Protected",
-    secondaryButton: "Explore Plans",
+      "Every financial journey is unique. Our AI-backed risk profiling and goal-based planning ensure your investments match your vision — whether it’s retirement, education, or wealth creation.",
+    image: "https://res.cloudinary.com/dhf8eyjee/image/upload/f_auto,q_auto,w_1200/v1755161588/green-arrow-is-going-up-stacks-coins-arranged-bar-graph_ti6ltr.jpg",
+    primaryButton: "Get Risk Profile",
+    secondaryButton: "View Services",
   },
 ];
+
 
 const imageVariants = {
   enter: { opacity: 0, scale: 0.95 },

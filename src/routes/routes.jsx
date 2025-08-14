@@ -1,4 +1,5 @@
 import About from '@/pages/About/About'
+import Blog from '@/pages/Blog/Blog'
 import Carousel from '@/pages/Carousel'
 import Contact from '@/pages/Contact/Contact'
 import Home from '@/pages/Home/Home'
@@ -16,6 +17,7 @@ const AllRoutes = () => {
         <Route path="/about" element={<About />} />
         <Route path="/services" element={<Service />} />
         <Route path="/mutual-funds" element={<MutualFund />} />
+        <Route path="/blogs" element={<Blog />} />
         {/* <Route path="/demo" element={<Carousel />} /> */}
         <Route path="/contact" element={<Contact />} />
         {/* Add more routes as needed */}

@@ -50,7 +50,7 @@ const ContactForm = () => {
           variants={itemVariants}
         >
           <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
-            Get In <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">Touch</span>
+            Get In <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-400">Touch</span>
           </h1>
           <p className="text-gray-600 text-lg max-w-2xl mx-auto">
             Any question or remarks? Just write us a message!
@@ -63,7 +63,7 @@ const ContactForm = () => {
             className="lg:col-span-1"
             variants={itemVariants}
           >
-            <div className="bg-gradient-to-br from-purple-600 to-pink-600 p-8 rounded-2xl text-white h-full relative overflow-hidden shadow-xl">
+            <div className="bg-gradient-to-br from-blue-600 to-blue-900 p-8 rounded-2xl text-white h-full relative overflow-hidden shadow-xl">
               <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
               <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full translate-y-12 -translate-x-12"></div>
               
@@ -80,7 +80,7 @@ const ContactForm = () => {
                     <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
                       <Phone className="w-5 h-5" />
                     </div>
-                    <span className="text-lg">+91-8147049936</span>
+                    <span className="text-lg">+91-7500372237</span>
                   </motion.div>
                   
                   <motion.div 
@@ -91,7 +91,7 @@ const ContactForm = () => {
                     <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
                       <Mail className="w-5 h-5" />
                     </div>
-                    <span className="text-lg">contact@ploutia.com</span>
+                    <span className="text-lg">help@explore.com</span>
                   </motion.div>
                   
                   <motion.div 
@@ -103,8 +103,7 @@ const ContactForm = () => {
                       <MapPin className="w-5 h-5" />
                     </div>
                     <div className="text-lg leading-relaxed">
-                      Ploutia Finserv Pvt. Ltd., Udyambag, Belagavi,<br />
-                      Karnataka - 590008 
+                     Office No.-26,Kapil Complex, <br /> Basement,Mukhani,  <br /> Kaladhungi Road,  <br />  Haldwani,Nainital,  <br /> Uttarakhand
                     </div>
                   </motion.div>
                 </div>
@@ -217,7 +216,7 @@ const ContactForm = () => {
                 {/* Submit Button */}
                 <motion.button
                   type="submit"
-                  className="w-full md:w-auto px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-lg hover:from-purple-700 hover:to-pink-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-transparent transition-all duration-200 flex items-center justify-center space-x-2 group"
+                  className="w-full md:w-auto px-8 py-3 bg-gradient-to-r from-blue-400 to-blue-600 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-blue-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-transparent transition-all duration-200 flex items-center justify-center space-x-2 group"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   transition={{ type: "spring", stiffness: 300 }}
