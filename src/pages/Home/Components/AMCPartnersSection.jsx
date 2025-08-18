@@ -1,26 +1,96 @@
 import React from 'react';
 import { Award, TrendingUp, Shield, Users } from 'lucide-react';
+import img1 from '@/assets/Partners/img1.png';
+import img2 from '@/assets/Partners/img2.png';
+import img3 from '@/assets/Partners/img3.png';
+import img4 from '@/assets/Partners/img4.png';
+import img5 from '@/assets/Partners/img5.png';
+import img6 from '@/assets/Partners/img6.png';
+import img7 from '@/assets/Partners/img7.png';
+import img9 from '@/assets/Partners/img9.png';
+import img10 from '@/assets/Partners/img10.png';
+import img11 from '@/assets/Partners/img11.png';
+import img12 from '@/assets/Partners/img12.png';
+import img13 from '@/assets/Partners/img13.png';
+import img14 from '@/assets/Partners/img14.png';
+import img15 from '@/assets/Partners/img15.png';
+import img16 from '@/assets/Partners/img16.png';  
+import img17 from '@/assets/Partners/img17.png';
+import img18 from '@/assets/Partners/img18.png';
+import img19 from '@/assets/Partners/img19.png';
+import img20 from '@/assets/Partners/img20.png';
+import img21 from '@/assets/Partners/img21.png';
+import img22 from '@/assets/Partners/img22.png';
+import img23 from '@/assets/Partners/img23.png';
+import img24 from '@/assets/Partners/img24.png';
+import img25 from '@/assets/Partners/img25.png';
+import img26 from '@/assets/Partners/img26.png';
+import img27 from '@/assets/Partners/img27.png';
+import img28 from '@/assets/Partners/img28.png';
+import img29 from '@/assets/Partners/img29.png';
+import img30 from '@/assets/Partners/img30.png';
+import img31 from '@/assets/Partners/img31.png';
+import img32 from '@/assets/Partners/img32.png';
+import img33 from '@/assets/Partners/img33.png';
+import img34 from '@/assets/Partners/img34.png';
+import img35 from '@/assets/Partners/img35.png';
+import img36 from '@/assets/Partners/img36.png';
+import img37 from '@/assets/Partners/img37.png';
+import img38 from '@/assets/Partners/img38.png';
+import img39 from '@/assets/Partners/img39.png';
+import img40 from '@/assets/Partners/img40.png';
+import img41 from '@/assets/Partners/img41.png';
+import img42 from '@/assets/Partners/img42.png';
+import img43 from '@/assets/Partners/img43.png';
+
 
 const AMCPartnersSection = () => {
   // Partner data with placeholder images
   const partners = [
-    { id: 1, name: 'Aditya Birla Sun Life', logo: 'https://ploutia.com/images/home/amc-company/taurus.png' },
-    { id: 2, name: 'Axis Mutual Fund', logo: 'https://ploutia.com/images/home/amc-company/taurus.png' },
-    { id: 3, name: 'Bajaj Finserv', logo: 'https://ploutia.com/images/home/amc-company/tata.png' },
-    { id: 4, name: 'Bandhan Mutual Fund', logo: 'https://ploutia.com/images/home/amc-company/motilal-oswal.png' },
-    { id: 5, name: 'Bank of India Mutual Fund', logo: 'https://ploutia.com/images/home/amc-company/sriram.png' },
-    { id: 6, name: 'BNP Paribas', logo: 'https://ploutia.com/images/home/amc-company/quantum.png' },
-    { id: 7, name: 'Canara Robeco', logo: 'https://ploutia.com/images/home/amc-company/motilal-oswal.png' },
-    { id: 8, name: 'DSP Mutual Fund', logo: 'https://ploutia.com/images/home/amc-company/tata.png' },
-    { id: 9, name: 'Franklin Templeton', logo: 'https://ploutia.com/images/home/amc-company/nj-mf.png' },
-    { id: 10, name: 'HDFC Mutual Fund', logo: 'https://ploutia.com/images/home/amc-company/motilal-oswal.png' },
-    { id: 11, name: 'ICICI Prudential', logo: 'https://ploutia.com/images/home/amc-company/sriram.png' },
-    { id: 12, name: 'Kotak Mutual Fund', logo: 'https://ploutia.com/images/home/amc-company/tata.png' },
-    { id: 13, name: 'L&T Mutual Fund', logo: 'https://ploutia.com/images/home/amc-company/motilal-oswal.png' },
-    { id: 14, name: 'Mirae Asset', logo: 'https://ploutia.com/images/home/amc-company/quantum.png' },
-    { id: 15, name: 'Nippon India', logo: 'https://ploutia.com/images/home/amc-company/nj-mf.png' },
-    { id: 16, name: 'SBI Mutual Fund', logo: 'https://ploutia.com/images/home/amc-company/sriram.png' }
-  ];
+  { id: 1, name: 'Aditya Birla Sun Life', logo: img1 },
+  { id: 2, name: 'Axis Mutual Fund', logo: img2 },
+  { id: 3, name: 'Bajaj Finserv', logo: img3 },
+  { id: 4, name: 'Bandhan Mutual Fund', logo: img4 },
+  { id: 5, name: 'Bank of India Mutual Fund', logo: img5 },
+  { id: 6, name: 'BNP Paribas', logo: img6 },
+  { id: 7, name: 'Canara Robeco', logo: img7 },
+  { id: 8, name: 'DSP Mutual Fund', logo: img9 },
+  { id: 9, name: 'Franklin Templeton', logo: img10 },
+  { id: 10, name: 'HDFC Mutual Fund', logo: img11 },
+  { id: 11, name: 'ICICI Prudential', logo: img12 },
+  { id: 12, name: 'Kotak Mutual Fund', logo: img13 },
+  { id: 13, name: 'L&T Mutual Fund', logo: img14 },
+  { id: 14, name: 'Mirae Asset', logo: img15 },
+  { id: 15, name: 'Nippon India', logo: img16 },
+  { id: 16, name: 'SBI Mutual Fund', logo: img17 },
+  { id: 17, name: 'Tata Mutual Fund', logo: img18 },
+  { id: 18, name: 'Motilal Oswal', logo: img19 },
+  { id: 19, name: 'Union Mutual Fund', logo: img20 },
+  { id: 20, name: 'PGIM India', logo: img21 },
+  { id: 21, name: 'HSBC Mutual Fund', logo: img22 },
+  { id: 22, name: 'LIC Mutual Fund', logo: img23 },
+  { id: 23, name: 'IDFC Mutual Fund', logo: img24 },
+  { id: 24, name: 'JM Financial', logo: img25 },
+  { id: 25, name: 'Quantum Mutual Fund', logo: img26 },
+  { id: 26, name: 'Shriram Mutual Fund', logo: img27 },
+  { id: 27, name: 'NJ Mutual Fund', logo: img28 },
+  { id: 28, name: 'Indiabulls Mutual Fund', logo: img29 },
+  { id: 29, name: 'Sundaram Mutual Fund', logo: img30 },
+  { id: 30, name: 'UTI Mutual Fund', logo: img31 },
+  { id: 31, name: 'IIFL Mutual Fund', logo: img32 },
+  { id: 32, name: 'Mahindra Manulife', logo: img33 },
+  { id: 33, name: 'Invesco Mutual Fund', logo: img34 },
+  { id: 34, name: 'Baroda BNP Paribas', logo: img35 },
+  { id: 35, name: 'Quant Mutual Fund', logo: img36 },
+  { id: 36, name: 'Taurus Mutual Fund', logo: img37 },
+  { id: 37, name: 'WhiteOak Capital', logo: img38 },
+  { id: 38, name: '360 ONE Mutual Fund', logo: img39 },
+  { id: 39, name: 'Trust Mutual Fund', logo: img40 },
+  { id: 40, name: 'Groww Mutual Fund', logo: img41 },
+  { id: 41, name: 'Samco Mutual Fund', logo: img42 },
+  { id: 42, name: 'Zerodha Mutual Fund', logo: img43 },
+];
+
 
   // Duplicate partners for seamless loop
   const duplicatedPartners = [...partners, ...partners];
@@ -97,11 +167,11 @@ const AMCPartnersSection = () => {
                     alt={partner.name}
                     className="w-full h-16 object-contain  transition-all duration-300"
                   />
-                  <div className="mt-3 text-center">
+                  {/* <div className="mt-3 text-center">
                     <p className="text-sm font-medium text-gray-700 group-hover:text-blue-600 transition-colors">
                       {partner.name}
                     </p>
-                  </div>
+                  </div> */}
                 </div>
               ))}
             </div>
@@ -119,11 +189,11 @@ const AMCPartnersSection = () => {
                     alt={partner.name}
                     className="w-full h-16 object-contain transition-all duration-300"
                   />
-                  <div className="mt-3 text-center">
+                  {/* <div className="mt-3 text-center">
                     <p className="text-sm font-medium text-gray-700 group-hover:text-blue-600 transition-colors">
                       {partner.name}
                     </p>
-                  </div>
+                  </div> */}
                 </div>
               ))}
             </div>

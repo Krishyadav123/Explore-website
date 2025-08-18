@@ -8,7 +8,7 @@ import {
   User,
   Home,
 } from "lucide-react";
-import Logo from "../assets/Logo.jpg"; // Assuming you have a Logo component
+import Logo from "../assets/Logo.png"; // Assuming you have a Logo component
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -179,10 +179,10 @@ const Navbar = () => {
       {/* Main Navbar */}
       <div className="bg-white border-b border-gray-100">
         <div className="px-10 mx-auto">
-          <div className="flex justify-between items-center py-4">
+          <div className="flex justify-between items-center py-2">
             {/* Logo */}
             <div className="flex items-center space-x-3">
-              <img src={Logo} className="w-full h-10" alt="Logo" />
+              <img src={Logo} className="w-full h-14" alt="Logo" />
             </div>
 
             {/* Desktop Navigation */}
