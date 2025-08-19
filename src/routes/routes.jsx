@@ -2,6 +2,7 @@ import About from '@/pages/About/About'
 import Blog from '@/pages/Blog/Blog'
 import Carousel from '@/pages/Carousel'
 import Contact from '@/pages/Contact/Contact'
+import DreamHome from '@/pages/GoalPlanners/DreamHome/DreamHome'
 import Home from '@/pages/Home/Home'
 import TanStackTableExample from '@/pages/Mutual Funds/Components/TanStackTableExample'
 import MutualFund from '@/pages/Mutual Funds/MutualFund'
@@ -20,6 +21,7 @@ const AllRoutes = () => {
         <Route path="/mutual-funds" element={<MutualFund />} />
         <Route path="/blogs" element={<Blog />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/goal/home" element={<DreamHome />} />
         {/* <Route path="/demo" element={<Carousel />} /> */}
         <Route path="/contact" element={<Contact />} />
         {/* Add more routes as needed */}
