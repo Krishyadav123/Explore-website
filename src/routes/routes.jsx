@@ -1,4 +1,5 @@
 import About from '@/pages/About/About'
+import Admin from '@/pages/Admin/Admin'
 import Blog from '@/pages/Blog/Blog'
 import Carousel from '@/pages/Carousel'
 import Contact from '@/pages/Contact/Contact'
@@ -24,6 +25,9 @@ const AllRoutes = () => {
         <Route path="/goal/home" element={<DreamHome />} />
         {/* <Route path="/demo" element={<Carousel />} /> */}
         <Route path="/contact" element={<Contact />} />
+
+
+        <Route path="/admin" element={<Admin />} />
         {/* Add more routes as needed */}
     </Routes>
   )

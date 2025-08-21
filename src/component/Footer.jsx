@@ -169,22 +169,11 @@ const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="border-t border-gray-800 pt-6">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <div className="text-sm text-gray-400">
-              © 2024 Explore Finserv Pvt. Ltd - All Rights Reserved
+          <div className="">
+            <div className="text-sm text-center text-gray-400">
+              © 2024 AlignMF4Yield Finserv Pvt. Ltd - All Rights Reserved
             </div>
-            <div className="text-sm text-gray-400">
-              Designed and Developed by{" "}
-              <a
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://www.biztechglobaledge.com"
-                className="text-blue-400 hover:text-blue-300 transition-colors font-medium"
-              >
-                BizTech
-              </a>
-              <p>Contact :- 9752295833</p>
-            </div>
+           
           </div>
         </div>
       </div>

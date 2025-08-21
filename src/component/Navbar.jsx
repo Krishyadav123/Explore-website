@@ -8,7 +8,7 @@ import {
   User,
   Home,
 } from "lucide-react";
-import Logo from "../assets/Logo.png"; // Assuming you have a Logo component
+import Logo from "../assets/Logo.png"; 
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -84,7 +84,7 @@ const Navbar = () => {
       href: "#",
       hasDropdown: true,
       dropdownItems: [
-        { name: "Dream Home", href: "#" },
+        { name: "Dream Home", href: "/goal/home" },
         { name: "Wealth Creation", href: "#" },
         { name: "Retirement", href: "#" },
         { name: "Child Education", href: "#" },
