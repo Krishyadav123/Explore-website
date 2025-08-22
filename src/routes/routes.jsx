@@ -1,6 +1,7 @@
 import About from '@/pages/About/About'
 import Admin from '@/pages/Admin/Admin'
 import Blog from '@/pages/Blog/Blog'
+import SIPCalculator from '@/pages/Calculators/SIP-Calculator/SIPCalculator'
 import Carousel from '@/pages/Carousel'
 import Contact from '@/pages/Contact/Contact'
 import DreamHome from '@/pages/GoalPlanners/DreamHome/DreamHome'
@@ -23,6 +24,7 @@ const AllRoutes = () => {
         <Route path="/blogs" element={<Blog />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/goal/home" element={<DreamHome />} />
+        <Route path="/calculator/sip-calculator" element={<SIPCalculator />} />
         {/* <Route path="/demo" element={<Carousel />} /> */}
         <Route path="/contact" element={<Contact />} />
 
