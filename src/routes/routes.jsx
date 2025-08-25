@@ -1,6 +1,9 @@
 import About from '@/pages/About/About'
 import Admin from '@/pages/Admin/Admin'
 import Blog from '@/pages/Blog/Blog'
+import AssetAllocationCalculator from '@/pages/Calculators/AssetAllocationCalculator/AssetAllocationCalculator'
+import CrorepatiCalculator from '@/pages/Calculators/Became-Crorepati/CrorepatiCalculator'
+import RetirementCalculator from '@/pages/Calculators/Retirement-Calculator/RetirementCalculator'
 import SIPCalculator from '@/pages/Calculators/SIP-Calculator/SIPCalculator'
 import Carousel from '@/pages/Carousel'
 import Contact from '@/pages/Contact/Contact'
@@ -25,6 +28,9 @@ const AllRoutes = () => {
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/goal/home" element={<DreamHome />} />
         <Route path="/calculator/sip-calculator" element={<SIPCalculator />} />
+        <Route path="/calculator/become-a-crorepati" element={<CrorepatiCalculator />} />
+        <Route path="/calculator/retirement-planning-calculator" element={<RetirementCalculator />} />
+        <Route path="/calculator/asset-allocation-calculator" element={<AssetAllocationCalculator />} />
         {/* <Route path="/demo" element={<Carousel />} /> */}
         <Route path="/contact" element={<Contact />} />
 

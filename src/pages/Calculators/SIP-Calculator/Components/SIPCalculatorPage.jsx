@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { PieChart, Pie, Cell, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, XAxis, YAxis } from 'recharts';
 import { Calculator, TrendingUp, PieChart as PieChartIcon, BarChart3, DollarSign, Target, Calendar } from 'lucide-react';
 
-const SIPCalculator = () => {
+const SIPCalculatorPage = () => {
   const [monthlyAmount, setMonthlyAmount] = useState(5000);
   const [duration, setDuration] = useState(10);
   const [expectedReturn, setExpectedReturn] = useState(12);
@@ -72,7 +72,7 @@ const SIPCalculator = () => {
         {/* Header */}
         <div className="text-center mb-16">
           <div className="flex items-center justify-center gap-4 mb-8">
-            <div className="p-4 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-3xl animate-bounce shadow-md">
+            <div className="p-4 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-3xl  shadow-md">
               <Calculator className="w-10 h-10 text-white" />
             </div>
             <h1 className="text-6xl font-extrabold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">
@@ -354,4 +354,4 @@ const SIPCalculator = () => {
   );
 };
 
-export default SIPCalculator;
+export default SIPCalculatorPage;

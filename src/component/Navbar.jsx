@@ -54,10 +54,10 @@ const Navbar = () => {
   href: "#",
   hasDropdown: true,
   dropdownItems: [
-    { name: "Become A Crorepati", href: "#" },
+    { name: "Become A Crorepati", href: "/calculator/become-a-crorepati" },
     { name: "SIP Return Calculator", href: "/calculator/sip-calculator" },
-    { name: "Retirement Planning Calculator", href: "#" },
-    { name: "Asset Allocation Calculator", href: "#" },
+    { name: "Retirement Planning Calculator", href: "/calculator/retirement-planning-calculator" },
+    { name: "Asset Allocation Calculator", href: "/calculator/asset-allocation-calculator" },
     { name: "EMI Calculator", href: "#" },
     { name: "PPF Calculator", href: "#" },
     { name: "Employees PF Calculator", href: "#" },
