@@ -3,6 +3,9 @@ import Admin from '@/pages/Admin/Admin'
 import Blog from '@/pages/Blog/Blog'
 import AssetAllocationCalculator from '@/pages/Calculators/AssetAllocationCalculator/AssetAllocationCalculator'
 import CrorepatiCalculator from '@/pages/Calculators/Became-Crorepati/CrorepatiCalculator'
+import EmiCalculator from '@/pages/Calculators/EMI-Calculator/EmiCalculator'
+import EPFCalculator from '@/pages/Calculators/EPF-Calculator/EPFCalculator'
+import PPFCalculator from '@/pages/Calculators/PPF-Calculator/PPFCalculator'
 import RetirementCalculator from '@/pages/Calculators/Retirement-Calculator/RetirementCalculator'
 import SIPCalculator from '@/pages/Calculators/SIP-Calculator/SIPCalculator'
 import Carousel from '@/pages/Carousel'
@@ -31,6 +34,9 @@ const AllRoutes = () => {
         <Route path="/calculator/become-a-crorepati" element={<CrorepatiCalculator />} />
         <Route path="/calculator/retirement-planning-calculator" element={<RetirementCalculator />} />
         <Route path="/calculator/asset-allocation-calculator" element={<AssetAllocationCalculator />} />
+        <Route path="/calculator/emi-calculator" element={<EmiCalculator />} />
+        <Route path="/calculator/ppf-calculator" element={<PPFCalculator />} />
+        <Route path="/calculator/epf-calculator" element={<EPFCalculator />} />
         {/* <Route path="/demo" element={<Carousel />} /> */}
         <Route path="/contact" element={<Contact />} />
 
