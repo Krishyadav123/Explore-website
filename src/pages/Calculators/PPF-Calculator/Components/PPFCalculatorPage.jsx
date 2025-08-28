@@ -174,7 +174,7 @@ const PPFCalculatorPage = () => {
               <Calculator className="w-10 h-10 text-white" />
             </div>
             <h1 className="text-6xl font-extrabold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">
-              SIP Calculator
+             PPF Calculator
             </h1>
           </div>
         
