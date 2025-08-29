@@ -8,11 +8,14 @@ import CompoundingCalculator from '@/pages/Calculators/Compounding-Calculator/Co
 import ChildrenEducationCalculator from '@/pages/Calculators/EducationPlanner-Calculator/ChildrenEducationCalculator'
 import EmiCalculator from '@/pages/Calculators/EMI-Calculator/EmiCalculator'
 import EPFCalculator from '@/pages/Calculators/EPF-Calculator/EPFCalculator'
+import FutureValueCalculator from '@/pages/Calculators/FutureValue-Calculator/FutureValueCalculator'
 import GoalCalculator from '@/pages/Calculators/Goal-Calculator/GoalCalculator'
+import HumanValueCalculator from '@/pages/Calculators/HumanLifeValue-Calculator/HumanValueCalculator'
 import NetworthCalculator from '@/pages/Calculators/Networth-Calculator/NetworthCalculator'
 import PPFCalculator from '@/pages/Calculators/PPF-Calculator/PPFCalculator'
 import RetirementCalculator from '@/pages/Calculators/Retirement-Calculator/RetirementCalculator'
 import SIPCalculator from '@/pages/Calculators/SIP-Calculator/SIPCalculator'
+import SpendingLessCalculator from '@/pages/Calculators/SpendingLess-Calculator/SpendingLessCalculator'
 import Carousel from '@/pages/Carousel'
 import Contact from '@/pages/Contact/Contact'
 import DreamHome from '@/pages/GoalPlanners/DreamHome/DreamHome'
@@ -47,6 +50,9 @@ const AllRoutes = () => {
         <Route path="/calculator/children-education-planner-calculator" element={<ChildrenEducationCalculator />} />
         <Route path="/calculator/networth-calculator" element={<NetworthCalculator />} />
         <Route path="/calculator/compounding-calculator" element={<CompoundingCalculator />} />
+        <Route path="/calculator/save-more-by-spending-less-calculator" element={<SpendingLessCalculator />} />
+        <Route path="/calculator/future-value-calculator" element={<FutureValueCalculator />} />
+        <Route path="/calculator/human-life-value-calculator" element={<HumanValueCalculator />} />
         {/* <Route path="/demo" element={<Carousel />} /> */}
         <Route path="/contact" element={<Contact />} />
 

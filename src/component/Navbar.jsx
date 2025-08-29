@@ -66,9 +66,9 @@ const Navbar = () => {
     { name: "Children Education Planner", href: "/calculator/children-education-planner-calculator" },
     { name: "Nettworth Calculator", href: "/calculator/networth-calculator" },
     { name: "Compounding Calculator", href: "/calculator/compounding-calculator" },
-    { name: "Spending Less Calculator", href: "#" },
-    { name: "Future Value Calculator", href: "#" },
-    { name: "Human Life Value Calculator", href: "#" },
+    { name: "Spending Less Calculator", href: "/calculator/save-more-by-spending-less-calculator" },
+    { name: "Future Value Calculator", href: "/calculator/future-value-calculator" },
+    { name: "Human Life Value Calculator", href: "/calculator/human-life-value-calculator" },
     { name: "SIP Step Up Calculator", href: "#" },
   ],
 }
