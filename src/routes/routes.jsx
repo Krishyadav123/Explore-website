@@ -11,6 +11,7 @@ import EPFCalculator from '@/pages/Calculators/EPF-Calculator/EPFCalculator'
 import FutureValueCalculator from '@/pages/Calculators/FutureValue-Calculator/FutureValueCalculator'
 import GoalCalculator from '@/pages/Calculators/Goal-Calculator/GoalCalculator'
 import HumanValueCalculator from '@/pages/Calculators/HumanLifeValue-Calculator/HumanValueCalculator'
+import MutualFundCalculator from '@/pages/Calculators/MutualFund-Calculator/MutualFundCalculator'
 import NetworthCalculator from '@/pages/Calculators/Networth-Calculator/NetworthCalculator'
 import PPFCalculator from '@/pages/Calculators/PPF-Calculator/PPFCalculator'
 import RetirementCalculator from '@/pages/Calculators/Retirement-Calculator/RetirementCalculator'
@@ -53,6 +54,7 @@ const AllRoutes = () => {
         <Route path="/calculator/save-more-by-spending-less-calculator" element={<SpendingLessCalculator />} />
         <Route path="/calculator/future-value-calculator" element={<FutureValueCalculator />} />
         <Route path="/calculator/human-life-value-calculator" element={<HumanValueCalculator />} />
+        <Route path="/calculator/mutual-fund-sip-calculator-step-up" element={<MutualFundCalculator />} />
         {/* <Route path="/demo" element={<Carousel />} /> */}
         <Route path="/contact" element={<Contact />} />
 

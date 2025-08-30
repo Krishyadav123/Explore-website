@@ -69,7 +69,7 @@ const Navbar = () => {
     { name: "Spending Less Calculator", href: "/calculator/save-more-by-spending-less-calculator" },
     { name: "Future Value Calculator", href: "/calculator/future-value-calculator" },
     { name: "Human Life Value Calculator", href: "/calculator/human-life-value-calculator" },
-    { name: "SIP Step Up Calculator", href: "#" },
+    { name: "SIP Step Up Calculator", href: "/calculator/mutual-fund-sip-calculator-step-up" },
   ],
 }
 ,
