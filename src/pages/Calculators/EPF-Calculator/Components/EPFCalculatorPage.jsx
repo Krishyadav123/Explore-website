@@ -105,38 +105,36 @@ const EPFCalculatorPage = () => {
       const age = currentAge + i;
       
       // Calculate contributions with growth
-      const employeeContribution = initialEmployeeContribution * Math.pow(1 + growthRate, i);
-      const employerContribution = initialEmployerContribution * Math.pow(1 + growthRate, i);
-      
-      // Annual contributions (monthly * 12)
-      const annualEmployeeContribution = employeeContribution * 12;
-      const annualEmployerContribution = employerContribution * 12;
+      const monthlyEmployeeContribution = initialEmployeeContribution * Math.pow(1 + growthRate, i);
+      const monthlyEmployerContribution = initialEmployerContribution * Math.pow(1 + growthRate, i);
       
       // EPF Calculation
       const openingEPFBalance = epfBalance;
+      const openingPensionBalance = pensionBalance;
       
-      // Correct EPF allocation: 
-      // Employee: 12% goes entirely to EPF
-      // Employer: 3.67% to EPF + 8.33% to EPS (total 12%)
-      const employerToEPF = annualEmployerContribution * (3.67/12); // 3.67/12 of total employer contribution
-      const employerToPension = annualEmployerContribution * (8.33/12); // 8.33/12 of total employer contribution
+      // Employee contribution goes entirely to EPF
+      const annualEmployeeContribution = monthlyEmployeeContribution * 12;
       
+      // Employer contribution split: 3.67% to EPF, 8.33% to Pension
+      const employerToEPF = monthlyEmployerContribution * 12 * (3.67/12);
+      const employerToPension = monthlyEmployerContribution * (8.33/12) * 12;
+      
+      // Total EPF contribution for the year
       const totalEPFContribution = annualEmployeeContribution + employerToEPF;
       
-      // Interest calculated on opening balance + half-year average contribution
-      const epfInterest = (openingEPFBalance + totalEPFContribution/2) * interestRate;
+      // Interest on opening balance + contributions (simple annual calculation)
+      const epfInterest = (openingEPFBalance + totalEPFContribution) * interestRate;
       const closingEPFBalance = openingEPFBalance + totalEPFContribution + epfInterest;
       
       // Pension Fund Calculation
-      const openingPensionBalance = pensionBalance;
-      const pensionInterest = (openingPensionBalance + employerToPension/2) * interestRate;
+      const pensionInterest = (openingPensionBalance + employerToPension) * interestRate;
       const closingPensionBalance = openingPensionBalance + employerToPension + pensionInterest;
       
       yearlyBreakdown.push({
         age: Math.round(age),
         openingEPFBalance: Math.round(openingEPFBalance),
         employeeContribution: Math.round(annualEmployeeContribution),
-        employerContribution: Math.round(annualEmployerContribution),
+        employerContribution: Math.round(monthlyEmployerContribution * 12),
         epfContribution: Math.round(totalEPFContribution),
         closingEPFBalance: Math.round(closingEPFBalance),
         divertedToPension: Math.round(employerToPension),
@@ -412,7 +410,7 @@ const EPFCalculatorPage = () => {
                       <td className="p-3 border text-right">
                         ₹{row.openingEPFBalance.toLocaleString()}
                       </td>
-                      <td className="p-3 border text-right text-green-600">
+                      <td className="p-3 border text-right">
                         ₹{Math.round(row.employeeContribution / 12).toLocaleString()}
                       </td>
                       <td className="p-3 border text-right text-blue-600">
