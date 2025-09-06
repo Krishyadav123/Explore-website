@@ -16,8 +16,6 @@ const App = () => {
       <BrowserRouter>
       <AllRoutes/>
       </BrowserRouter>
-      {/* <Navbar />
-      <Home /> */}
     </div>
   )
 }
