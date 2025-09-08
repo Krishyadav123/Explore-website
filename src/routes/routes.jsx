@@ -23,6 +23,7 @@ import DreamHome from '@/pages/GoalPlanners/DreamHome/DreamHome'
 import Home from '@/pages/Home/Home'
 import TanStackTableExample from '@/pages/Mutual Funds/Components/TanStackTableExample'
 import MutualFund from '@/pages/Mutual Funds/MutualFund'
+import TopPerformance from '@/pages/Mutual Funds/SIPReturns/TopPerformance/TopPerformance'
 import PrivacyPolicy from '@/pages/PrivacyPolicy/PrivacyPolicy'
 import Service from '@/pages/Service/Service'
 // import { Route } from 'lucide-react'
@@ -57,6 +58,8 @@ const AllRoutes = () => {
         <Route path="/calculator/mutual-fund-sip-calculator-step-up" element={<MutualFundCalculator />} />
         {/* <Route path="/demo" element={<Carousel />} /> */}
         <Route path="/contact" element={<Contact />} />
+
+        <Route path="/sip-returns/top-performers" element={<TopPerformance />} />
 
 
         <Route path="/admin" element={<Admin />} />

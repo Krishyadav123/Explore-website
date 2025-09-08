@@ -38,7 +38,7 @@ const Navbar = () => {
           name: "SIP Returns",
           hasSubmenu: true,
           submenu: [
-            { name: "Top Performers", href: "#" },
+            { name: "Top Performers", href: "sip-returns/top-performers" },
             { name: "Fund Comparison", href: "#" },
             { name: "Risk Analysis", href: "#" },
             { name: "Historical Data", href: "#" },
