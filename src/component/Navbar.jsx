@@ -79,7 +79,7 @@ const Navbar = () => {
       hasDropdown: true,
       dropdownItems: [
         { name: "Dream Home", href: "/goal/home" },
-        { name: "Wealth Creation", href: "#" },
+        { name: "Wealth Creation", href: "/goal/wealth-creation" },
         { name: "Retirement", href: "#" },
         { name: "Child Education", href: "#" },
         { name: "Child Wedding", href: "#" },

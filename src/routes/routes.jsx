@@ -19,7 +19,12 @@ import SIPCalculator from '@/pages/Calculators/SIP-Calculator/SIPCalculator'
 import SpendingLessCalculator from '@/pages/Calculators/SpendingLess-Calculator/SpendingLessCalculator'
 import Carousel from '@/pages/Carousel'
 import Contact from '@/pages/Contact/Contact'
+import ChildEducation from '@/pages/GoalPlanners/ChildEducation/ChildEducation'
+import ChildWedding from '@/pages/GoalPlanners/ChildWedding/ChildWedding'
 import DreamHome from '@/pages/GoalPlanners/DreamHome/DreamHome'
+import Emergency from '@/pages/GoalPlanners/Emergency/Emergency'
+import Retirement from '@/pages/GoalPlanners/Retirement/Retirement'
+import WealthCreation from '@/pages/GoalPlanners/WealthCreation/WealthCreation'
 import Home from '@/pages/Home/Home'
 import TanStackTableExample from '@/pages/Mutual Funds/Components/TanStackTableExample'
 import MutualFund from '@/pages/Mutual Funds/MutualFund'
@@ -40,6 +45,13 @@ const AllRoutes = () => {
         <Route path="/blogs" element={<Blog />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/goal/home" element={<DreamHome />} />
+        <Route path="/goal/wealth-creation" element={<WealthCreation />} />
+        <Route path="/goal/retirement" element={<Retirement />} />
+        <Route path="/goal/child-education" element={<ChildEducation />} />
+        <Route path="/goal/child-wedding" element={<ChildWedding />} />
+        <Route path="/goal/emergency" element={<Emergency />} />
+
+
         <Route path="/calculator/sip-calculator" element={<SIPCalculator />} />
         <Route path="/calculator/become-a-crorepati" element={<CrorepatiCalculator />} />
         <Route path="/calculator/retirement-planning-calculator" element={<RetirementCalculator />} />
