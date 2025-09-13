@@ -8,7 +8,7 @@ import {
   User,
   Home,
 } from "lucide-react";
-import Logo from "../assets/Logo.png"; 
+import Logo from "../assets/Logo.png";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -23,30 +23,22 @@ const Navbar = () => {
       name: "MF Research",
       href: "#",
       hasDropdown: true,
-      dropdownItems: [
-        {
-          name: "Performance Comparison",
-          hasSubmenu: true,
-          submenu: [
-            { name: "Mutual Fund Trailing Returns", href: "mutual-funds" },
-            { name: "Mutual Fund Quartile Ranking", href: "#" },
-            { name: "Top Consistent Mutual Fund", href: "#" },
-            { name: "Mutual Fund Annual Returns", href: "#" },
-          ],
-        },
-        {
-          name: "SIP Returns",
-          hasSubmenu: true,
-          submenu: [
-            { name: "Top Performers", href: "sip-returns/top-performers" },
-            { name: "Fund Comparison", href: "#" },
-            { name: "Risk Analysis", href: "#" },
-            { name: "Historical Data", href: "#" },
-          ],
-        },
-        { name: "Research Reports", href: "#" },
-        { name: "Investment Insights", href: "#" },
-        { name: "Expert Recommendations", href: "#" },
+      "dropdownItems": [
+        { "name": "Benchmark Return", "href": "/mf/benchmark-return" },
+        { "name": "Top Performing SIP", "href": "/mf/top-performers" },
+        // { "name": "SIP Return Calculator", "href": "/mf/sip-return-calculator" },
+        { "name": "SIP with Annual Increase", "href": "/mf/annual-increase" },
+        { "name": "Top SWP Fund", "href": "/mf/top-swp-returns" },
+        { "name": "Mutual Fund Volatility Ranking", "href": "/mf/mf-volatility-ranking" },
+        // { "name": "Scheme Categories", "href": "#" },
+        // { "name": "All Mutual Fund Companies", "href": "#" },
+        { "name": "Best Performing Funds - AMC Wise", "href": "/mf/mf-trailing-returns" },
+        { "name": "Mutual Fund Category Returns", "href": "#" },
+        { "name": "Mutual Fund category Monitor", "href": "#" },
+        // { "name": "SWP Return Calculator", "href": "#" },
+        { "name": "Mutual Fund SIP Returns", "href": "#" },
+        // { "name": "All Mutual Fund Schemes", "href": "#" },
+        // { "name": "Scheme Details page (Lite)", "href": "#" }
       ],
     },
     {
@@ -204,9 +196,8 @@ const Navbar = () => {
                     <span>{item.name}</span>
                     {item.hasDropdown && (
                       <ChevronDown
-                        className={`w-4 h-4 transition-transform duration-200 ${
-                          activeDropdown === item.name ? "rotate-180" : ""
-                        }`}
+                        className={`w-4 h- transition-transform duration-200 ${activeDropdown === item.name ? "rotate-180" : ""
+                          }`}
                       />
                     )}
                   </a>
@@ -225,13 +216,14 @@ const Navbar = () => {
                         >
                           <a
                             href={dropdownItem.href || "#"}
-                            className="flex items-center justify-between px-4 py-1 text-gray-700 hover:text-teal-600 hover:bg-teal-50 transition-colors duration-200 text-xs group"
+                            className="flex items-center justify-between px-4 py-2 text-gray-700 hover:text-teal-600 hover:bg-teal-50 transition-colors duration-200 text-xs group"
                           >
                             <span>{dropdownItem.name}</span>
                             {dropdownItem.hasSubmenu && (
                               <ChevronDown className="w-4 h-4 -rotate-90 group-hover:text-teal-600" />
                             )}
                           </a>
+                        
 
                           {/* Submenu */}
                           {dropdownItem.hasSubmenu &&
@@ -294,9 +286,8 @@ const Navbar = () => {
                       <span className="font-medium">{item.name}</span>
                     </div>
                     <ChevronDown
-                      className={`w-4 h-4 transition-transform duration-200 ${
-                        activeDropdown === item.name ? "rotate-180" : ""
-                      }`}
+                      className={`w-4 h-4 transition-transform duration-200 ${activeDropdown === item.name ? "rotate-180" : ""
+                        }`}
                     />
                   </button>
                 ) : (
@@ -331,11 +322,10 @@ const Navbar = () => {
                             >
                               <span>{dropdownItem.name}</span>
                               <ChevronDown
-                                className={`w-3 h-3 transition-transform duration-200 ${
-                                  activeSubmenu === `${item.name}-${index}`
+                                className={`w-3 h-3 transition-transform duration-200 ${activeSubmenu === `${item.name}-${index}`
                                     ? "rotate-180"
                                     : ""
-                                }`}
+                                  }`}
                               />
                             </button>
 

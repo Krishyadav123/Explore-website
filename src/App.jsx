@@ -4,6 +4,7 @@ import Navbar from "./component/Navbar"
 import Home from "./pages/Home/Home"
 import AllRoutes from "./routes/routes"
 import "./App.css";
+import { CategoryProvider } from "./context/CategoryContext";
 // import 'swiper/css';
 // import 'swiper/css/effect-coverflow';
 // import 'swiper/css/pagination';
@@ -13,9 +14,11 @@ import "./App.css";
 const App = () => {
   return (
     <div>
-      <BrowserRouter>
-      <AllRoutes/>
-      </BrowserRouter>
+      <CategoryProvider>
+        <BrowserRouter>
+          <AllRoutes />
+        </BrowserRouter>
+      </CategoryProvider>
     </div>
   )
 }

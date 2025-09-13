@@ -28,12 +28,18 @@ import WealthCreation from '@/pages/GoalPlanners/WealthCreation/WealthCreation'
 import Home from '@/pages/Home/Home'
 import TanStackTableExample from '@/pages/Mutual Funds/Components/TanStackTableExample'
 import MutualFund from '@/pages/Mutual Funds/MutualFund'
-import TopPerformance from '@/pages/Mutual Funds/SIPReturns/TopPerformance/TopPerformance'
+import AnnualIncrease from '@/pages/Mutual Funds/AnnualIncrease/AnnualIncrease'
+import TopPerformance from '@/pages/Mutual Funds/TopPerformance/TopPerformance'
 import PrivacyPolicy from '@/pages/PrivacyPolicy/PrivacyPolicy'
 import Service from '@/pages/Service/Service'
 // import { Route } from 'lucide-react'
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
+import BenchmarkReturns from '@/pages/Mutual Funds/BenchmarkReturns/BenchmarkReturns'
+import SipReturnCalculator from '@/pages/Mutual Funds/SipReturnCalculator/SipReturnCalculator'
+import TopSwpReturns from '@/pages/Mutual Funds/TopSwpReturns/TopSwpReturns'
+import MfVolatilityRanking from '@/pages/Mutual Funds/MfVolatilityRanking/MfVolatilityRanking'
+import MfTrailingReturns from '@/pages/Mutual Funds/MfTrailingReturns/MfTrailingReturns'
 
 const AllRoutes = () => {
   return (
@@ -71,8 +77,19 @@ const AllRoutes = () => {
         {/* <Route path="/demo" element={<Carousel />} /> */}
         <Route path="/contact" element={<Contact />} />
 
-        <Route path="/sip-returns/top-performers" element={<TopPerformance />} />
+        <Route path="/mf/top-performers" element={<TopPerformance />} />
 
+        <Route path="/mf/annual-increase" element={<AnnualIncrease />} />
+
+        <Route path="/mf/benchmark-return" element={<BenchmarkReturns />} />
+
+        <Route path="/mf/sip-return-calculator" element={<SipReturnCalculator />} />
+
+        <Route path="/mf/top-swp-returns" element={<TopSwpReturns />} />
+
+        <Route path="/mf/mf-volatility-ranking" element={<MfVolatilityRanking />} />
+
+        <Route path='/mf/mf-trailing-returns' element={<MfTrailingReturns />} />
 
         <Route path="/admin" element={<Admin />} />
         {/* Add more routes as needed */}

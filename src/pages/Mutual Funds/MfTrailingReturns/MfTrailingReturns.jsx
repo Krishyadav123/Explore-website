@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useContext } from 'react';
 import {
   useReactTable,
   getCoreRowModel,
@@ -9,15 +9,66 @@ import {
 } from '@tanstack/react-table';
 import { Search, ChevronLeft, ChevronRight, ArrowUpDown, ArrowUp, ArrowDown, Filter, TrendingUp, Loader2 } from 'lucide-react';
 import axios from 'axios';
+import { CategoryContext } from '@/context/CategoryContext';
+import Footer from '@/component/Footer';
+import Navbar from '@/component/Navbar';
 
-const TopPerformance = () => {
+const MfTrailingReturns = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [globalFilter, setGlobalFilter] = useState('');
-  const [category, setCategory] = useState('Equity: Mid Cap');
-  const [period, setPeriod] = useState('3');
-  const [amount, setAmount] = useState('3000');
+  const [period, setPeriod] = useState('1y');
+  const [amc, setAmc] = useState('Aditya Birla Sun Life Mutual Fund');
+  const [type, setType] = useState('Open');
+  const [categories, setCategories] = useState([]);
+  const [amcs, setAmcs] = useState([]);
+  
+  const { categories: allCategories, loading: categoryLoading, error: categoryError } = useContext(CategoryContext);
+
+  // Fetch AMC list
+  useEffect(() => {
+    const fetchAMCs = async () => {
+      try {
+        const response = await axios.get(
+          'https://mfapi.advisorkhoj.com/getAllCompanies?key=e5485103-6f73-49a2-b45e-8008eefe38ba',
+          {
+            timeout: 10000,
+          }
+        );
+        
+        if (response.data.status === 200 && response.data.list) {
+          setAmcs(response.data.list);
+        }
+      } catch (err) {
+        console.error('Error fetching AMCs:', err);
+      }
+    };
+    
+    fetchAMCs();
+  }, []);
+
+  // Fetch category list
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get(
+          'https://mfapi.advisorkhoj.com/getAllSchemeCategories?key=e5485103-6f73-49a2-b45e-8008eefe38ba',
+          {
+            timeout: 10000,
+          }
+        );
+        
+        if (response.data.status === 200 && response.data.list) {
+          setCategories(response.data.list);
+        }
+      } catch (err) {
+        console.error('Error fetching categories:', err);
+      }
+    };
+    
+    fetchCategories();
+  }, []);
 
   // Fetch data from API
   const fetchData = async () => {
@@ -25,10 +76,13 @@ const TopPerformance = () => {
     setError(null);
     
     try {
+      // Join categories array into a comma-separated string
+      const categoryParam = Array.isArray(categories) ? categories.join(',') : '';
+      
       const response = await axios.get(
-        `https://mfapi.advisorkhoj.com/getSIPReturnsForCategoryPeriodAmount?key=e5485103-6f73-49a2-b45e-8008eefe38ba&category=${encodeURIComponent(category)}&period=${period}&amount=${amount}`,
+        `https://mfapi.advisorkhoj.com/getSchemePerformanceMultipleAmc?key=e5485103-6f73-49a2-b45e-8008eefe38ba&period=${period}&type=${type}&amc=${encodeURIComponent(amc)}&category=${encodeURIComponent(categoryParam)}`,
         {
-          timeout: 10000, // 10 second timeout
+          timeout: 10000,
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
@@ -65,15 +119,10 @@ const TopPerformance = () => {
     fetchData();
   };
 
-  // Format currency
-  const formatCurrency = (value) => {
-    if (!value) return '-';
-    return new Intl.NumberFormat('en-IN', {
-      style: 'currency',
-      currency: 'INR',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(value);
+  // Format percentage
+  const formatPercentage = (value) => {
+    if (value === null || value === undefined) return '-';
+    return `${value.toFixed(2)}%`;
   };
 
   // Format date
@@ -83,14 +132,14 @@ const TopPerformance = () => {
       const date = new Date(dateString);
       return date.toLocaleDateString('en-IN');
     } catch {
-      return dateString; // Return original if parsing fails
+      return dateString;
     }
   };
 
   // Column definitions
   const columns = useMemo(() => [
     {
-      accessorKey: 'scheme_name',
+      accessorKey: 'scheme_amfi',
       header: 'Scheme Name',
       cell: ({ getValue, row }) => (
         <div className="min-w-64">
@@ -100,12 +149,14 @@ const TopPerformance = () => {
           <div className="text-xs text-gray-500 mt-1">
             {row.original.scheme_company_short_name || row.original.scheme_company}
           </div>
-          {row.original.fund_manager && (
-            <div className="text-xs text-gray-400 mt-0.5">
-              FM: {row.original.fund_manager}
-            </div>
-          )}
         </div>
+      ),
+    },
+    {
+      accessorKey: 'scheme_category',
+      header: 'Category',
+      cell: ({ getValue }) => (
+        <span className="text-gray-700 text-sm">{getValue()}</span>
       ),
     },
     {
@@ -132,109 +183,82 @@ const TopPerformance = () => {
       ),
     },
     {
-      accessorKey: 'current_cost',
-      header: 'Invested Amount',
-      cell: ({ getValue }) => (
-        <span className="text-gray-700 text-sm whitespace-nowrap">
-          {formatCurrency(getValue())}
-        </span>
-      ),
-    },
-    {
-      accessorKey: 'current_value',
-      header: 'Current Value',
-      cell: ({ getValue }) => (
-        <span className="font-semibold text-green-700 text-sm whitespace-nowrap">
-          {formatCurrency(getValue())}
-        </span>
-      ),
-    },
-    {
-        accessorKey: 'returns',
-        header: `${period}Y Return`,
-        cell: ({ getValue }) => {
-          const value = getValue();
-          if (value === null || value === undefined) return <span className="text-gray-400 text-sm">-</span>;
-          return (
-            <span className={`font-semibold text-sm ${value > 0 ? 'text-green-600' : 'text-red-600'}`}>
-              {value.toFixed(2)}%
-            </span>
-          );
-        },
+      accessorKey: 'returns_abs_1year',
+      header: '1Y Return',
+      cell: ({ getValue }) => {
+        const value = getValue();
+        if (value === null || value === undefined) return <span className="text-gray-400 text-sm">-</span>;
+        return (
+          <span className={`font-semibold text-sm ${value > 0 ? 'text-green-600' : 'text-red-600'}`}>
+            {formatPercentage(value)}
+          </span>
+        );
       },
-    // {
-    //   id: 'profit_loss',
-    //   header: 'Gain/Loss',
-    //   cell: ({ row }) => {
-    //     const currentValue = row.original.current_value;
-    //     const invested = row.original.current_cost;
-    //     if (!currentValue || !invested) return <span className="text-gray-400 text-sm">-</span>;
+    },
+    {
+      accessorKey: 'returns_cmp_3year',
+      header: '3Y Return',
+      cell: ({ getValue }) => {
+        const value = getValue();
+        if (value === null || value === undefined) return <span className="text-gray-400 text-sm">-</span>;
+        return (
+          <span className={`font-semibold text-sm ${value > 0 ? 'text-green-600' : 'text-red-600'}`}>
+            {formatPercentage(value)}
+          </span>
+        );
+      },
+    },
+    {
+      accessorKey: 'returns_cmp_5year',
+      header: '5Y Return',
+      cell: ({ getValue }) => {
+        const value = getValue();
+        if (value === null || value === undefined) return <span className="text-gray-400 text-sm">-</span>;
+        return (
+          <span className={`font-semibold text-sm ${value > 0 ? 'text-green-600' : 'text-red-600'}`}>
+            {formatPercentage(value)}
+          </span>
+        );
+      },
+    },
+    {
+      accessorKey: 'returns_cmp_inception',
+      header: 'Since Inception',
+      cell: ({ getValue }) => {
+        const value = getValue();
+        if (value === null || value === undefined) return <span className="text-gray-400 text-sm">-</span>;
+        return (
+          <span className={`font-semibold text-sm ${value > 0 ? 'text-green-600' : 'text-red-600'}`}>
+            {formatPercentage(value)}
+          </span>
+        );
+      },
+    },
+    {
+      accessorKey: 'riskometer',
+      header: 'Risk Level',
+      cell: ({ getValue }) => {
+        const risk = getValue();
+        const getRiskColor = (level) => {
+          switch (level?.toLowerCase()) {
+            case 'low': return 'bg-green-100 text-green-800';
+            case 'moderately low': return 'bg-green-50 text-green-700';
+            case 'moderate': return 'bg-yellow-100 text-yellow-800';
+            case 'moderately high': return 'bg-orange-100 text-orange-800';
+            case 'high': return 'bg-orange-200 text-orange-900';
+            case 'very high': return 'bg-red-100 text-red-800';
+            default: return 'bg-gray-100 text-gray-800';
+          }
+        };
         
-    //     const profitLoss = currentValue - invested;
-    //     return (
-    //       <div className="text-sm">
-    //         <div className={`font-semibold ${profitLoss >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-    //           {formatCurrency(profitLoss)}
-    //         </div>
-    //         <div className="text-xs text-gray-500">
-    //           ({((profitLoss / invested) * 100).toFixed(1)}%)
-    //         </div>
-    //       </div>
-    //     );
-    //   },
-    // },
-    // {
-    //   accessorKey: 'rank_3_yr',
-    //   header: 'Rank',
-    //   cell: ({ getValue, row }) => {
-    //     const rank = getValue();
-    //     const totalRanks = row.original.rank_3_yr_total_rank;
-    //     if (!rank) return <span className="text-gray-400 text-sm">-</span>;
-        
-    //     const percentile = ((totalRanks - rank + 1) / totalRanks) * 100;
-    //     const getPercentileColor = (perc) => {
-    //       if (perc >= 80) return 'text-green-600';
-    //       if (perc >= 60) return 'text-blue-600';
-    //       if (perc >= 40) return 'text-yellow-600';
-    //       return 'text-red-600';
-    //     };
-        
-    //     return (
-    //       <div className="text-sm">
-    //         <div className="font-medium">
-    //           <span className={getPercentileColor(percentile)}>{rank}</span>
-    //           <span className="text-gray-500">/{totalRanks}</span>
-    //         </div>
-    //         <div className="text-xs text-gray-400">
-    //           {percentile.toFixed(0)}%ile
-    //         </div>
-    //       </div>
-    //     );
-    //   },
-    // },
-    // {
-    //   accessorKey: 'riskometer',
-    //   header: 'Risk Level',
-    //   cell: ({ getValue }) => {
-    //     const risk = getValue();
-    //     const getRiskColor = (level) => {
-    //       switch (level?.toLowerCase()) {
-    //         case 'low': return 'bg-green-100 text-green-800';
-    //         case 'moderate': return 'bg-yellow-100 text-yellow-800';
-    //         case 'high': return 'bg-orange-100 text-orange-800';
-    //         case 'very high': return 'bg-red-100 text-red-800';
-    //         default: return 'bg-gray-100 text-gray-800';
-    //       }
-    //     };
-        
-    //     return (
-    //       <span className={`px-2 py-1 text-xs font-medium rounded-full ${getRiskColor(risk)}`}>
-    //         {risk || '-'}
-    //       </span>
-    //     );
-    //   },
-    // },
-  ], [period]);
+        return (
+          <span className={`px-2 py-1 text-xs font-medium rounded-full ${getRiskColor(risk)}`}>
+            {risk || '-'}
+          </span>
+        );
+      },
+    },
+  ], []);
 
   // Initialize table
   const table = useReactTable({
@@ -255,8 +279,8 @@ const TopPerformance = () => {
       },
       sorting: [
         {
-          id: 'returns',
-          desc: true, // Sort by returns descending by default
+          id: 'returns_abs_1year',
+          desc: true,
         },
       ],
     },
@@ -273,35 +297,36 @@ const TopPerformance = () => {
   const summaryStats = useMemo(() => {
     if (!data.length) return null;
     
-    const validReturns = data.filter(item => item.returns != null).map(item => item.returns);
+    const validReturns1Y = data.filter(item => item.returns_abs_1year != null).map(item => item.returns_abs_1year);
+    const validReturns3Y = data.filter(item => item.returns_cmp_3year != null).map(item => item.returns_cmp_3year);
+    const validReturns5Y = data.filter(item => item.returns_cmp_5year != null).map(item => item.returns_cmp_5year);
     const validTER = data.filter(item => item.ter != null).map(item => item.ter);
-    const totalInvested = data.reduce((sum, item) => sum + (item.current_cost || 0), 0);
-    const totalCurrentValue = data.reduce((sum, item) => sum + (item.current_value || 0), 0);
     const totalAUM = data.reduce((sum, item) => sum + (item.scheme_assets || 0), 0);
     
     return {
-      avgReturn: validReturns.length ? (validReturns.reduce((a, b) => a + b, 0) / validReturns.length) : 0,
-      maxReturn: validReturns.length ? Math.max(...validReturns) : 0,
-      minReturn: validReturns.length ? Math.min(...validReturns) : 0,
+      avgReturn1Y: validReturns1Y.length ? (validReturns1Y.reduce((a, b) => a + b, 0) / validReturns1Y.length) : 0,
+      avgReturn3Y: validReturns3Y.length ? (validReturns3Y.reduce((a, b) => a + b, 0) / validReturns3Y.length) : 0,
+      avgReturn5Y: validReturns5Y.length ? (validReturns5Y.reduce((a, b) => a + b, 0) / validReturns5Y.length) : 0,
+      maxReturn1Y: validReturns1Y.length ? Math.max(...validReturns1Y) : 0,
+      minReturn1Y: validReturns1Y.length ? Math.min(...validReturns1Y) : 0,
       avgTER: validTER.length ? (validTER.reduce((a, b) => a + b, 0) / validTER.length) : 0,
-      totalInvested,
-      totalCurrentValue,
       totalAUM,
-      totalProfitLoss: totalCurrentValue - totalInvested,
       fundCount: data.length
     };
   }, [data]);
 
   return (
+    <>
+    <Navbar />
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-gray-100 p-4 sm:p-6 lg:p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-2">
             <TrendingUp className="w-8 h-8 text-blue-600" />
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">Mutual Fund Analytics</h1>
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">Mutual Fund Trailing Returns</h1>
           </div>
-          <p className="text-gray-600 text-sm sm:text-base">Compare and analyze SIP returns across different mutual fund categories</p>
+          <p className="text-gray-600 text-sm sm:text-base">Compare and analyze trailing returns across different mutual funds</p>
         </div>
 
         {/* Summary Stats */}
@@ -312,12 +337,12 @@ const TopPerformance = () => {
               <div className="text-sm text-gray-600">Total Funds</div>
             </div>
             <div className="bg-white p-4 rounded-lg shadow-sm border">
-              <div className="text-2xl font-bold text-green-600">{summaryStats.avgReturn.toFixed(1)}%</div>
-              <div className="text-sm text-gray-600">Avg Return</div>
+              <div className="text-2xl font-bold text-green-600">{summaryStats.avgReturn1Y.toFixed(1)}%</div>
+              <div className="text-sm text-gray-600">Avg 1Y Return</div>
             </div>
             <div className="bg-white p-4 rounded-lg shadow-sm border">
-              <div className="text-2xl font-bold text-emerald-600">{summaryStats.maxReturn.toFixed(1)}%</div>
-              <div className="text-sm text-gray-600">Best Return</div>
+              <div className="text-2xl font-bold text-emerald-600">{summaryStats.maxReturn1Y.toFixed(1)}%</div>
+              <div className="text-sm text-gray-600">Best 1Y Return</div>
             </div>
             <div className="bg-white p-4 rounded-lg shadow-sm border">
               <div className="text-2xl font-bold text-orange-600">{summaryStats.avgTER.toFixed(2)}%</div>
@@ -328,10 +353,8 @@ const TopPerformance = () => {
               <div className="text-sm text-gray-600">Total AUM (Cr)</div>
             </div>
             <div className="bg-white p-4 rounded-lg shadow-sm border">
-              <div className={`text-lg font-bold ${summaryStats.totalProfitLoss >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                {formatCurrency(summaryStats.totalProfitLoss).replace('₹', '₹')}
-              </div>
-              <div className="text-sm text-gray-600">Total P&L</div>
+              <div className="text-lg font-bold text-indigo-600">{summaryStats.avgReturn5Y.toFixed(1)}%</div>
+              <div className="text-sm text-gray-600">Avg 5Y Return</div>
             </div>
           </div>
         )}
@@ -345,53 +368,47 @@ const TopPerformance = () => {
           
           <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4">
             <div className="flex flex-col">
-              <label className="text-sm font-medium text-gray-700 mb-2">Category</label>
+              <label className="text-sm font-medium text-gray-700 mb-2">AMC</label>
               <select 
                 className="px-4 py-2.5 border border-gray-300 rounded-lg bg-white text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
+                value={amc}
+                onChange={(e) => setAmc(e.target.value)}
               >
-                <option value="Equity: Multi Cap">Equity: Multi Cap</option>
-                <option value="Equity: Large Cap">Equity: Large Cap</option>
-                <option value="Equity: Mid Cap">Equity: Mid Cap</option>
-                <option value="Equity: Small Cap">Equity: Small Cap</option>
-                <option value="Hybrid: Conservative">Hybrid: Conservative</option>
-                <option value="Hybrid: Aggressive">Hybrid: Aggressive</option>
-                <option value="Debt: Ultra Short Duration">Debt: Ultra Short Duration</option>
-                <option value="Debt: Short Duration">Debt: Short Duration</option>
-                <option value="Solution Oriented: Retirement Fund">Solution Oriented: Retirement Fund</option>
+                {amcs.map((amcOption) => (
+                  <option key={amcOption} value={amcOption}>{amcOption}</option>
+                ))}
               </select>
             </div>
             
             <div className="flex flex-col">
-              <label className="text-sm font-medium text-gray-700 mb-2">Period (Years)</label>
+              <label className="text-sm font-medium text-gray-700 mb-2">Period</label>
               <select 
                 className="px-4 py-2.5 border border-gray-300 rounded-lg bg-white text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                 value={period}
                 onChange={(e) => setPeriod(e.target.value)}
               >
-                <option value="1">1 Year</option>
-                <option value="3">3 Years</option>
-                <option value="5">5 Years</option>
-                <option value="10">10 Years</option>
+                <option value="1w">1 Week</option>
+                <option value="1m">1 Month</option>
+                <option value="3m">3 Months</option>
+                <option value="6m">6 Months</option>
+                <option value="ytd">YTD</option>
+                <option value="1y">1 Year</option>
+                <option value="3y">3 Years</option>
+                <option value="5y">5 Years</option>
+                <option value="10y">10 Years</option>
+                <option value="since_inception">Since Inception</option>
               </select>
             </div>
             
             <div className="flex flex-col">
-              <label className="text-sm font-medium text-gray-700 mb-2">SIP Amount (₹)</label>
+              <label className="text-sm font-medium text-gray-700 mb-2">Type</label>
               <select 
                 className="px-4 py-2.5 border border-gray-300 rounded-lg bg-white text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
+                value={type}
+                onChange={(e) => setType(e.target.value)}
               >
-                <option value="1000">₹1,000</option>
-                <option value="2000">₹2,000</option>
-                <option value="3000">₹3,000</option>
-                <option value="5000">₹5,000</option>
-                <option value="10000">₹10,000</option>
-                <option value="15000">₹15,000</option>
-                <option value="20000">₹20,000</option>
-                <option value="25000">₹25,000</option>
+                <option value="Open">Open</option>
+                <option value="Close">Close</option>
               </select>
             </div>
             
@@ -599,15 +616,15 @@ const TopPerformance = () => {
             <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
               <TrendingUp className="w-5 h-5 text-blue-600" />
             </div>
-            <h3 className="text-lg font-semibold text-gray-800">Real-time SIP Data powered by AdvisorKhoj API</h3>
+            <h3 className="text-lg font-semibold text-gray-800">Real-time Trailing Returns Data powered by AdvisorKhoj API</h3>
           </div>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {[
-              { icon: '📊', title: 'Live Data', desc: 'Real-time mutual fund data with axios' },
-              { icon: '💰', title: 'SIP Calculator', desc: 'Calculate actual SIP performance' },
-              { icon: '🔄', title: 'Dynamic Filters', desc: 'Category, period & amount selection' },
-              { icon: '📈', title: 'Analytics', desc: 'Comprehensive fund comparison' }
+              { icon: '📊', title: 'Live Data', desc: 'Real-time trailing returns data with axios' },
+              { icon: '📈', title: 'Multiple Periods', desc: 'Compare returns across different timeframes' },
+              { icon: '🏢', title: 'AMC Filter', desc: 'Filter by Asset Management Company' },
+              { icon: '🔍', title: 'Detailed Analysis', desc: 'Comprehensive fund performance metrics' }
             ].map((feature, index) => (
               <div key={index} className="bg-white p-4 rounded-lg shadow-sm border border-blue-100">
                 <div className="text-2xl mb-2">{feature.icon}</div>
@@ -619,7 +636,9 @@ const TopPerformance = () => {
         </div>
       </div>
     </div>
+    <Footer />
+    </>
   );
 };
 
-export default TopPerformance;
+export default MfTrailingReturns;
