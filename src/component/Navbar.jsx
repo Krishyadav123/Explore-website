@@ -17,8 +17,8 @@ const Navbar = () => {
 
   const navigationItems = [
     { name: "Home", href: "/", icon: Home },
-    { name: "About Us", href: "about" },
-    { name: "Services", href: "services" },
+    { name: "About Us", href: "/about" },
+    { name: "Services", href: "/services" },
     {
       name: "MF Research",
       href: "#",
@@ -62,7 +62,7 @@ const Navbar = () => {
     { name: "PPF Calculator", href: "/calculator/ppf-calculator" },
     { name: "Employees PF Calculator", href: "/calculator/epf-calculator" },
     { name: "Goal Setting Calculator", href: "/calculator/goal-setting-calculator" },
-    { name: "Composite Financial Goal Calculator", href: "#" },
+    { name: "Composite Financial Goal Calculator", href: "/calculator/composite-financial-goal-planner-calculator" },
     { name: "Children Education Planner", href: "/calculator/children-education-planner-calculator" },
     { name: "Nettworth Calculator", href: "/calculator/networth-calculator" },
     { name: "Compounding Calculator", href: "/calculator/compounding-calculator" },
@@ -80,32 +80,32 @@ const Navbar = () => {
       dropdownItems: [
         { name: "Dream Home", href: "/goal/home" },
         { name: "Wealth Creation", href: "/goal/wealth-creation" },
-        { name: "Retirement", href: "#" },
-        { name: "Child Education", href: "#" },
-        { name: "Child Wedding", href: "#" },
-        { name: "Emergency", href: "#" },
+        { name: "Retirement", href: "/goal/retirement" },
+        { name: "Child Education", href: "/goal/child-education" },
+        { name: "Child Wedding", href: "/goal/child-wedding" },
+        { name: "Emergency", href: "/goal/emergency" },
       ],
     },
-    {
-      name: "Knowledge",
-      href: "#",
-      hasDropdown: true,
-      dropdownItems: [
-        { name: "Blogs", href: "blogs" },
-        { name: "Videos", href: "#" },
-        {
-          name: "Learning Center",
-          hasSubmenu: true,
-          submenu: [
-            { name: "Investment Basics", href: "#" },
-            { name: "Market Fundamentals", href: "#" },
-            { name: "Risk Management", href: "#" },
-            { name: "Tax Planning Guide", href: "#" },
-          ],
-        },
-      ],
-    },
-    { name: "Contact Us", href: "contact" },
+    // {
+    //   name: "Knowledge",
+    //   href: "#",
+    //   hasDropdown: true,
+    //   dropdownItems: [
+    //     { name: "Blogs", href: "blogs" },
+    //     { name: "Videos", href: "#" },
+    //     {
+    //       name: "Learning Center",
+    //       hasSubmenu: true,
+    //       submenu: [
+    //         { name: "Investment Basics", href: "#" },
+    //         { name: "Market Fundamentals", href: "#" },
+    //         { name: "Risk Management", href: "#" },
+    //         { name: "Tax Planning Guide", href: "#" },
+    //       ],
+    //     },
+    //   ],
+    // },
+    { name: "Contact Us", href: "/contact" },
   ];
 
   return (
