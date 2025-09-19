@@ -40,9 +40,12 @@ import SipReturnCalculator from '@/pages/Mutual Funds/SipReturnCalculator/SipRet
 import TopSwpReturns from '@/pages/Mutual Funds/TopSwpReturns/TopSwpReturns'
 import MfVolatilityRanking from '@/pages/Mutual Funds/MfVolatilityRanking/MfVolatilityRanking'
 import MfTrailingReturns from '@/pages/Mutual Funds/MfTrailingReturns/MfTrailingReturns'
+import ScrollToTop from '@/component/ScrollToTop'
 
 const AllRoutes = () => {
   return (
+    <>
+    <ScrollToTop/>
     <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -94,6 +97,7 @@ const AllRoutes = () => {
         <Route path="/admin" element={<Admin />} />
         {/* Add more routes as needed */}
     </Routes>
+    </>
   )
 }
 

@@ -13,7 +13,6 @@ import {
   ChevronUp,
 } from "lucide-react";
 import { Link } from "react-router-dom";
-// import { Link } from "react-router-dom"; // ✅ React Router Link
 
 const Footer = () => {
   const scrollToTop = () => {
@@ -24,9 +23,9 @@ const Footer = () => {
     { name: "About Us", href: "/about" },
     { name: "Our Service", href: "/services" },
     { name: "Contact us", href: "/contact" },
-    { name: "MF Research", href: "/mf-research" },
-    { name: "Commission Disclosures", href: "/commission-disclosures" },
-    { name: "Privacy & Policy", href: "/privacy-policy" },
+    // { name: "MF Research", href: "/mf-research" },
+    // { name: "Commission Disclosures", href: "/commission-disclosures" },
+    // { name: "Privacy & Policy", href: "/privacy-policy" },
   ];
 
   const offerings = [
@@ -37,12 +36,12 @@ const Footer = () => {
   ];
 
   const goalPlanners = [
-    { name: "Dream Home", icon: <Home className="w-4 h-4" />, href: "/dream-home" },
-    { name: "Wealth Creation", icon: <TrendingUp className="w-4 h-4" />, href: "/wealth-creation" },
-    { name: "Retirement", icon: <Users className="w-4 h-4" />, href: "/retirement" },
-    { name: "Child Education", icon: <GraduationCap className="w-4 h-4" />, href: "/child-education" },
-    { name: "Child Wedding", icon: <Heart className="w-4 h-4" />, href: "/child-wedding" },
-    { name: "Emergency", icon: <Shield className="w-4 h-4" />, href: "/emergency" },
+    { name: "Dream Home", icon: <Home className="w-4 h-4" />, href: "/goal/home" },
+    { name: "Wealth Creation", icon: <TrendingUp className="w-4 h-4" />, href: "/goal/wealth-creation" },
+    { name: "Retirement", icon: <Users className="w-4 h-4" />, href: "/goal/retirement" },
+    { name: "Child Education", icon: <GraduationCap className="w-4 h-4" />, href: "/goal/child-education" },
+    { name: "Child Wedding", icon: <Heart className="w-4 h-4" />, href: "/goal/child-wedding" },
+    { name: "Emergency", icon: <Shield className="w-4 h-4" />, href: "/goal/emergency" },
   ];
 
   return (
@@ -104,13 +103,13 @@ const Footer = () => {
               <ul className="space-y-3">
                 {usefulLinks.map((link, index) => (
                   <li key={index}>
-                    <a
-                      href={link.href}
+                    <Link
+                      to={link.href}
                       className="text-gray-300 hover:text-blue-400 transition-colors flex items-center group"
                     >
                       <span>{link.name}</span>
                       <ExternalLink className="w-3 h-3 ml-2 opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>

@@ -1,17 +1,14 @@
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 
 const RetirementForm = () => {
   const [form, setForm] = useState({
     currentAge: "",
     retirementAge: "",
     lifeExpectancy: "",
-    monthlyExpenses: "",
-    inflation: "",
+    currentExpenses: "",
+    inflationRate: "",
     expectedReturn: "",
     currentSavings: "",
-    goalName: "",
-    risk: "Conservative",
   });
 
   const [showResults, setShowResults] = useState(false);
@@ -21,81 +18,68 @@ const RetirementForm = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // Check if all fields are filled
+  // Check if all required fields are filled
   const isFormComplete =
     form.currentAge && 
     form.retirementAge && 
     form.lifeExpectancy && 
-    form.monthlyExpenses && 
-    form.inflation && 
-    form.expectedReturn && 
-    form.currentSavings && 
-    form.goalName;
+    form.currentExpenses && 
+    form.inflationRate && 
+    form.expectedReturn;
 
   const calculateRetirement = () => {
     const currentAge = parseFloat(form.currentAge);
     const retirementAge = parseFloat(form.retirementAge);
     const lifeExpectancy = parseFloat(form.lifeExpectancy);
-    const monthlyExpenses = parseFloat(form.monthlyExpenses);
-    const inflationRate = parseFloat(form.inflation) / 100;
-    const postRetirementReturn = parseFloat(form.expectedReturn) / 100;
-    const currentSavings = parseFloat(form.currentSavings);
+    const currentExpenses = parseFloat(form.currentExpenses);
+    const inflationRate = parseFloat(form.inflationRate) / 100;
+    const expectedReturn = parseFloat(form.expectedReturn) / 100;
+    const currentSavings = parseFloat(form.currentSavings) || 0;
 
-    const yearsToRetirement = retirementAge - currentAge;
-    const retirementYears = lifeExpectancy - retirementAge;
-
-    // 1. Calculate future monthly expenses at retirement (adjusted for inflation)
-    const monthlyExpensesAtRetirement = monthlyExpenses * Math.pow(1 + inflationRate, yearsToRetirement);
+    // Core calculations based on the methodology document
     
-    // 2. Calculate annual expenses at retirement
-    const annualExpensesAtRetirement = monthlyExpensesAtRetirement * 12;
-
-    // 3. Calculate required corpus using Present Value of Annuity formula
-    // This accounts for the corpus earning returns during retirement
-    let retirementCorpus;
+    // 1. Years until retirement
+    const yearsToRetire = retirementAge - currentAge;
     
-    if (inflationRate === postRetirementReturn) {
-      // Special case: if inflation equals return rate
-      retirementCorpus = annualExpensesAtRetirement * retirementYears;
+    // 2. Years after retirement (income needed)
+    const retirementDuration = lifeExpectancy - retirementAge;
+    
+    // 3. Future monthly expenses at retirement
+    const futureMonthlyExpenses = currentExpenses * Math.pow(1 + inflationRate, yearsToRetire);
+    
+    // 4. Total retirement corpus needed using Present Value of Annuity formula
+    // Corpus = Future Expenses × [1 - (1 + r)^(-n)] / r
+    const monthlyReturnRate = expectedReturn / 12;
+    const totalRetirementMonths = retirementDuration * 12;
+    
+    let pvFactor;
+    if (monthlyReturnRate === 0) {
+      // If no return during retirement, need full amount
+      pvFactor = totalRetirementMonths;
     } else {
-      // Standard case: Growing annuity present value
-      const factor = (1 - Math.pow((1 + inflationRate) / (1 + postRetirementReturn), retirementYears)) / (postRetirementReturn - inflationRate);
-      retirementCorpus = annualExpensesAtRetirement * factor;
+      pvFactor = (1 - Math.pow(1 + monthlyReturnRate, -totalRetirementMonths)) / monthlyReturnRate;
     }
-
-    // 4. Calculate future value of current savings
-    // Assuming a higher pre-retirement return (typically 10-12% for equity investments)
-    const preRetirementReturn = form.risk === "Conservative" ? 0.08 : 
-                              form.risk === "Moderate" ? 0.10 : 0.12;
     
-    const futureValueCurrentSavings = currentSavings * Math.pow(1 + preRetirementReturn, yearsToRetirement);
-
-    // 5. Calculate the gap that needs to be filled
-    const gapToFill = Math.max(0, retirementCorpus - futureValueCurrentSavings);
-
-    // 6. Calculate required monthly SIP - Match reference exactly
+    const totalCorpusNeeded = futureMonthlyExpenses * pvFactor;
+    
+    // 5. Future value of current investments (if any)
+    const futureValueCurrentSavings = currentSavings * Math.pow(1 + expectedReturn, yearsToRetire);
+    
+    // 6. Additional corpus required
+    const additionalCorpusRequired = Math.max(0, totalCorpusNeeded - futureValueCurrentSavings);
+    
+    // 7. Monthly SIP needed using Future Value formula
+    // FV = PMT × [(1 + r)^n - 1] / r
+    const monthlyInvestmentReturn = expectedReturn / 12;
+    const totalInvestmentMonths = yearsToRetire * 12;
+    
     let monthlySIP = 0;
-    if (gapToFill > 0) {
-      const monthlyReturn = preRetirementReturn / 12; // 1% per month
-      const totalMonths = yearsToRetirement * 12; // 480 months
-      
-      if (monthlyReturn === 0) {
-        monthlySIP = gapToFill / totalMonths;
+    if (additionalCorpusRequired > 0) {
+      if (monthlyInvestmentReturn === 0) {
+        monthlySIP = additionalCorpusRequired / totalInvestmentMonths;
       } else {
-        // Standard SIP formula
-        const sipFactor = (Math.pow(1 + monthlyReturn, totalMonths) - 1) / monthlyReturn;
-        monthlySIP = gapToFill / sipFactor;
-        
-        // For the reference case, ensure exact match
-        if (
-          monthlyExpenses === 20000 && 
-          inflationRate === 0.05 && 
-          postRetirementReturn === 0.06 && 
-          yearsToRetirement === 40 && 
-          currentSavings === 100000
-        ) {
-          monthlySIP = 8200; // Exact match for reference case
-        }
+        const fvFactor = (Math.pow(1 + monthlyInvestmentReturn, totalInvestmentMonths) - 1) / monthlyInvestmentReturn;
+        monthlySIP = additionalCorpusRequired / fvFactor;
       }
     }
 
@@ -103,29 +87,34 @@ const RetirementForm = () => {
       currentAge,
       retirementAge,
       lifeExpectancy,
-      currentMonthlyExpenses: monthlyExpenses,
-      monthlyExpensesAtRetirement,
-      retirementCorpus,
-      currentSavings,
+      currentExpenses,
+      futureMonthlyExpenses,
+      yearsToRetire,
+      retirementDuration,
+      totalCorpusNeeded,
       futureValueCurrentSavings,
-      yearsToRetirement,
-      retirementYears,
-      monthlySIP: Math.max(monthlySIP, 0),
-      inflationRate: form.inflation,
+      additionalCorpusRequired,
+      monthlySIP,
+      inflationRate: form.inflationRate,
       expectedReturn: form.expectedReturn,
-      preRetirementReturn: (preRetirementReturn * 100).toFixed(1),
-      gapToFill: gapToFill
+      currentSavings
     });
 
     setShowResults(true);
   };
 
   const formatCurrency = (amount) => {
-    return new Intl.NumberFormat('en-IN', {
-      style: 'currency',
-      currency: 'INR',
-      maximumFractionDigits: 0
-    }).format(amount);
+    if (amount >= 10000000) {
+      return `₹${(amount / 10000000).toFixed(2)} Cr`;
+    } else if (amount >= 100000) {
+      return `₹${(amount / 100000).toFixed(2)} L`;
+    } else {
+      return new Intl.NumberFormat('en-IN', {
+        style: 'currency',
+        currency: 'INR',
+        maximumFractionDigits: 0
+      }).format(amount);
+    }
   };
 
   const formatNumber = (num) => {
@@ -137,10 +126,10 @@ const RetirementForm = () => {
       <div className="bg-gray-100 min-h-screen py-10 flex items-center justify-center">
         <div className="max-w-6xl w-full mx-auto p-10 bg-white shadow-2xl rounded-2xl">
           <div className="flex justify-between items-center mb-8">
-            <h2 className="text-3xl font-bold text-gray-800">Goal Summary</h2>
+            <h2 className="text-3xl font-bold text-gray-800">Retirement Plan Summary</h2>
             <button 
               onClick={() => setShowResults(false)}
-              className="bg-red-500 text-white p-3 rounded-full hover:bg-red-600 transition"
+              className="bg-orange-500 text-white p-3 rounded-full hover:bg-orange-600 transition"
             >
               ← Back
             </button>
@@ -151,63 +140,37 @@ const RetirementForm = () => {
             <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-md">
               <div className="text-center">
                 <div className="text-2xl font-bold text-gray-800 mb-4">
-                  ₹ {formatNumber(calculations.currentMonthlyExpenses)}
+                  ₹ {formatNumber(calculations.currentExpenses)}
                 </div>
                 <div className="bg-black text-white py-3 px-4 rounded">
-                  <div className="font-semibold">Your Current Monthly household Expenses</div>
-                  <div className="text-sm">(in today's value)</div>
+                  <div className="font-semibold">Current Monthly Expenses</div>
+                  <div className="text-sm">(today's value)</div>
                 </div>
               </div>
             </div>
 
-            {/* Retirement Corpus Amount */}
+            {/* Future Monthly Expenses */}
             <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-md">
               <div className="text-center">
                 <div className="text-2xl font-bold text-gray-800 mb-4">
-                  ₹ {formatNumber(calculations.retirementCorpus)}
+                  ₹ {formatNumber(calculations.futureMonthlyExpenses)}
                 </div>
                 <div className="bg-black text-white py-3 px-4 rounded">
-                  <div className="font-semibold">Retirement Corpus Amount</div>
-                  <div className="text-sm">(adjusting for {form.inflation}% inflation)</div>
+                  <div className="font-semibold">Future Monthly Expenses</div>
+                  <div className="text-sm">(at retirement, adjusted for {form.inflationRate}% inflation)</div>
                 </div>
               </div>
             </div>
 
-            {/* Current Savings */}
+            {/* Total Corpus Needed */}
             <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-md">
               <div className="text-center">
                 <div className="text-2xl font-bold text-gray-800 mb-4">
-                  {formatNumber(calculations.currentSavings)}
+                  {formatCurrency(calculations.totalCorpusNeeded)}
                 </div>
                 <div className="bg-black text-white py-3 px-4 rounded">
-                  <div className="font-semibold">Your Current Savings Now</div>
-                  <div className="text-sm"></div>
-                </div>
-              </div>
-            </div>
-
-            {/* Future Value of Current Savings */}
-            <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-md">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-gray-800 mb-4">
-                  {formatNumber(calculations.futureValueCurrentSavings)}
-                </div>
-                <div className="bg-black text-white py-3 px-4 rounded">
-                  <div className="font-semibold">Future Value of your current Savings</div>
-                  <div className="text-sm">(at {calculations.preRetirementReturn}% annual return)</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Years to Save */}
-            <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-md">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-gray-800 mb-4">
-                  {calculations.yearsToRetirement}
-                </div>
-                <div className="bg-black text-white py-3 px-4 rounded">
-                  <div className="font-semibold">Number of Years</div>
-                  <div className="text-sm">You Need To Save</div>
+                  <div className="font-semibold">Total Retirement Corpus Needed</div>
+                  <div className="text-sm">at age {calculations.retirementAge}</div>
                 </div>
               </div>
             </div>
@@ -219,62 +182,71 @@ const RetirementForm = () => {
                   ₹ {formatNumber(calculations.monthlySIP)}
                 </div>
                 <div className="bg-black text-white py-3 px-4 rounded">
-                  <div className="font-semibold">Monthly SIP Investment</div>
-                  <div className="text-sm">Required</div>
+                  <div className="font-semibold">Monthly SIP Required</div>
+                  <div className="text-sm">for next {calculations.yearsToRetire} years</div>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Additional Info Card */}
-          <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6 mb-8">
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">Investment Gap Analysis:</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-700">
-              <div className="text-center">
-                <p className="font-semibold text-lg">₹ {formatNumber(calculations.retirementCorpus)}</p>
-                <p className="text-gray-600">Total Corpus Needed</p>
+          {/* Additional Details */}
+          {calculations.currentSavings > 0 && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+              <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-md">
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-gray-800 mb-4">
+                    {formatCurrency(calculations.currentSavings)}
+                  </div>
+                  <div className="bg-black text-white py-3 px-4 rounded">
+                    <div className="font-semibold">Current Savings</div>
+                    <div className="text-sm">(today's value)</div>
+                  </div>
+                </div>
               </div>
-              <div className="text-center">
-                <p className="font-semibold text-lg">₹ {formatNumber(calculations.futureValueCurrentSavings)}</p>
-                <p className="text-gray-600">Current Savings (Future Value)</p>
-              </div>
-              <div className="text-center">
-                <p className="font-semibold text-lg text-red-600">₹ {formatNumber(calculations.gapToFill)}</p>
-                <p className="text-gray-600">Gap to Fill via SIP</p>
+
+              <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-md">
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-gray-800 mb-4">
+                    {formatCurrency(calculations.futureValueCurrentSavings)}
+                  </div>
+                  <div className="bg-black text-white py-3 px-4 rounded">
+                    <div className="font-semibold">Future Value of Current Savings</div>
+                    <div className="text-sm">at {form.expectedReturn}% return</div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+          )}
 
           {/* Calculation Details */}
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-8">
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">Retirement Plan Details:</h3>
+            <h3 className="text-lg font-semibold text-gray-800 mb-4">Calculation Details:</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-700">
-              <div className="space-y-2">
+              <div>
                 <p><strong>Current Age:</strong> {calculations.currentAge} years</p>
                 <p><strong>Retirement Age:</strong> {calculations.retirementAge} years</p>
                 <p><strong>Life Expectancy:</strong> {calculations.lifeExpectancy} years</p>
-                <p><strong>Retirement Period:</strong> {calculations.retirementYears} years</p>
+                <p><strong>Years to Retirement:</strong> {calculations.yearsToRetire} years</p>
               </div>
-              <div className="space-y-2">
-                <p><strong>Risk Profile:</strong> {form.risk}</p>
-                <p><strong>Pre-retirement Return:</strong> {calculations.preRetirementReturn}%</p>
-                <p><strong>Post-retirement Return:</strong> {calculations.expectedReturn}%</p>
-                <p><strong>Inflation Rate:</strong> {form.inflation}%</p>
-                <p><strong>Monthly Expenses at Retirement:</strong> ₹{formatNumber(calculations.monthlyExpensesAtRetirement)}</p>
+              <div>
+                <p><strong>Retirement Duration:</strong> {calculations.retirementDuration} years</p>
+                <p><strong>Expected Annual Return:</strong> {calculations.expectedReturn}%</p>
+                <p><strong>Inflation Rate:</strong> {form.inflationRate}%</p>
+                <p><strong>Methodology:</strong> Present Value of Annuity</p>
               </div>
             </div>
           </div>
 
           {/* Action Buttons */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="bg-orange-500 text-white rounded-lg p-6 text-center cursor-pointer hover:bg-orange-600 transition">
-              <h3 className="font-semibold mb-2">Are you an existing client?</h3>
-              <p className="text-sm">If yes, please click here and map your existing investments to this goal</p>
+            <div className="bg-black text-white rounded-lg p-6 text-center cursor-pointer hover:bg-orange-600 transition">
+              <h3 className="font-semibold mb-2">Start Your Retirement Planning</h3>
+              <p className="text-sm">Begin investing ₹{formatNumber(calculations.monthlySIP)} monthly to secure your retirement</p>
             </div>
             
             <div className="border-2 border-orange-500 text-orange-600 rounded-lg p-6 text-center cursor-pointer hover:bg-orange-50 transition">
-              <h3 className="font-semibold mb-2">No, I do not have investments with you</h3>
-              <p className="text-sm">Take me to the plan without mapping any existing investments</p>
+              <h3 className="font-semibold mb-2">Adjust Your Plan</h3>
+              <p className="text-sm">Modify assumptions to see different scenarios</p>
             </div>
           </div>
         </div>
@@ -283,14 +255,14 @@ const RetirementForm = () => {
   }
 
   return (
-    <div className="bg-gray-100 py-40 flex items-center justify-center">
+    <div className="bg-gray-100 py-20 flex items-center justify-center min-h-screen">
       <div className="max-w-6xl w-full mx-auto p-10 bg-white shadow-2xl rounded-2xl">
-        <h2 className="text-2xl font-bold text-center text-blue-900 mb-8">
-          Retirement
+        <h2 className="text-3xl font-bold text-center text-blue-900 mb-8">
+          🏦 Retirement Planning Calculator
         </h2>
 
         <div className="space-y-8 text-center text-gray-700">
-          {/* Step 1 */}
+          {/* Step 1 - Basic Info */}
           <p className="text-lg">
             You are{" "}
             <input
@@ -298,153 +270,136 @@ const RetirementForm = () => {
               name="currentAge"
               value={form.currentAge}
               onChange={handleChange}
-              placeholder="20"
-              className="border-b-2 border-blue-400 focus:border-blue-600 focus:outline-none w-20 text-center mx-2 text-blue-600 font-semibold"
+              placeholder="25"
+              className="border-b-2 border-gray-400 focus:outline-none focus:border-blue-500 w-20 text-center mx-2 font-semibold"
             />{" "}
-            years old and want to retire at age{" "}
+            years old and plan to retire at{" "}
             <input
               type="number"
               name="retirementAge"
               value={form.retirementAge}
               onChange={handleChange}
               placeholder="60"
-              className="border-b-2 border-blue-400 focus:border-blue-600 focus:outline-none w-20 text-center mx-2 text-blue-600 font-semibold"
+              className="border-b-2 border-gray-400 focus:outline-none focus:border-blue-500 w-20 text-center mx-2 font-semibold"
             />{" "}
-            years and your life expectancy is{" "}
+            with a life expectancy of{" "}
             <input
               type="number"
               name="lifeExpectancy"
               value={form.lifeExpectancy}
               onChange={handleChange}
               placeholder="80"
-              className="border-b-2 border-blue-400 focus:border-blue-600 focus:outline-none w-20 text-center mx-2 text-blue-600 font-semibold"
+              className="border-b-2 border-gray-400 focus:outline-none focus:border-blue-500 w-20 text-center mx-2 font-semibold"
             />{" "}
             years.
           </p>
 
-          {/* Step 2 */}
-          <AnimatePresence>
-            {form.currentAge && form.retirementAge && form.lifeExpectancy && (
-              <motion.div
-                key="step2"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.5 }}
-              >
-                <p className="text-lg">
-                  Your current monthly household expenses is ₹{" "}
-                  <input
-                    type="number"
-                    name="monthlyExpenses"
-                    value={form.monthlyExpenses}
-                    onChange={handleChange}
-                    placeholder="20,000"
-                    className="border-b-2 border-blue-400 focus:border-blue-600 focus:outline-none w-32 text-center mx-2 text-blue-600 font-semibold"
-                  />{" "}
-                  . You assume the inflation to be{" "}
-                  <input
-                    type="number"
-                    name="inflation"
-                    value={form.inflation}
-                    onChange={handleChange}
-                    placeholder="5"
-                    className="border-b-2 border-blue-400 focus:border-blue-600 focus:outline-none w-16 text-center mx-2 text-blue-600 font-semibold"
-                  />{" "}
-                  % and
-                </p>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          {/* Step 2 - Expenses */}
+          {form.currentAge && form.retirementAge && form.lifeExpectancy && (
+            <div className="animate-fadeIn">
+              <p className="text-lg">
+                Your current monthly expenses are Rs{" "}
+                <input
+                  type="number"
+                  name="currentExpenses"
+                  value={form.currentExpenses}
+                  onChange={handleChange}
+                  placeholder="50000"
+                  className="border-b-2 border-gray-400 focus:outline-none focus:border-blue-500 w-32 text-center mx-2 font-semibold"
+                />{" "}
+                and you expect inflation to be{" "}
+                <input
+                  type="number"
+                  name="inflationRate"
+                  value={form.inflationRate}
+                  onChange={handleChange}
+                  placeholder="6"
+                  className="border-b-2 border-gray-400 focus:outline-none focus:border-blue-500 w-20 text-center mx-2 font-semibold"
+                />{" "}
+                % annually.
+              </p>
+            </div>
+          )}
 
-          {/* Step 3 */}
-          <AnimatePresence>
-            {form.monthlyExpenses && form.inflation && (
-              <motion.div
-                key="step3"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.5 }}
-              >
-                <p className="text-lg">
-                  expect{" "}
-                  <input
-                    type="number"
-                    name="expectedReturn"
-                    value={form.expectedReturn}
-                    onChange={handleChange}
-                    placeholder="6"
-                    className="border-b-2 border-blue-400 focus:border-blue-600 focus:outline-none w-16 text-center mx-2 text-blue-600 font-semibold"
-                  />{" "}
-                  % earning on retirement corpus. You have already saved ₹{" "}
-                  <input
-                    type="number"
-                    name="currentSavings"
-                    value={form.currentSavings}
-                    onChange={handleChange}
-                    placeholder="1,00,000"
-                    className="border-b-2 border-blue-400 focus:border-blue-600 focus:outline-none w-32 text-center mx-2 text-blue-600 font-semibold"
-                  />{" "}
-                  for your Retirement.
-                </p>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          {/* Step 3 - Returns */}
+          {form.currentExpenses && form.inflationRate && (
+            <div className="animate-fadeIn">
+              <p className="text-lg">
+                You expect{" "}
+                <input
+                  type="number"
+                  name="expectedReturn"
+                  value={form.expectedReturn}
+                  onChange={handleChange}
+                  placeholder="12"
+                  className="border-b-2 border-gray-400 focus:outline-none focus:border-blue-500 w-20 text-center mx-2 font-semibold"
+                />{" "}
+                % annual returns on your investments.
+              </p>
+            </div>
+          )}
 
-          {/* Step 4 */}
-          <AnimatePresence>
-            {form.expectedReturn && form.currentSavings && (
-              <motion.div
-                key="step4"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.5 }}
-              >
-                <p className="text-lg">
-                  You would like to name this goal as{" "}
-                  <input
-                    type="text"
-                    name="goalName"
-                    value={form.goalName}
-                    onChange={handleChange}
-                    placeholder="retirement"
-                    className="border-b-2 border-blue-400 focus:border-blue-600 focus:outline-none w-32 text-center mx-2 text-blue-600 font-semibold"
-                  />{" "}
-                  . You can take{" "}
-                  <select
-                    name="risk"
-                    value={form.risk}
-                    onChange={handleChange}
-                    className="border-b-2 border-blue-400 focus:border-blue-600 focus:outline-none mx-2 px-2 text-blue-600 font-semibold bg-white"
-                  >
-                    <option value="Conservative">Conservative</option>
-                    <option value="Moderate">Moderate</option>
-                    <option value="Aggressive">Aggressive</option>
-                  </select>{" "}
-                  risk with your investments
-                </p>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          {/* Step 4 - Current Savings (Optional) */}
+          {form.expectedReturn && (
+            <div className="animate-fadeIn">
+              <p className="text-lg">
+                You currently have Rs{" "}
+                <input
+                  type="number"
+                  name="currentSavings"
+                  value={form.currentSavings}
+                  onChange={handleChange}
+                  placeholder="0"
+                  className="border-b-2 border-gray-400 focus:outline-none focus:border-blue-500 w-32 text-center mx-2 font-semibold"
+                />{" "}
+                already saved for retirement <span className="text-sm text-gray-500">(optional)</span>.
+              </p>
+            </div>
+          )}
         </div>
 
-        {/* Final Button */}
+        {/* Calculate Button */}
         <div className="pt-10 text-center">
           <button
             disabled={!isFormComplete}
             onClick={calculateRetirement}
-            className={`px-8 py-3 rounded-lg font-semibold transition ${
+            className={`px-8 py-3 rounded-lg text-lg font-semibold transition ${
               isFormComplete
-                ? "bg-orange-500 text-white hover:bg-orange-600 shadow-lg"
+                ? "bg-orange-500 text-white hover:bg-orange-600 shadow-lg transform hover:scale-105"
                 : "bg-gray-300 text-gray-500 cursor-not-allowed"
             }`}
           >
-            Build My Retirement Goal
+            📊 Calculate My Retirement Plan
           </button>
         </div>
+
+        {/* Formula Note */}
+        {isFormComplete && (
+          <div className="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+            <p className="text-sm text-blue-800">
+              <strong>📝 Calculation Method:</strong> This calculator uses the Present Value of Annuity formula 
+              to determine the exact corpus needed, accounting for continued investment growth during retirement.
+            </p>
+          </div>
+        )}
       </div>
+
+      <style jsx>{`
+        .animate-fadeIn {
+          animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
     </div>
   );
 };

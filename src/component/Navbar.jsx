@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import {
   ChevronDown,
   Menu,
@@ -168,7 +169,9 @@ const Navbar = () => {
           <div className="flex justify-between items-center py-2">
             {/* Logo */}
             <div className="flex items-center space-x-3">
-              <img src={Logo} className="w-full h-14" alt="Logo" />
+              <Link to="/">
+                <img src={Logo} className="w-full h-14" alt="Logo" />
+              </Link>
             </div>
 
             {/* Desktop Navigation */}
@@ -188,19 +191,26 @@ const Navbar = () => {
                     setActiveSubmenu(null);
                   }}
                 >
-                  <a
-                    href={item.href}
-                    className="flex items-center space-x-1 px-4 py-2 text-gray-700 hover:text-teal-600 hover:bg-teal-50 rounded-lg transition-all duration-200 font-medium group"
-                  >
-                    {item.icon && <item.icon className="w-4 h-4" />}
-                    <span>{item.name}</span>
-                    {item.hasDropdown && (
+                  {item.hasDropdown ? (
+                    <button
+                      className="flex items-center space-x-1 px-4 py-2 text-gray-700 hover:text-teal-600 hover:bg-teal-50 rounded-lg transition-all duration-200 font-medium group"
+                    >
+                      {item.icon && <item.icon className="w-4 h-4" />}
+                      <span>{item.name}</span>
                       <ChevronDown
-                        className={`w-4 h- transition-transform duration-200 ${activeDropdown === item.name ? "rotate-180" : ""
+                        className={`w-4 h-4 transition-transform duration-200 ${activeDropdown === item.name ? "rotate-180" : ""
                           }`}
                       />
-                    )}
-                  </a>
+                    </button>
+                  ) : (
+                    <Link
+                      to={item.href}
+                      className="flex items-center space-x-1 px-4 py-2 text-gray-700 hover:text-teal-600 hover:bg-teal-50 rounded-lg transition-all duration-200 font-medium group"
+                    >
+                      {item.icon && <item.icon className="w-4 h-4" />}
+                      <span>{item.name}</span>
+                    </Link>
+                  )}
 
                   {/* Dropdown Menu */}
                   {item.hasDropdown && activeDropdown === item.name && (
@@ -214,16 +224,26 @@ const Navbar = () => {
                             setActiveSubmenu(`${item.name}-${index}`)
                           }
                         >
-                          <a
-                            href={dropdownItem.href || "#"}
-                            className="flex items-center justify-between px-4 py-2 text-gray-700 hover:text-teal-600 hover:bg-teal-50 transition-colors duration-200 text-xs group"
-                          >
-                            <span>{dropdownItem.name}</span>
-                            {dropdownItem.hasSubmenu && (
-                              <ChevronDown className="w-4 h-4 -rotate-90 group-hover:text-teal-600" />
-                            )}
-                          </a>
-                        
+                          {dropdownItem.href === "#" ? (
+                            <button
+                              className="w-full flex items-center justify-between px-4 py-2 text-gray-700 hover:text-teal-600 hover:bg-teal-50 transition-colors duration-200 text-xs group text-left"
+                            >
+                              <span>{dropdownItem.name}</span>
+                              {dropdownItem.hasSubmenu && (
+                                <ChevronDown className="w-4 h-4 -rotate-90 group-hover:text-teal-600" />
+                              )}
+                            </button>
+                          ) : (
+                            <Link
+                              to={dropdownItem.href}
+                              className="flex items-center justify-between px-4 py-2 text-gray-700 hover:text-teal-600 hover:bg-teal-50 transition-colors duration-200 text-xs group"
+                            >
+                              <span>{dropdownItem.name}</span>
+                              {dropdownItem.hasSubmenu && (
+                                <ChevronDown className="w-4 h-4 -rotate-90 group-hover:text-teal-600" />
+                              )}
+                            </Link>
+                          )}
 
                           {/* Submenu */}
                           {dropdownItem.hasSubmenu &&
@@ -231,13 +251,22 @@ const Navbar = () => {
                               <div className="absolute top-0 left-full w-40 bg-white rounded-lg border border-gray-100 py-2 z-50">
                                 {dropdownItem.submenu.map(
                                   (submenuItem, subIndex) => (
-                                    <a
-                                      key={subIndex}
-                                      href={submenuItem.href}
-                                      className="block px-4 py-1 text-gray-600 hover:text-teal-600 hover:bg-teal-50 transition-colors duration-200 text-xs"
-                                    >
-                                      {submenuItem.name}
-                                    </a>
+                                    submenuItem.href === "#" ? (
+                                      <button
+                                        key={subIndex}
+                                        className="block w-full text-left px-4 py-1 text-gray-600 hover:text-teal-600 hover:bg-teal-50 transition-colors duration-200 text-xs"
+                                      >
+                                        {submenuItem.name}
+                                      </button>
+                                    ) : (
+                                      <Link
+                                        key={subIndex}
+                                        to={submenuItem.href}
+                                        className="block px-4 py-1 text-gray-600 hover:text-teal-600 hover:bg-teal-50 transition-colors duration-200 text-xs"
+                                      >
+                                        {submenuItem.name}
+                                      </Link>
+                                    )
                                   )
                                 )}
                               </div>
@@ -291,8 +320,8 @@ const Navbar = () => {
                     />
                   </button>
                 ) : (
-                  <a
-                    href={item.href}
+                  <Link
+                    to={item.href}
                     className="block px-3 py-3 text-gray-700 hover:text-teal-600 hover:bg-teal-50 rounded-lg transition-colors font-medium"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
@@ -300,7 +329,7 @@ const Navbar = () => {
                       {item.icon && <item.icon className="w-4 h-4" />}
                       <span>{item.name}</span>
                     </div>
-                  </a>
+                  </Link>
                 )}
 
                 {/* Mobile Dropdown */}
@@ -334,29 +363,50 @@ const Navbar = () => {
                               <div className="ml-4 mt-1 space-y-1 border-l-2 border-orange-100 pl-3">
                                 {dropdownItem.submenu.map(
                                   (submenuItem, subIndex) => (
-                                    <a
-                                      key={subIndex}
-                                      href={submenuItem.href}
-                                      className="block px-3 py-2 text-gray-500 hover:text-teal-600 hover:bg-teal-50 rounded-lg transition-colors text-xs"
-                                      onClick={() =>
-                                        setIsMobileMenuOpen(false)
-                                      }
-                                    >
-                                      {submenuItem.name}
-                                    </a>
+                                    submenuItem.href === "#" ? (
+                                      <button
+                                        key={subIndex}
+                                        className="block w-full text-left px-3 py-2 text-gray-500 hover:text-teal-600 hover:bg-teal-50 rounded-lg transition-colors text-xs"
+                                        onClick={() =>
+                                          setIsMobileMenuOpen(false)
+                                        }
+                                      >
+                                        {submenuItem.name}
+                                      </button>
+                                    ) : (
+                                      <Link
+                                        key={subIndex}
+                                        to={submenuItem.href}
+                                        className="block px-3 py-2 text-gray-500 hover:text-teal-600 hover:bg-teal-50 rounded-lg transition-colors text-xs"
+                                        onClick={() =>
+                                          setIsMobileMenuOpen(false)
+                                        }
+                                      >
+                                        {submenuItem.name}
+                                      </Link>
+                                    )
                                   )
                                 )}
                               </div>
                             )}
                           </>
                         ) : (
-                          <a
-                            href={dropdownItem.href || "#"}
-                            className="block px-3 py-2 text-gray-600 hover:text-teal-600 hover:bg-teal-50 rounded-lg transition-colors text-sm"
-                            onClick={() => setIsMobileMenuOpen(false)}
-                          >
-                            {dropdownItem.name}
-                          </a>
+                          dropdownItem.href === "#" ? (
+                            <button
+                              className="block w-full text-left px-3 py-2 text-gray-600 hover:text-teal-600 hover:bg-teal-50 rounded-lg transition-colors text-sm"
+                              onClick={() => setIsMobileMenuOpen(false)}
+                            >
+                              {dropdownItem.name}
+                            </button>
+                          ) : (
+                            <Link
+                              to={dropdownItem.href}
+                              className="block px-3 py-2 text-gray-600 hover:text-teal-600 hover:bg-teal-50 rounded-lg transition-colors text-sm"
+                              onClick={() => setIsMobileMenuOpen(false)}
+                            >
+                              {dropdownItem.name}
+                            </Link>
+                          )
                         )}
                       </div>
                     ))}
