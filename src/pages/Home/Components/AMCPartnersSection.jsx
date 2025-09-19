@@ -1,5 +1,7 @@
-import React from 'react';
-import { Award, TrendingUp, Shield, Users } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Award, TrendingUp, Shield, Users, ChevronLeft, ChevronRight } from 'lucide-react';
+
+// Import all your images (you'll need to replace these with your actual imports)
 import img1 from '@/assets/Partners/img1.png';
 import img2 from '@/assets/Partners/img2.png';
 import img3 from '@/assets/Partners/img3.png';
@@ -44,56 +46,88 @@ import img42 from '@/assets/Partners/img42.png';
 import img43 from '@/assets/Partners/img43.png';
 
 
+
 const AMCPartnersSection = () => {
-  // Partner data with placeholder images
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Partner data with your actual images
   const partners = [
-  { id: 1, name: 'Aditya Birla Sun Life', logo: img1 },
-  { id: 2, name: 'Axis Mutual Fund', logo: img2 },
-  { id: 3, name: 'Bajaj Finserv', logo: img3 },
-  { id: 4, name: 'Bandhan Mutual Fund', logo: img4 },
-  { id: 5, name: 'Bank of India Mutual Fund', logo: img5 },
-  { id: 6, name: 'BNP Paribas', logo: img6 },
-  { id: 7, name: 'Canara Robeco', logo: img7 },
-  { id: 8, name: 'DSP Mutual Fund', logo: img9 },
-  { id: 9, name: 'Franklin Templeton', logo: img10 },
-  { id: 10, name: 'HDFC Mutual Fund', logo: img11 },
-  { id: 11, name: 'ICICI Prudential', logo: img12 },
-  { id: 12, name: 'Kotak Mutual Fund', logo: img13 },
-  { id: 13, name: 'L&T Mutual Fund', logo: img14 },
-  { id: 14, name: 'Mirae Asset', logo: img15 },
-  { id: 15, name: 'Nippon India', logo: img16 },
-  { id: 16, name: 'SBI Mutual Fund', logo: img17 },
-  { id: 17, name: 'Tata Mutual Fund', logo: img18 },
-  { id: 18, name: 'Motilal Oswal', logo: img19 },
-  { id: 19, name: 'Union Mutual Fund', logo: img20 },
-  { id: 20, name: 'PGIM India', logo: img21 },
-  { id: 21, name: 'HSBC Mutual Fund', logo: img22 },
-  { id: 22, name: 'LIC Mutual Fund', logo: img23 },
-  { id: 23, name: 'IDFC Mutual Fund', logo: img24 },
-  { id: 24, name: 'JM Financial', logo: img25 },
-  { id: 25, name: 'Quantum Mutual Fund', logo: img26 },
-  { id: 26, name: 'Shriram Mutual Fund', logo: img27 },
-  { id: 27, name: 'NJ Mutual Fund', logo: img28 },
-  { id: 28, name: 'Indiabulls Mutual Fund', logo: img29 },
-  { id: 29, name: 'Sundaram Mutual Fund', logo: img30 },
-  { id: 30, name: 'UTI Mutual Fund', logo: img31 },
-  { id: 31, name: 'IIFL Mutual Fund', logo: img32 },
-  { id: 32, name: 'Mahindra Manulife', logo: img33 },
-  { id: 33, name: 'Invesco Mutual Fund', logo: img34 },
-  { id: 34, name: 'Baroda BNP Paribas', logo: img35 },
-  { id: 35, name: 'Quant Mutual Fund', logo: img36 },
-  { id: 36, name: 'Taurus Mutual Fund', logo: img37 },
-  { id: 37, name: 'WhiteOak Capital', logo: img38 },
-  { id: 38, name: '360 ONE Mutual Fund', logo: img39 },
-  { id: 39, name: 'Trust Mutual Fund', logo: img40 },
-  { id: 40, name: 'Groww Mutual Fund', logo: img41 },
-  { id: 41, name: 'Samco Mutual Fund', logo: img42 },
-  { id: 42, name: 'Zerodha Mutual Fund', logo: img43 },
-];
+    { id: 1, name: 'Aditya Birla Sun Life', logo: img1 },
+    { id: 2, name: 'Axis Mutual Fund', logo: img2 },
+    { id: 3, name: 'Bajaj Finserv', logo: img3 },
+    { id: 4, name: 'Bandhan Mutual Fund', logo: img4 },
+    { id: 5, name: 'Bank of India Mutual Fund', logo: img5 },
+    { id: 6, name: 'BNP Paribas', logo: img6 },
+    { id: 7, name: 'Canara Robeco', logo: img7 },
+    { id: 8, name: 'DSP Mutual Fund', logo: img9 },
+    { id: 9, name: 'Franklin Templeton', logo: img10 },
+    { id: 10, name: 'HDFC Mutual Fund', logo: img11 },
+    { id: 11, name: 'ICICI Prudential', logo: img12 },
+    { id: 12, name: 'Kotak Mutual Fund', logo: img13 },
+    { id: 13, name: 'L&T Mutual Fund', logo: img14 },
+    { id: 14, name: 'Mirae Asset', logo: img15 },
+    { id: 15, name: 'Nippon India', logo: img16 },
+    { id: 16, name: 'SBI Mutual Fund', logo: img17 },
+    { id: 17, name: 'Tata Mutual Fund', logo: img18 },
+    { id: 18, name: 'Motilal Oswal', logo: img19 },
+    { id: 19, name: 'Union Mutual Fund', logo: img20 },
+    { id: 20, name: 'PGIM India', logo: img21 },
+    { id: 21, name: 'HSBC Mutual Fund', logo: img22 },
+    { id: 22, name: 'LIC Mutual Fund', logo: img23 },
+    { id: 23, name: 'IDFC Mutual Fund', logo: img24 },
+    { id: 24, name: 'JM Financial', logo: img25 },
+    { id: 25, name: 'Quantum Mutual Fund', logo: img26 },
+    { id: 26, name: 'Shriram Mutual Fund', logo: img27 },
+    { id: 27, name: 'NJ Mutual Fund', logo: img28 },
+    { id: 28, name: 'Indiabulls Mutual Fund', logo: img29 },
+    { id: 29, name: 'Sundaram Mutual Fund', logo: img30 },
+    { id: 30, name: 'UTI Mutual Fund', logo: img31 },
+    { id: 31, name: 'IIFL Mutual Fund', logo: img32 },
+    { id: 32, name: 'Mahindra Manulife', logo: img33 },
+    { id: 33, name: 'Invesco Mutual Fund', logo: img34 },
+    { id: 34, name: 'Baroda BNP Paribas', logo: img35 },
+    { id: 35, name: 'Quant Mutual Fund', logo: img36 },
+    { id: 36, name: 'Taurus Mutual Fund', logo: img37 },
+    { id: 37, name: 'WhiteOak Capital', logo: img38 },
+    { id: 38, name: '360 ONE Mutual Fund', logo: img39 },
+    { id: 39, name: 'Trust Mutual Fund', logo: img40 },
+    { id: 40, name: 'Groww Mutual Fund', logo: img41 },
+    { id: 41, name: 'Samco Mutual Fund', logo: img42 },
+    { id: 42, name: 'Zerodha Mutual Fund', logo: img43 },
+  ];
 
+  // Check if mobile on mount and resize
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
-  // Duplicate partners for seamless loop
+  // Duplicate partners for seamless loop (desktop only)
   const duplicatedPartners = [...partners, ...partners];
+
+  // Mobile carousel logic
+  const partnersPerSlide = 6; // 2 rows × 3 columns
+  const totalSlides = Math.ceil(partners.length / partnersPerSlide);
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % totalSlides);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
+  };
+
+  const getCurrentSlidePartners = () => {
+    const startIndex = currentSlide * partnersPerSlide;
+    return partners.slice(startIndex, startIndex + partnersPerSlide);
+  };
 
   const stats = [
     {
@@ -128,15 +162,15 @@ const AMCPartnersSection = () => {
         
         {/* Header Section */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-4xl font-bold text-gray-900 mb-6">
+          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
             <span className="text-blue-600">AMC Partners</span> We Work With
           </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-8">
+          <p className="text-base md:text-lg text-gray-600 max-w-3xl mx-auto mb-8">
             We've partnered with India's leading Asset Management Companies to bring you the best investment opportunities and financial solutions.
           </p>
           
           {/* Stats Grid */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 mx-auto">
             {stats.map((stat, index) => (
               <div key={index} className="bg-white rounded-xl p-4 gap-4 flex shadow-lg hover:shadow-xl transition-shadow">
                 <div className={`w-12 h-12 bg-gradient-to-r ${stat.color} rounded-md flex items-center justify-center text-white`}>
@@ -151,78 +185,102 @@ const AMCPartnersSection = () => {
           </div>
         </div>
 
-        {/* Partners Carousel */}
-        <div className="relative">
-          <div className="overflow-hidden">
-            {/* First Row - Left to Right */}
-            <div className="flex space-x-8 mb-8 animate-scroll-left">
-              {duplicatedPartners.slice(0, duplicatedPartners.length / 2).map((partner, index) => (
-                <div
-                  key={`row1-${index}`}
-                  className="flex-shrink-0 bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 group"
-                  style={{ minWidth: '200px' }}
+        {/* Partners Section */}
+        {isMobile ? (
+          // Mobile: Carousel with grid layout
+          <div className="relative">
+            <div className="bg-white rounded-2xl p-6 shadow-lg">
+              <div className="grid grid-cols-2 gap-4">
+                {getCurrentSlidePartners().map((partner, index) => (
+                  <div
+                    key={`mobile-${currentSlide}-${index}`}
+                    className="bg-gray-50 rounded-lg p-2 flex items-center justify-center hover:shadow-md transition-shadow"
+                  >
+                    <img
+                      src={partner.logo}
+                      alt={partner.name}
+                      className="w-full h-12 object-contain"
+                    />
+                  </div>
+                ))}
+              </div>
+              
+              {/* Mobile Controls */}
+              <div className="flex items-center justify-between mt-6">
+                <button
+                  onClick={prevSlide}
+                  className="p-2 rounded-full bg-blue-100 hover:bg-blue-200 transition-colors"
+                  disabled={currentSlide === 0}
                 >
-                  <img
-                    src={partner.logo}
-                    alt={partner.name}
-                    className="w-full h-16 object-contain  transition-all duration-300"
-                  />
-                  {/* <div className="mt-3 text-center">
-                    <p className="text-sm font-medium text-gray-700 group-hover:text-blue-600 transition-colors">
-                      {partner.name}
-                    </p>
-                  </div> */}
+                  <ChevronLeft className="w-5 h-5 text-blue-600" />
+                </button>
+                
+                <div className="flex space-x-2">
+                  {Array.from({ length: totalSlides }).map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentSlide(index)}
+                      className={`w-2 h-2 rounded-full transition-colors ${
+                        currentSlide === index ? 'bg-blue-600' : 'bg-gray-300'
+                      }`}
+                    />
+                  ))}
                 </div>
-              ))}
-            </div>
-
-            {/* Second Row - Right to Left */}
-            <div className="flex space-x-8 pb-2 animate-scroll-right">
-              {duplicatedPartners.slice(duplicatedPartners.length / 2).map((partner, index) => (
-                <div
-                  key={`row2-${index}`}
-                  className="flex-shrink-0 bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 group"
-                  style={{ minWidth: '200px' }}
+                
+                <button
+                  onClick={nextSlide}
+                  className="p-2 rounded-full bg-blue-100 hover:bg-blue-200 transition-colors"
+                  disabled={currentSlide === totalSlides - 1}
                 >
-                  <img
-                    src={partner.logo}
-                    alt={partner.name}
-                    className="w-full h-16 object-contain transition-all duration-300"
-                  />
-                  {/* <div className="mt-3 text-center">
-                    <p className="text-sm font-medium text-gray-700 group-hover:text-blue-600 transition-colors">
-                      {partner.name}
-                    </p>
-                  </div> */}
-                </div>
-              ))}
+                  <ChevronRight className="w-5 h-5 text-blue-600" />
+                </button>
+              </div>
             </div>
           </div>
+        ) : (
+          // Desktop: Infinite scroll carousel
+          <div className="relative">
+            <div className="overflow-hidden">
+              {/* First Row - Left to Right */}
+              <div className="flex space-x-8 mb-8 animate-scroll-left">
+                {duplicatedPartners.slice(0, duplicatedPartners.length / 2).map((partner, index) => (
+                  <div
+                    key={`row1-${index}`}
+                    className="flex-shrink-0 bg-white rounded-xl p-4 md:p-6 shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 group"
+                    style={{ minWidth: '200px' }}
+                  >
+                    <img
+                      src={partner.logo}
+                      alt={partner.name}
+                      className="w-full h-16 object-contain transition-all duration-300"
+                    />
+                  </div>
+                ))}
+              </div>
 
-          {/* Gradient Overlays */}
-          <div className="absolute top-0 left-0 w-32 h-full bg-gradient-to-r from-gray-50 to-transparent pointer-events-none z-10"></div>
-          <div className="absolute top-0 right-0 w-32 h-full bg-gradient-to-l from-gray-50 to-transparent pointer-events-none z-10"></div>
-        </div>
-
-        {/* Call to Action */}
-        {/* <div className="text-center mt-16">
-          <div className="bg-white rounded-2xl p-8 shadow-lg max-w-3xl mx-auto">
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">
-              Ready to Start Your Investment Journey?
-            </h3>
-            <p className="text-gray-600 mb-6">
-              With our trusted AMC partners, you get access to a wide range of mutual funds and investment options tailored to your financial goals.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium transition-colors">
-                Explore Funds
-              </button>
-              <button className="border border-gray-300 hover:border-gray-400 text-gray-700 px-8 py-3 rounded-lg font-medium transition-colors">
-                Contact Advisor
-              </button>
+              {/* Second Row - Right to Left */}
+              <div className="flex space-x-5 md:space-x-8 pb-2 animate-scroll-right">
+                {duplicatedPartners.slice(duplicatedPartners.length / 2).map((partner, index) => (
+                  <div
+                    key={`row2-${index}`}
+                    className="flex-shrink-0 bg-white rounded-xl p-4 md:p-6 shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 group"
+                    style={{ minWidth: '200px' }}
+                  >
+                    <img
+                      src={partner.logo}
+                      alt={partner.name}
+                      className="w-full h-16 object-contain transition-all duration-300"
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
+
+            {/* Gradient Overlays */}
+            <div className="absolute top-0 left-0 w-32 h-full bg-gradient-to-r from-gray-50 to-transparent pointer-events-none z-10"></div>
+            <div className="absolute top-0 right-0 w-32 h-full bg-gradient-to-l from-gray-50 to-transparent pointer-events-none z-10"></div>
           </div>
-        </div> */}
+        )}
       </div>
 
       <style jsx>{`
@@ -245,11 +303,11 @@ const AMCPartnersSection = () => {
         }
         
         .animate-scroll-left {
-          animation: scroll-left 60s linear infinite;
+          animation: scroll-left 40s linear infinite;
         }
         
         .animate-scroll-right {
-          animation: scroll-right 60s linear infinite;
+          animation: scroll-right 40s linear infinite;
         }
         
         .animate-scroll-left:hover,

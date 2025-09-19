@@ -129,7 +129,7 @@ const InvestmentGoalsSection = () => {
         {/* Investment Comparison Section */}
         <div className="mb-20">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-4">
               How <span className="text-blue-600">Smart Investing</span> Works in your Best Interest
             </h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
@@ -197,15 +197,15 @@ const InvestmentGoalsSection = () => {
           
           {/* Left Content */}
           <div>
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">
+            <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-6">
                Every stage of life comes with important <span className="text-blue-600">financial goals.</span>
             </h2>
-            <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+            <p className="text-base md:text-lg text-gray-600 mb-8 leading-relaxed">
                Achieving them requires making the right moves at the right time. We’re here to guide you and help you reach your milestones with confidence.
             </p>
 
             {/* Goals Grid */}
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {goals.map((goal) => (
                 <div
                   key={goal.id}
@@ -233,7 +233,7 @@ const InvestmentGoalsSection = () => {
 
             {/* CTA Button */}
             <div className="mt-8">
-              <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-medium transition-colors flex items-center space-x-2 group">
+              <button className="bg-blue-600 hover:bg-blue-700 text-white w-full md:w-fit px-8 py-4 rounded-lg font-medium transition-colors flex items-center justify-center lg:justify-start space-x-2 group">
                 <Calculator className="w-5 h-5" />
                 <span>Calculate Your Goals</span>
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />

@@ -38,7 +38,7 @@ const services = [
               </div>
 
               {/* Main Heading */}
-            <h1 className="text-5xl lg:text-4xl font-bold text-gray-900 leading-tight mb-6">
+            <h1 className="text-2xl lg:text-4xl font-bold text-gray-900 leading-tight mb-6">
   Expert Financial Guidance
   <span className="block mt-2">
     Backed by <span className="text-orange-500">13+ Years of Trust</span>
@@ -46,7 +46,7 @@ const services = [
 </h1>
 
               {/* Description */}
-              <p className="text-lg text-gray-600 leading-relaxed max-w-xl">
+              <p className="text-base md:text-lg text-gray-600 leading-relaxed max-w-xl">
   We help individuals and NRIs make informed investment decisions through
   AI-driven insights, personalized wealth strategies, and global mutual fund
   solutions. From retirement planning to funding your children’s education,

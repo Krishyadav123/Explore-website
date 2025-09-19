@@ -83,15 +83,15 @@ const CallbackSection = () => {
         <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-10 md:gap-16 items-center">
           
           {/* Left Content */}
           <div className="text-white">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+            <h2 className="text-3xl lg:text-5xl font-bold mb-6">
               Request A <span className="text-blue-400">Call Back</span>.
             </h2>
-            <p className="text-xl text-gray-300 mb-8 leading-relaxed">
+            <p className="text-lg md:text-xl text-gray-300 mb-8 leading-relaxed">
               Ready to take the next step in your financial journey? Our expert advisors are here to help you achieve your goals with personalized guidance and proven strategies.
             </p>
 
@@ -128,7 +128,7 @@ const CallbackSection = () => {
           </div>
 
           {/* Right Content - Form */}
-          <div className="bg-white rounded-2xl p-6 shadow-2xl">
+          <div className="bg-white rounded-2xl p-4 md:p-6 shadow-2xl">
             <div className="text-center mb-8">
               <h3 className="text-2xl font-bold text-gray-900 mb-2">How Can We Help?</h3>
               <p className="text-gray-600">Fill out the form below and we'll get back to you soon</p>

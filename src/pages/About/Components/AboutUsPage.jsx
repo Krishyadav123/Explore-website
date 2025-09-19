@@ -311,7 +311,7 @@ const philosophyTabs = [
             <TrendingUp className="w-4 h-4 mr-2" />
             About Us
           </motion.div>
-          <h2 className="text-5xl font-extralight text-gray-900 leading-tight">
+          <h2 className="text-2xl md:text-5xl font-extralight text-gray-900 leading-tight">
             Your Trusted Partner in 
             <span className="block text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text font-medium">
               Financial Growth
@@ -429,7 +429,7 @@ const philosophyTabs = [
 
       {/* Philosophy Section with Tabs */}
       <motion.section 
-        className="py-24 px-4 bg-white"
+        className="py-10 md:py-24 px-4 bg-white"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
@@ -437,8 +437,8 @@ const philosophyTabs = [
       >
         <div className="max-w-7xl mx-auto">
           <motion.div className="text-center mb-16" variants={itemVariants}>
-  <h2 className="text-5xl font-extralight text-gray-900 mb-6">Our Philosophy</h2>
-  <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+  <h2 className="text-3xl md:text-5xl font-extralight text-gray-900 mb-6">Our Philosophy</h2>
+  <p className="text-base md:text-xl text-gray-600 max-w-3xl mx-auto">
     At Explore, our philosophy is rooted in integrity, insight, and innovation.
     We are committed to simplifying the investment journey while maximizing outcomes
     through personalized, data-driven strategies tailored to each client.
@@ -488,7 +488,7 @@ const philosophyTabs = [
 
       {/* Team Section */}
       <motion.section 
-        className="py-24 px-4 bg-gradient-to-br from-gray-50 to-slate-100"
+        className="py-14 md:py-24 px-4 bg-gradient-to-br from-gray-50 to-slate-100"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
@@ -503,7 +503,7 @@ const philosophyTabs = [
               <Users className="w-4 h-4 mr-2" />
               Meet Our Experts
             </motion.div>
-            <h2 className="text-5xl font-extralight text-gray-900 mb-6">Who We Are</h2>
+            <h2 className="text-3xl md:text-5xl font-extralight text-gray-900 mb-6">Who We Are</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Our team is composed of highly skilled and licensed professionals who bring a 
               wealth of knowledge and experience to the table.
@@ -609,7 +609,7 @@ const philosophyTabs = [
 
         <div className="max-w-7xl mx-auto relative z-10">
           <motion.div className="text-center mb-16" variants={itemVariants}>
-            <h2 className="text-5xl font-extralight mb-6">Our Approach</h2>
+            <h2 className="text-2xl md:text-5xl font-extralight mb-6">Our Approach</h2>
             <p className="text-xl text-blue-100 max-w-3xl mx-auto">
               We believe in a comprehensive, personalized approach to wealth management
             </p>
@@ -652,7 +652,7 @@ const philosophyTabs = [
 
       {/* Why Choose Us */}
       <motion.section 
-        className="py-24 px-4 bg-white"
+        className="py-14 md:py-24 px-4 bg-white"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
@@ -660,7 +660,7 @@ const philosophyTabs = [
       >
         <div className="max-w-7xl mx-auto">
           <motion.div className="text-center mb-16" variants={itemVariants}>
-            <h2 className="text-5xl font-extralight text-gray-900 mb-6">Why Choose Us?</h2>
+            <h2 className="text-3xl md:text-5xl font-extralight text-gray-900 mb-6">Why Choose Us?</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Discover what sets us apart in the world of financial services
             </p>
