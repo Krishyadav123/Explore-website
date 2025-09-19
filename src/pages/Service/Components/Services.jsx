@@ -338,7 +338,7 @@ const iconContainerVariants = {
         whileInView="visible"
         viewport={{ once: true }}
         variants={containerVariants}
-        className="py-20 px-6"
+        className="py-14 md:py-20 px-4 md:px-6"
       >
         <div className="max-w-7xl mx-auto space-y-20">
           {services.map((service, index) => (
@@ -355,11 +355,11 @@ const iconContainerVariants = {
                 index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''
               }`}>
                 {/* Content Side */}
-                <div className={`p-12 lg:p-10 flex flex-col justify-center ${
+                <div className={`p-5 lg:p-10 flex flex-col justify-center ${
                   index % 2 === 1 ? 'lg:col-start-2' : ''
                 }`}>
                   <motion.h2
-                    className={`text-3xl lg:text-2xl font-bold mb-2 ${service.textColor}`}
+                    className={`text-xl lg:text-2xl font-bold mb-2 ${service.textColor}`}
                     whileHover={{ scale: 1.02 }}
                   >
                     {service.title}
@@ -373,7 +373,7 @@ const iconContainerVariants = {
                     {service.description}
                   </motion.p>
                   
-                  <div className="grid grid-cols-2 gap-2 mb-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-8">
                     {service.features.map((feature, featureIndex) => (
                       <motion.div
                         key={featureIndex}
@@ -535,16 +535,16 @@ const iconContainerVariants = {
 >
   <div className="max-w-6xl mx-auto">
     <motion.div variants={itemVariants} className="text-center mb-16">
-      <h2 className="text-4xl font-bold text-gray-900 mb-6">
+      <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-3 md:mb-6">
         Why Choose Us
       </h2>
-      <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+      <p className="text-base md:text-xl text-gray-600 max-w-2xl mx-auto">
         Your trusted partner for transparent, SEBI-compliant financial planning
         and long-term wealth creation
       </p>
     </motion.div>
 
-    <div className="grid md:grid-cols-3 gap-8">
+    <div className="grid md:grid-cols-3 gap-5 md:gap-8">
       {[
         {
           icon: Award,
