@@ -70,23 +70,23 @@ const AboutUsPage = () => {
  const approaches = [
   {
     icon: Users,
-    title: "Personalized Solutions",
+    title: "Trust & Transparency",
     description:
-      "Every client is unique, and so are their financial needs and goals. Our personalized approach ensures that our investment strategies are tailored to meet the specific requirements of our clients.",
+      "We prioritize honesty and clarity in every transaction. Our personalized solutions ensure your investment journey is built on a foundation of trust.",
     gradient: "from-blue-500 to-cyan-500"
   },
   {
     icon: BookOpen,
-    title: "Expert Guidance",
+    title: "Innovation & Expertise",
     description:
-      "Our team's extensive experience in the financial industry helps us with the approach to navigate the complexities of mutual fund investments, keeping our clients informed.",
+      "Our experienced team uses advanced research and cutting-edge technology to guide you through mutual fund investments with confidence and clarity.",
     gradient: "from-pink-500 to-purple-500"
   },
   {
     icon: Headphones,
-    title: "Ongoing Support",
+    title: "Continuous Support",
     description:
-      "We believe in building long-term relationships with our clients. Our commitment is to provide financial guidance that evolves with changing needs and market conditions.",
+      "Our commitment is to stand by our clients throughout their financial journey — offering guidance, education, and evolving strategies as needs change.",
     gradient: "from-green-500 to-emerald-500"
   }
 ];
@@ -161,24 +161,30 @@ const AboutUsPage = () => {
   ];
 const philosophyTabs = [
   {
-    icon: Compass, // replace with your actual icon import
-    title: "Discovering Possibilities",
+    icon: Compass,
+    title: "Expertise & Examination",
     content:
-      "Every financial journey is unique. We help you uncover opportunities that align with your life goals—be it buying a home, planning for retirement, or funding your child’s education."
+      "Professional management and deep analysis are the cornerstones of Explore’s investment philosophy. We carefully examine market trends and asset performance to provide intelligent investment choices."
   },
   {
-    icon: LineChart, // replace with your actual icon import
-    title: "Understanding Risk & Potential",
+    icon: LineChart,
+    title: "Portfolio Diversification & Returns",
     content:
-      "Through advanced risk profiling and data-driven analysis, we guide you to explore the right investment avenues suited to your risk appetite and financial objectives."
+      "We build diversified portfolios to spread risk and optimize returns. Through strategic asset allocation, we help investors achieve sustainable growth while balancing safety and performance."
   },
   {
-    icon: Building2, // replace with your actual icon import
-    title: "Building with Vision",
+    icon: Building2,
+    title: "Liquidity, Ownership & Efficiency",
     content:
-      "Exploring is about progress—step by step. Whether you’re a first-time investor or managing a legacy portfolio, we help you build long-term wealth with intention and intelligence."
+      "Explore offers liquidity, ownership in diversified holdings, and efficient investment structures. Our mission is to empower you with control, flexibility, and maximum value."
   }
 ];
+  const stats = [
+    { label: "Client Retention", value: "98%", icon: Users },
+    { label: "Average Return", value: "12.5%", icon: TrendingUp },
+    { label: "Response Time", value: "< 2hrs", icon: Clock },
+    { label: "Success Rate", value: "95%", icon: Target }
+  ];
 
   return (
     <div className="min-h-screen bg-white overflow-hidden">
@@ -299,7 +305,7 @@ const philosophyTabs = [
   viewport={{ once: true, amount: 0.2 }}
 >
   <div className="max-w-7xl mx-auto">
-    <div className="grid grid-cols-1 xl:grid-cols-2 gap-16 items-center">
+    <div className="grid grid-cols-1 xl:grid-cols-2 gap-16 items-center px-6">
       
       {/* Text Section */}
       <motion.div className="space-y-8" variants={itemVariants}>
@@ -311,6 +317,7 @@ const philosophyTabs = [
             <TrendingUp className="w-4 h-4 mr-2" />
             About Us
           </motion.div>
+
           <h2 className="text-2xl md:text-5xl font-extralight text-gray-900 leading-tight">
             Your Trusted Partner in 
             <span className="block text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text font-medium">
@@ -319,27 +326,26 @@ const philosophyTabs = [
           </h2>
         </div>
         
-        <div className="prose prose-lg text-gray-600">
-          <p className="leading-relaxed">
-            At Explore, we are committed to delivering exceptional financial solutions 
-            tailored to your goals. With years of industry expertise, our team provides 
-            strategic insights, innovative investment opportunities, and personalized 
-            guidance to help you achieve sustainable growth. We believe in building 
-            long-term relationships based on trust, transparency, and proven results.
+        <div className="prose prose-lg text-gray-600 space-y-4">
+          <p>
+            At <strong>Explore</strong>, we stand for expertise, examination, portfolio diversification, liquidity, ownership, returns, and efficiency — core principles that define our approach to mutual fund investing.
+          </p>
+
+          <p>
+            Our mission is to simplify mutual fund investing by offering a transparent, reliable, and user-friendly platform that helps people grow wealth with confidence.
+          </p>
+
+          <p>
+            Our vision is to be the most trusted digital platform for mutual fund investments, enabling everyone to explore opportunities and achieve financial freedom.
           </p>
         </div>
 
-        {/* Stats */}
+        {/* Stats Section */}
         <motion.div 
           className="grid grid-cols-2 gap-6"
           variants={containerVariants}
         >
-          {[
-            { label: "Client Retention", value: "98%", icon: Users },
-            { label: "Average Return", value: "12.5%", icon: TrendingUp },
-            { label: "Response Time", value: "< 2hrs", icon: Clock },
-            { label: "Success Rate", value: "95%", icon: Target }
-          ].map((stat, index) => {
+          {stats.map((stat, index) => {
             const IconComponent = stat.icon;
             return (
               <motion.div 
@@ -377,7 +383,6 @@ const philosophyTabs = [
             Start Your Journey
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
           </motion.button>
-         
         </div>
       </motion.div>
 
@@ -397,8 +402,8 @@ const philosophyTabs = [
             }}
           />
           <motion.img 
-            src="https://res.cloudinary.com/dhf8eyjee/image/upload/v1755164731/wealth-management_ofjxi5.png" // Replace with your actual image path
-            alt="Our Team"
+            src="https://res.cloudinary.com/dhf8eyjee/image/upload/v1755164731/wealth-management_ofjxi5.png"
+            alt="Explore - Financial Growth"
             className="relative w-full h-96 object-cover rounded-3xl shadow-2xl"
             whileHover={{ scale: 1.02 }}
             transition={{ duration: 0.3 }}
@@ -487,7 +492,7 @@ const philosophyTabs = [
       </motion.section>
 
       {/* Team Section */}
-      <motion.section 
+      {/* <motion.section 
         className="py-14 md:py-24 px-4 bg-gradient-to-br from-gray-50 to-slate-100"
         variants={containerVariants}
         initial="hidden"
@@ -569,7 +574,7 @@ const philosophyTabs = [
             ))}
           </motion.div>
         </div>
-      </motion.section>
+      </motion.section> */}
 
       {/* Approach Section */}
       <motion.section 
