@@ -122,10 +122,10 @@ const Navbar = () => {
                   Mail Us Today
                 </span>
                 <a
-                  href="mailto:help@explore.com"
+                  href="mailto:help@exploremfs.com"
                   className="text-orange-400 hover:text-orange-300 transition-colors font-medium hover:underline"
                 >
-                  help@explore.com
+                  help@exploremfs.com
                 </a>
               </div>
             </div>

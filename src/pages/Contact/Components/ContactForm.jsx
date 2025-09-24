@@ -91,7 +91,7 @@ const ContactForm = () => {
                     <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
                       <Mail className="w-5 h-5" />
                     </div>
-                    <span className="text-lg">help@explore.com</span>
+                    <span className="text-lg">help@exploremfs.com</span>
                   </motion.div>
                   
                   <motion.div 
