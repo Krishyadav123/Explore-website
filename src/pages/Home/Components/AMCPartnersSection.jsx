@@ -132,7 +132,7 @@ const AMCPartnersSection = () => {
   const stats = [
     {
       icon: <Award className="w-8 h-8" />,
-      number: '50+',
+      number: '45+',
       label: 'Trusted Partners',
       color: 'from-blue-500 to-blue-600'
     },

@@ -623,7 +623,7 @@ const TopPerformance = () => {
         </div>
 
         {/* API Info */}
-        <div className="mt-8 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-200">
+        {/* <div className="mt-8 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-200">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
               <TrendingUp className="w-5 h-5 text-blue-600" />
@@ -645,7 +645,7 @@ const TopPerformance = () => {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
     <Footer />

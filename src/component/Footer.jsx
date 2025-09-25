@@ -20,6 +20,7 @@ const Footer = () => {
   };
 
   const usefulLinks = [
+    { name: "Home", href: "/" },
     { name: "About Us", href: "/about" },
     { name: "Our Service", href: "/services" },
     { name: "Contact us", href: "/contact" },
@@ -34,6 +35,19 @@ const Footer = () => {
     { name: "Financial Planning", href: "/financial-planning" },
     { name: "Calculators", href: "/calculators" },
   ];
+
+  const mfresearch = [
+    { name: "Benchmark Return", href: "/mf/benchmark-return" },
+    { name: "Top Performers", href: "/mf/top-performers" },
+    { name: "Annual Increase", href: "/mf/annual-increase" },
+    { name: "Top SWP Returns", href: "/mf/top-swp-returns" },
+    { name: "Mutual Fund Volatility Ranking", href: "/mf/mf-volatility-ranking" },
+    { name: "Best Performing Funds", href: "/mf/mf-trailing-returns" },
+    { name: "Mutual Fund Category Returns", href: "/mf/category-returns" },
+    { name: "Mutual Fund category Monitor", href: "/mf/category-monitor" },
+    { name: "Mutual Fund SIP Returns", href: "/mf/mf-sip-returns" },
+
+  ]
 
   const goalPlanners = [
     { name: "Dream Home", icon: <Home className="w-4 h-4" />, href: "/goal/home" },
@@ -117,9 +131,9 @@ const Footer = () => {
 
             {/* Our Offerings */}
             <div>
-              <h3 className="text-xl font-bold mb-6 text-blue-400">Our Offerings</h3>
+              <h3 className="text-xl font-bold mb-6 text-blue-400">MF Research</h3>
               <ul className="space-y-3">
-                {offerings.map((offering, index) => (
+                {mfresearch .map((offering, index) => (
                   <li key={index}>
                     <Link
                       to={offering.href}

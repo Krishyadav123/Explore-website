@@ -123,9 +123,9 @@ const PageName = ({name}) => {
                       animate="visible"
                     >
                       {[
-                        { value: "₹100Cr+", label: "Assets Under Management", color: "text-blue-300" },
-                        { value: "13+", label: "Years Experience", color: "text-purple-300" },
-                        { value: "500+", label: "Happy Clients", color: "text-pink-300" }
+                        { value: "₹55Cr+", label: "Assets Under Management", color: "text-blue-300" },
+                        { value: "16+", label: "Years Experience", color: "text-purple-300" },
+                        { value: "1300+", label: "Happy Clients", color: "text-pink-300" }
                       ].map((stat, index) => (
                         <motion.div key={index} className="text-center" variants={itemVariants}>
                           <div className={`text-2xl font-bold ${stat.color}`}>{stat.value}</div>

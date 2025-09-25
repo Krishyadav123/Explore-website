@@ -181,8 +181,8 @@ const philosophyTabs = [
 ];
   const stats = [
     { label: "Client Retention", value: "98%", icon: Users },
-    { label: "Average Return", value: "12.5%", icon: TrendingUp },
-    { label: "Response Time", value: "< 2hrs", icon: Clock },
+    { label: "Average Return", value: "14%", icon: TrendingUp },
+    { label: "Response Time", value: "< 1hrs", icon: Clock },
     { label: "Success Rate", value: "95%", icon: Target }
   ];
 
