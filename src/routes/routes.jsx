@@ -41,6 +41,9 @@ import TopSwpReturns from '@/pages/Mutual Funds/TopSwpReturns/TopSwpReturns'
 import MfVolatilityRanking from '@/pages/Mutual Funds/MfVolatilityRanking/MfVolatilityRanking'
 import MfTrailingReturns from '@/pages/Mutual Funds/MfTrailingReturns/MfTrailingReturns'
 import ScrollToTop from '@/component/ScrollToTop'
+import MfCategoryReturns from '@/pages/Mutual Funds/MfCaregoryReturns/MfCaregoryReturns'
+import MfCategoryMonitor from '@/pages/Mutual Funds/MfCaregoryMonitor/MfCaregoryMonitor'
+import MfSipReturns from '@/pages/Mutual Funds/MfSipReturns/MfSipReturns'
 
 const AllRoutes = () => {
   return (
@@ -93,6 +96,14 @@ const AllRoutes = () => {
         <Route path="/mf/mf-volatility-ranking" element={<MfVolatilityRanking />} />
 
         <Route path='/mf/mf-trailing-returns' element={<MfTrailingReturns />} />
+
+
+        <Route path="/mf/category-returns" element={<MfCategoryReturns />} />
+
+        
+        <Route path="/mf/category-monitor" element={<MfCategoryMonitor />} />
+
+        <Route path="/mf/mf-sip-returns" element={<MfSipReturns />} />
 
         <Route path="/admin" element={<Admin />} />
         {/* Add more routes as needed */}

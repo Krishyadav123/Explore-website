@@ -34,10 +34,10 @@ const Navbar = () => {
         // { "name": "Scheme Categories", "href": "#" },
         // { "name": "All Mutual Fund Companies", "href": "#" },
         { "name": "Best Performing Funds - AMC Wise", "href": "/mf/mf-trailing-returns" },
-        { "name": "Mutual Fund Category Returns", "href": "#" },
-        { "name": "Mutual Fund category Monitor", "href": "#" },
+        { "name": "Mutual Fund Category Returns", "href": "/mf/category-returns" },
+        { "name": "Mutual Fund category Monitor", "href": "/mf/category-monitor" },
         // { "name": "SWP Return Calculator", "href": "#" },
-        { "name": "Mutual Fund SIP Returns", "href": "#" },
+        { "name": "Mutual Fund SIP Returns", "href": "/mf/mf-sip-returns" },
         // { "name": "All Mutual Fund Schemes", "href": "#" },
         // { "name": "Scheme Details page (Lite)", "href": "#" }
       ],

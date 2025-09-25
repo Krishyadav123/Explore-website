@@ -7,46 +7,23 @@ import {
   getSortedRowModel,
   flexRender,
 } from '@tanstack/react-table';
-import { Search, ChevronLeft, ChevronRight, ArrowUpDown, ArrowUp, ArrowDown, Filter, TrendingUp, Loader2 } from 'lucide-react';
+import { Search, ChevronLeft, ChevronRight, ArrowUpDown, ArrowUp, ArrowDown, Filter, TrendingUp, Loader2, Calendar, DollarSign } from 'lucide-react';
 import axios from 'axios';
 import { CategoryContext } from '@/context/CategoryContext';
 import Footer from '@/component/Footer';
 import Navbar from '@/component/Navbar';
 
-const MfTrailingReturns = () => {
+const MfSipReturns = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [globalFilter, setGlobalFilter] = useState('');
-  const [period, setPeriod] = useState('1y');
-  const [amc, setAmc] = useState('Aditya Birla Sun Life Mutual Fund');
-  const [type, setType] = useState('Open');
+  const [category, setCategory] = useState('Equity: Mid Cap');
+  const [amount, setAmount] = useState(3000);
+  const [period, setPeriod] = useState(3);
   const [categories, setCategories] = useState([]);
-  const [amcs, setAmcs] = useState([]);
   
   const { categories: allCategories, loading: categoryLoading, error: categoryError } = useContext(CategoryContext);
-
-  // Fetch AMC list
-  useEffect(() => {
-    const fetchAMCs = async () => {
-      try {
-        const response = await axios.get(
-          'https://mfapi.advisorkhoj.com/getAllCompanies?key=e5485103-6f73-49a2-b45e-8008eefe38ba',
-          {
-            timeout: 10000,
-          }
-        );
-        
-        if (response.data.status === 200 && response.data.list) {
-          setAmcs(response.data.list);
-        }
-      } catch (err) {
-        console.error('Error fetching AMCs:', err);
-      }
-    };
-    
-    fetchAMCs();
-  }, []);
 
   // Fetch category list
   useEffect(() => {
@@ -76,11 +53,8 @@ const MfTrailingReturns = () => {
     setError(null);
     
     try {
-      // Join categories array into a comma-separated string
-      const categoryParam = Array.isArray(categories) ? categories.join(',') : '';
-      
       const response = await axios.get(
-        `https://mfapi.advisorkhoj.com/getSchemePerformanceMultipleAmc?key=e5485103-6f73-49a2-b45e-8008eefe38ba&period=${period}&type=${type}&amc=${encodeURIComponent(amc)}&category=${encodeURIComponent(categoryParam)}`,
+        `https://mfapi.advisorkhoj.com/getSIPReturnsForCategoryPeriodAmount?key=e5485103-6f73-49a2-b45e-8008eefe38ba&category=${encodeURIComponent(category)}&period=${period}&amount=${amount}`,
         {
           timeout: 10000,
           headers: {
@@ -112,15 +86,19 @@ const MfTrailingReturns = () => {
   };
 
   useEffect(() => {
-
-    if (categories.length === 0) {
-      return;
+    if (categories.length > 0) {
+      fetchData();
     }
-    fetchData();
   }, [categories]);
 
   const handleApplyFilters = () => {
     fetchData();
+  };
+
+  // Format currency
+  const formatCurrency = (value) => {
+    if (value === null || value === undefined) return '-';
+    return `₹${value.toLocaleString('en-IN')}`;
   };
 
   // Format percentage
@@ -133,7 +111,7 @@ const MfTrailingReturns = () => {
   const formatDate = (dateString) => {
     if (!dateString) return '-';
     try {
-      const date = new Date(dateString);
+      const date = new Date(dateString.split('-').reverse().join('-'));
       return date.toLocaleDateString('en-IN');
     } catch {
       return dateString;
@@ -143,7 +121,7 @@ const MfTrailingReturns = () => {
   // Column definitions
   const columns = useMemo(() => [
     {
-      accessorKey: 'scheme_amfi',
+      accessorKey: 'scheme_name',
       header: 'Scheme Name',
       cell: ({ getValue, row }) => (
         <div className="min-w-64">
@@ -171,6 +149,65 @@ const MfTrailingReturns = () => {
       ),
     },
     {
+      accessorKey: 'start_date',
+      header: 'SIP Start Date',
+      cell: ({ getValue }) => (
+        <span className="text-gray-700 text-sm whitespace-nowrap">{formatDate(getValue())}</span>
+      ),
+    },
+    {
+      accessorKey: 'end_date',
+      header: 'SIP End Date',
+      cell: ({ getValue }) => (
+        <span className="text-gray-700 text-sm whitespace-nowrap">{formatDate(getValue())}</span>
+      ),
+    },
+    {
+      accessorKey: 'amount',
+      header: 'SIP Amount',
+      cell: ({ getValue }) => (
+        <span className="font-semibold text-blue-700 text-sm whitespace-nowrap">
+          {formatCurrency(getValue())}
+        </span>
+      ),
+    },
+    {
+      accessorKey: 'current_cost',
+      header: 'Invested Amount',
+      cell: ({ getValue }) => (
+        <span className="font-semibold text-gray-800 text-sm whitespace-nowrap">
+          {formatCurrency(getValue())}
+        </span>
+      ),
+    },
+    {
+      accessorKey: 'current_value',
+      header: 'Current Value',
+      cell: ({ getValue }) => (
+        <span className="font-semibold text-green-700 text-sm whitespace-nowrap">
+          {formatCurrency(getValue())}
+        </span>
+      ),
+    },
+    {
+      accessorKey: 'returns',
+      header: 'Returns (%)',
+      cell: ({ getValue, row }) => {
+        const returns = getValue();
+        const profit = row.original.current_value - row.original.current_cost;
+        return (
+          <div className="text-sm">
+            <div className={`font-semibold ${returns > 0 ? 'text-green-600' : 'text-red-600'}`}>
+              {formatPercentage(returns)}
+            </div>
+            <div className={`text-xs ${returns > 0 ? 'text-green-500' : 'text-red-500'}`}>
+              {formatCurrency(profit)}
+            </div>
+          </div>
+        );
+      },
+    },
+    {
       accessorKey: 'scheme_assets',
       header: 'AUM (₹Cr)',
       cell: ({ getValue }) => (
@@ -185,58 +222,6 @@ const MfTrailingReturns = () => {
       cell: ({ getValue }) => (
         <span className="text-gray-700 text-sm">{getValue()?.toFixed(2)}%</span>
       ),
-    },
-    {
-      accessorKey: 'returns_abs_1year',
-      header: '1Y Return',
-      cell: ({ getValue }) => {
-        const value = getValue();
-        if (value === null || value === undefined) return <span className="text-gray-400 text-sm">-</span>;
-        return (
-          <span className={`font-semibold text-sm ${value > 0 ? 'text-green-600' : 'text-red-600'}`}>
-            {formatPercentage(value)}
-          </span>
-        );
-      },
-    },
-    {
-      accessorKey: 'returns_cmp_3year',
-      header: '3Y Return',
-      cell: ({ getValue }) => {
-        const value = getValue();
-        if (value === null || value === undefined) return <span className="text-gray-400 text-sm">-</span>;
-        return (
-          <span className={`font-semibold text-sm ${value > 0 ? 'text-green-600' : 'text-red-600'}`}>
-            {formatPercentage(value)}
-          </span>
-        );
-      },
-    },
-    {
-      accessorKey: 'returns_cmp_5year',
-      header: '5Y Return',
-      cell: ({ getValue }) => {
-        const value = getValue();
-        if (value === null || value === undefined) return <span className="text-gray-400 text-sm">-</span>;
-        return (
-          <span className={`font-semibold text-sm ${value > 0 ? 'text-green-600' : 'text-red-600'}`}>
-            {formatPercentage(value)}
-          </span>
-        );
-      },
-    },
-    {
-      accessorKey: 'returns_cmp_inception',
-      header: 'Since Inception',
-      cell: ({ getValue }) => {
-        const value = getValue();
-        if (value === null || value === undefined) return <span className="text-gray-400 text-sm">-</span>;
-        return (
-          <span className={`font-semibold text-sm ${value > 0 ? 'text-green-600' : 'text-red-600'}`}>
-            {formatPercentage(value)}
-          </span>
-        );
-      },
     },
     {
       accessorKey: 'riskometer',
@@ -262,6 +247,13 @@ const MfTrailingReturns = () => {
         );
       },
     },
+    {
+      accessorKey: 'fund_manager',
+      header: 'Fund Manager',
+      cell: ({ getValue }) => (
+        <span className="text-gray-700 text-sm">{getValue() || '-'}</span>
+      ),
+    },
   ], []);
 
   // Initialize table
@@ -283,7 +275,7 @@ const MfTrailingReturns = () => {
       },
       sorting: [
         {
-          id: 'returns_abs_1year',
+          id: 'returns',
           desc: true,
         },
       ],
@@ -301,21 +293,24 @@ const MfTrailingReturns = () => {
   const summaryStats = useMemo(() => {
     if (!data.length) return null;
     
-    const validReturns1Y = data.filter(item => item.returns_abs_1year != null).map(item => item.returns_abs_1year);
-    const validReturns3Y = data.filter(item => item.returns_cmp_3year != null).map(item => item.returns_cmp_3year);
-    const validReturns5Y = data.filter(item => item.returns_cmp_5year != null).map(item => item.returns_cmp_5year);
-    const validTER = data.filter(item => item.ter != null).map(item => item.ter);
-    const totalAUM = data.reduce((sum, item) => sum + (item.scheme_assets || 0), 0);
+    const totalInvested = data.reduce((sum, item) => sum + (item.current_cost || 0), 0);
+    const totalValue = data.reduce((sum, item) => sum + (item.current_value || 0), 0);
+    const totalGains = totalValue - totalInvested;
+    const avgReturns = data.reduce((sum, item) => sum + (item.returns || 0), 0) / data.length;
+    const maxReturns = Math.max(...data.map(item => item.returns || 0));
+    const minReturns = Math.min(...data.map(item => item.returns || 0));
+    const avgTER = data.reduce((sum, item) => sum + (item.ter || 0), 0) / data.length;
     
     return {
-      avgReturn1Y: validReturns1Y.length ? (validReturns1Y.reduce((a, b) => a + b, 0) / validReturns1Y.length) : 0,
-      avgReturn3Y: validReturns3Y.length ? (validReturns3Y.reduce((a, b) => a + b, 0) / validReturns3Y.length) : 0,
-      avgReturn5Y: validReturns5Y.length ? (validReturns5Y.reduce((a, b) => a + b, 0) / validReturns5Y.length) : 0,
-      maxReturn1Y: validReturns1Y.length ? Math.max(...validReturns1Y) : 0,
-      minReturn1Y: validReturns1Y.length ? Math.min(...validReturns1Y) : 0,
-      avgTER: validTER.length ? (validTER.reduce((a, b) => a + b, 0) / validTER.length) : 0,
-      totalAUM,
-      fundCount: data.length
+      fundCount: data.length,
+      totalInvested,
+      totalValue,
+      totalGains,
+      avgReturns,
+      maxReturns,
+      minReturns,
+      avgTER,
+      overallReturns: totalInvested > 0 ? ((totalGains / totalInvested) * 100) : 0
     };
   }, [data]);
 
@@ -327,10 +322,10 @@ const MfTrailingReturns = () => {
         {/* Header Section */}
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-2">
-            <TrendingUp className="w-8 h-8 text-blue-600" />
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">Mutual Fund Trailing Returns</h1>
+            <Calendar className="w-8 h-8 text-blue-600" />
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">SIP Returns Calculator</h1>
           </div>
-          <p className="text-gray-600 text-sm sm:text-base">Compare and analyze trailing returns across different mutual funds</p>
+          <p className="text-gray-600 text-sm sm:text-base">Calculate and compare SIP returns across different mutual fund categories</p>
         </div>
 
         {/* Summary Stats */}
@@ -341,24 +336,24 @@ const MfTrailingReturns = () => {
               <div className="text-sm text-gray-600">Total Funds</div>
             </div>
             <div className="bg-white p-4 rounded-lg shadow-sm border">
-              <div className="text-2xl font-bold text-green-600">{summaryStats.avgReturn1Y.toFixed(1)}%</div>
-              <div className="text-sm text-gray-600">Avg 1Y Return</div>
+              <div className="text-lg font-bold text-green-600">₹{(summaryStats.totalValue/100000).toFixed(1)}L</div>
+              <div className="text-sm text-gray-600">Current Value</div>
             </div>
             <div className="bg-white p-4 rounded-lg shadow-sm border">
-              <div className="text-2xl font-bold text-emerald-600">{summaryStats.maxReturn1Y.toFixed(1)}%</div>
-              <div className="text-sm text-gray-600">Best 1Y Return</div>
+              <div className="text-lg font-bold text-blue-600">₹{(summaryStats.totalInvested/100000).toFixed(1)}L</div>
+              <div className="text-sm text-gray-600">Total Invested</div>
             </div>
             <div className="bg-white p-4 rounded-lg shadow-sm border">
-              <div className="text-2xl font-bold text-orange-600">{summaryStats.avgTER.toFixed(2)}%</div>
-              <div className="text-sm text-gray-600">Avg Expense</div>
+              <div className="text-lg font-bold text-emerald-600">₹{(summaryStats.totalGains/100000).toFixed(1)}L</div>
+              <div className="text-sm text-gray-600">Total Gains</div>
             </div>
             <div className="bg-white p-4 rounded-lg shadow-sm border">
-              <div className="text-lg font-bold text-purple-600">{(summaryStats.totalAUM / 1000).toFixed(0)}K</div>
-              <div className="text-sm text-gray-600">Total AUM (Cr)</div>
+              <div className="text-2xl font-bold text-purple-600">{summaryStats.avgReturns.toFixed(1)}%</div>
+              <div className="text-sm text-gray-600">Avg Returns</div>
             </div>
             <div className="bg-white p-4 rounded-lg shadow-sm border">
-              <div className="text-lg font-bold text-indigo-600">{summaryStats.avgReturn5Y.toFixed(1)}%</div>
-              <div className="text-sm text-gray-600">Avg 5Y Return</div>
+              <div className="text-2xl font-bold text-orange-600">{summaryStats.maxReturns.toFixed(1)}%</div>
+              <div className="text-sm text-gray-600">Best Returns</div>
             </div>
           </div>
         )}
@@ -367,52 +362,56 @@ const MfTrailingReturns = () => {
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
           <div className="flex items-center gap-2 mb-4">
             <Filter className="w-5 h-5 text-gray-600" />
-            <h3 className="font-semibold text-gray-800">Filters</h3>
+            <h3 className="font-semibold text-gray-800">SIP Parameters</h3>
           </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="flex flex-col">
-              <label className="text-sm font-medium text-gray-700 mb-2">AMC</label>
+              <label className="text-sm font-medium text-gray-700 mb-2">Category</label>
               <select 
                 className="px-4 py-2.5 border border-gray-300 rounded-lg bg-white text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                value={amc}
-                onChange={(e) => setAmc(e.target.value)}
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
               >
-                {amcs.map((amcOption) => (
-                  <option key={amcOption} value={amcOption}>{amcOption}</option>
+                {categories.map((categoryOption) => (
+                  <option key={categoryOption} value={categoryOption}>{categoryOption}</option>
                 ))}
               </select>
             </div>
             
             <div className="flex flex-col">
-              <label className="text-sm font-medium text-gray-700 mb-2">Period</label>
+              <label className="text-sm font-medium text-gray-700 mb-2">SIP Amount (₹)</label>
               <select 
                 className="px-4 py-2.5 border border-gray-300 rounded-lg bg-white text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                value={period}
-                onChange={(e) => setPeriod(e.target.value)}
+                value={amount}
+                onChange={(e) => setAmount(Number(e.target.value))}
               >
-                <option value="1w">1 Week</option>
-                <option value="1m">1 Month</option>
-                <option value="3m">3 Months</option>
-                <option value="6m">6 Months</option>
-                <option value="ytd">YTD</option>
-                <option value="1y">1 Year</option>
-                <option value="3y">3 Years</option>
-                <option value="5y">5 Years</option>
-                <option value="10y">10 Years</option>
-                <option value="since_inception">Since Inception</option>
+                <option value={1000}>₹1,000</option>
+                <option value={2000}>₹2,000</option>
+                <option value={3000}>₹3,000</option>
+                <option value={5000}>₹5,000</option>
+                <option value={10000}>₹10,000</option>
+                <option value={15000}>₹15,000</option>
+                <option value={20000}>₹20,000</option>
+                <option value={25000}>₹25,000</option>
               </select>
             </div>
             
             <div className="flex flex-col">
-              <label className="text-sm font-medium text-gray-700 mb-2">Type</label>
+              <label className="text-sm font-medium text-gray-700 mb-2">Period (Years)</label>
               <select 
                 className="px-4 py-2.5 border border-gray-300 rounded-lg bg-white text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                value={type}
-                onChange={(e) => setType(e.target.value)}
+                value={period}
+                onChange={(e) => setPeriod(Number(e.target.value))}
               >
-                <option value="Open">Open</option>
-                <option value="Close">Close</option>
+                <option value={1}>1 Year</option>
+                <option value={2}>2 Years</option>
+                <option value={3}>3 Years</option>
+                <option value={5}>5 Years</option>
+                <option value={7}>7 Years</option>
+                <option value={10}>10 Years</option>
+                <option value={15}>15 Years</option>
+                <option value={20}>20 Years</option>
               </select>
             </div>
             
@@ -425,10 +424,10 @@ const MfTrailingReturns = () => {
                 {loading ? (
                   <>
                     <Loader2 className="w-4 h-4 animate-spin inline mr-2" />
-                    Loading...
+                    Calculating...
                   </>
                 ) : (
-                  'Apply Filters'
+                  'Calculate SIP Returns'
                 )}
               </button>
             </div>
@@ -492,7 +491,7 @@ const MfTrailingReturns = () => {
           {loading ? (
             <div className="flex items-center justify-center py-12">
               <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
-              <span className="ml-2 text-gray-600">Loading fund data...</span>
+              <span className="ml-2 text-gray-600">Calculating SIP returns...</span>
             </div>
           ) : (
             <>
@@ -541,7 +540,7 @@ const MfTrailingReturns = () => {
               {/* No Data State */}
               {!loading && data.length === 0 && (
                 <div className="text-center py-12">
-                  <div className="text-gray-400 text-lg mb-2">📊 No data found</div>
+                  <div className="text-gray-400 text-lg mb-2">📊 No SIP data found</div>
                   <div className="text-gray-500 text-sm">
                     Try adjusting your filters or check back later
                   </div>
@@ -618,17 +617,17 @@ const MfTrailingReturns = () => {
         <div className="mt-8 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-200">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
-              <TrendingUp className="w-5 h-5 text-blue-600" />
+              <DollarSign className="w-5 h-5 text-blue-600" />
             </div>
-            <h3 className="text-lg font-semibold text-gray-800">Real-time Trailing Returns Data powered by AdvisorKhoj API</h3>
+            <h3 className="text-lg font-semibold text-gray-800">SIP Returns Calculator powered by AdvisorKhoj API</h3>
           </div>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {[
-              { icon: '📊', title: 'Live Data', desc: 'Real-time trailing returns data with axios' },
-              { icon: '📈', title: 'Multiple Periods', desc: 'Compare returns across different timeframes' },
-              { icon: '🏢', title: 'AMC Filter', desc: 'Filter by Asset Management Company' },
-              { icon: '🔍', title: 'Detailed Analysis', desc: 'Comprehensive fund performance metrics' }
+              { icon: '💰', title: 'SIP Calculator', desc: 'Calculate returns for systematic investment plans' },
+              { icon: '📊', title: 'Real-time Data', desc: 'Live mutual fund performance data' },
+              { icon: '🎯', title: 'Category Wise', desc: 'Compare SIP returns across fund categories' },
+              { icon: '📈', title: 'Historical Analysis', desc: 'Analyze past SIP performance trends' }
             ].map((feature, index) => (
               <div key={index} className="bg-white p-4 rounded-lg shadow-sm border border-blue-100">
                 <div className="text-2xl mb-2">{feature.icon}</div>
@@ -645,4 +644,4 @@ const MfTrailingReturns = () => {
   );
 };
 
-export default MfTrailingReturns;
+export default MfSipReturns;
