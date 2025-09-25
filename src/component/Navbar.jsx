@@ -214,7 +214,7 @@ const Navbar = () => {
 
                   {/* Dropdown Menu */}
                   {item.hasDropdown && activeDropdown === item.name && (
-                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-48 bg-white rounded-lg shadow-xl border border-gray-100 py-2 z-50">
+                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-56 bg-white rounded-lg shadow-xl border border-gray-100 py-2 z-50">
                       {item.dropdownItems.map((dropdownItem, index) => (
                         <div
                           key={index}
