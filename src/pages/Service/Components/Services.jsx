@@ -21,6 +21,7 @@ import {
   Home,
   PiggyBank
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 
 const AnimatedCounter = ({ end, duration = 2 }) => {
@@ -394,6 +395,7 @@ const iconContainerVariants = {
                     ))}
                   </div>
                   
+                 <Link to="/contact">
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
@@ -405,7 +407,7 @@ const iconContainerVariants = {
                   >
                     Learn More
                     <ArrowRight className="w-4 h-4" />
-                  </motion.button>
+                  </motion.button></Link>
                 </div>
                 
                 {/* Image Side */}
@@ -513,7 +515,7 @@ const iconContainerVariants = {
     </div>
 
     {/* CTA */}
-    <div className="text-center mt-12">
+    {/* <div className="text-center mt-12">
       <motion.button
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
@@ -521,7 +523,7 @@ const iconContainerVariants = {
       >
         Explore All Services
       </motion.button>
-    </div>
+    </div> */}
   </div>
 </motion.section>
 

@@ -30,6 +30,7 @@ import {
 import profile01 from '../../../assets/profile01.jpg';
 import profile02 from '../../../assets/profile02.jpg';
 import profile03 from '../../../assets/profile03.jpg';
+import { Link } from 'react-router-dom';
 
 const AboutUsPage = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -148,25 +149,25 @@ const AboutUsPage = () => {
       "A seasoned financial expert with 15+ years of experience in mutual fund distribution, stock markets, and financial planning. Known for his ethical practices and client-centric approach, he leads AlignMF4Yield Finserv with a vision of transparent and sustainable growth."
   },
   {
+    name: "Mrs. Rekha Sharma",
+    role: "Director | Mutual Fund Distributor",
+    image: profile02, // replace with actual image path
+    experience: "12+ Years (Insurance) | 6+ Years (Mutual Funds)",
+    specialization: "Insurance, Mutual Funds, Wealth Management",
+    certifications: ["M.A.", "B.Ed."],
+    description:
+    "Bringing over 12 years of life insurance expertise and 6+ years in mutual fund distribution, she specializes in protection planning, wealth solutions, and financial security. She continues to guide families toward sustainable growth and long-term goals."
+  },
+  {
     name: "Miss. Lata Arya",
     role: "Operations & Client Relationship",
-    image: profile02, // replace with actual image path
+    image: profile03, // replace with actual image path
     experience: "8+ Years",
     specialization: "Mutual Fund Backend Services & CRM",
     certifications: ["M.Com", "MBA (Finance & HRM)"],
     description:
       "With 8+ years in mutual fund backend services and CRM, she ensures smooth operations, investor servicing, and client onboarding. Recognized for her detail-oriented approach and dedication, she builds long-term client trust through service excellence."
   },
-  {
-    name: "Mrs. Rekha Sharma",
-    role: "Director | Mutual Fund Distributor",
-    image: profile03, // replace with actual image path
-    experience: "12+ Years (Insurance) | 6+ Years (Mutual Funds)",
-    specialization: "Insurance, Mutual Funds, Wealth Management",
-    certifications: ["M.A.", "B.Ed."],
-    description:
-      "Bringing over 12 years of life insurance expertise and 6+ years in mutual fund distribution, she specializes in protection planning, wealth solutions, and financial security. She continues to guide families toward sustainable growth and long-term goals."
-  }
 ];
 
 
@@ -383,6 +384,7 @@ const philosophyTabs = [
 
         {/* Buttons */}
         <div className="flex items-center gap-6">
+         <Link to="/contact">
           <motion.button 
             className="group bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-2xl font-medium flex items-center gap-2"
             whileHover={{ 
@@ -394,6 +396,7 @@ const philosophyTabs = [
             Start Your Journey
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
           </motion.button>
+         </Link>
         </div>
       </motion.div>
 

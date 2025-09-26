@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowRight, TrendingUp, Users, Shield, Target } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const ExploreHero = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -55,10 +56,11 @@ const services = [
 
               {/* CTA Button */}
               <div className="pt-4">
+                <Link to="/contact">
                 <button className="group inline-flex items-center px-8 py-4 bg-orange-500 text-white rounded-xl font-semibold hover:bg-orange-600 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
                   Start Your Journey
                   <ArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </button>
+                </button></Link>
               </div>
             </div>
           </div>
@@ -132,10 +134,11 @@ const services = [
 
       {/* CTA */}
       <div className="text-center">
+        <Link to="/services">
         <button className="group inline-flex items-center px-8 py-4 bg-orange-500 text-white rounded-xl font-semibold hover:bg-orange-600 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
           View All Services
           <ArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-        </button>
+        </button></Link>
       </div>
     </div>
   </div>

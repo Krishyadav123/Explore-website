@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, TrendingUp, Shield, Users } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const slides = [
   {
@@ -17,7 +18,7 @@ const slides = [
       "With 13+ years of expertise and SEBI registration, Explore helps you turn your financial goals into reality. From buying your dream home to building long-term wealth, we design strategies tailored just for you.",
     image: "https://res.cloudinary.com/dhf8eyjee/image/upload/v1755161109/imgi_1_home-about_fwt1au.png",
     primaryButton: "Start Your Journey",
-    secondaryButton: "Know More",
+    secondaryButton: "Contact Us",
   },
   {
     title: "Plan. Invest. Grow — With Clarity and Confidence",
@@ -25,7 +26,7 @@ const slides = [
       "Every financial journey is unique. Our AI-backed risk profiling and goal-based planning ensure your investments match your vision — whether it’s retirement, education, or wealth creation.",
     image: "https://res.cloudinary.com/dhf8eyjee/image/upload/f_auto,q_auto,w_1200/v1755161588/green-arrow-is-going-up-stacks-coins-arranged-bar-graph_ti6ltr.jpg",
     primaryButton: "Get Risk Profile",
-    secondaryButton: "View Services",
+    secondaryButton: "Contact Us",
   },
 ];
 
@@ -89,12 +90,13 @@ const HeroCarousel = () => {
 
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium transition-colors">
+              <Link to="/services"><button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium transition-colors">
                 {slides[currentSlide].primaryButton}
-              </button>
+              </button></Link>
+              <Link to="/contact">
               <button className="border border-gray-600 hover:border-gray-500 text-white px-8 py-3 rounded-lg font-medium transition-colors">
                 {slides[currentSlide].secondaryButton}
-              </button>
+              </button></Link>
             </div>
 
             {/* Feature Icons */}

@@ -138,19 +138,19 @@ const AMCPartnersSection = () => {
     },
     {
       icon: <TrendingUp className="w-8 h-8" />,
-      number: '₹1000Cr+',
+      number: '₹55Cr+',
       label: 'Assets Under Management',
       color: 'from-green-500 to-green-600'
     },
     {
       icon: <Shield className="w-8 h-8" />,
-      number: '15+',
+      number: '16+',
       label: 'Years of Excellence',
       color: 'from-purple-500 to-purple-600'
     },
     {
       icon: <Users className="w-8 h-8" />,
-      number: '25K+',
+      number: '1300+',
       label: 'Happy Investors',
       color: 'from-orange-500 to-orange-600'
     }

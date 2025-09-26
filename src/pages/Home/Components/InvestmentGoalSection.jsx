@@ -14,6 +14,7 @@ import {
   Coins,
   Award
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const InvestmentGoalsSection = () => {
   const [selectedGoal, setSelectedGoal] = useState(null);
@@ -233,11 +234,13 @@ const InvestmentGoalsSection = () => {
 
             {/* CTA Button */}
             <div className="mt-8">
+              <Link to="/calculator/become-a-crorepati">
               <button className="bg-blue-600 hover:bg-blue-700 text-white w-full md:w-fit px-8 py-4 rounded-lg font-medium transition-colors flex items-center justify-center lg:justify-start space-x-2 group">
                 <Calculator className="w-5 h-5" />
                 <span>Calculate Your Goals</span>
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </button>
+              </Link>
             </div>
           </div>
 
