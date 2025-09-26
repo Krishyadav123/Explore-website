@@ -27,6 +27,9 @@ import {
   Monitor,
   RefreshCw
 } from 'lucide-react';
+import profile01 from '../../../assets/profile01.jpg';
+import profile02 from '../../../assets/profile02.jpg';
+import profile03 from '../../../assets/profile03.jpg';
 
 const AboutUsPage = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -133,32 +136,40 @@ const AboutUsPage = () => {
   }
 ];
 
-  const teamMembers = [
-    {
-      name: "John Smith",
-      role: "Senior Financial Advisor",
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop",
-      experience: "15+ Years",
-      specialization: "Wealth Management",
-      certifications: ["CFA", "CFP"]
-    },
-    {
-      name: "Sarah Johnson",
-      role: "Portfolio Manager",
-      image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=300&h=300&fit=crop",
-      experience: "12+ Years",
-      specialization: "Risk Analysis",
-      certifications: ["CFA", "FRM"]
-    },
-    {
-      name: "Michael Chen",
-      role: "Investment Analyst",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop",
-      experience: "8+ Years",
-      specialization: "Market Research",
-      certifications: ["CFA", "CAIA"]
-    }
-  ];
+ const teamMembers = [
+  {
+    name: "Mr. Neeraj Kumar Sharma",
+    role: "Founder & Director | Mutual Fund Distributor",
+    image: profile01, // replace with actual image path
+    experience: "15+ Years",
+    specialization: "Mutual Funds, Stock Market, Financial Planning",
+    certifications: ["MBA", "LL.B", "CFA (Honorary)"],
+    description:
+      "A seasoned financial expert with 15+ years of experience in mutual fund distribution, stock markets, and financial planning. Known for his ethical practices and client-centric approach, he leads AlignMF4Yield Finserv with a vision of transparent and sustainable growth."
+  },
+  {
+    name: "Miss. Lata Arya",
+    role: "Operations & Client Relationship",
+    image: profile02, // replace with actual image path
+    experience: "8+ Years",
+    specialization: "Mutual Fund Backend Services & CRM",
+    certifications: ["M.Com", "MBA (Finance & HRM)"],
+    description:
+      "With 8+ years in mutual fund backend services and CRM, she ensures smooth operations, investor servicing, and client onboarding. Recognized for her detail-oriented approach and dedication, she builds long-term client trust through service excellence."
+  },
+  {
+    name: "Mrs. Rekha Sharma",
+    role: "Director | Mutual Fund Distributor",
+    image: profile03, // replace with actual image path
+    experience: "12+ Years (Insurance) | 6+ Years (Mutual Funds)",
+    specialization: "Insurance, Mutual Funds, Wealth Management",
+    certifications: ["M.A.", "B.Ed."],
+    description:
+      "Bringing over 12 years of life insurance expertise and 6+ years in mutual fund distribution, she specializes in protection planning, wealth solutions, and financial security. She continues to guide families toward sustainable growth and long-term goals."
+  }
+];
+
+
 const philosophyTabs = [
   {
     icon: Compass,
@@ -492,89 +503,94 @@ const philosophyTabs = [
       </motion.section>
 
       {/* Team Section */}
-      {/* <motion.section 
-        className="py-14 md:py-24 px-4 bg-gradient-to-br from-gray-50 to-slate-100"
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
+     <motion.section 
+  className="py-14 md:py-24 px-4 bg-gradient-to-br from-gray-50 to-slate-100"
+  variants={containerVariants}
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: true, amount: 0.2 }}
+>
+  <div className="max-w-7xl mx-auto">
+    <motion.div className="text-center mb-16" variants={itemVariants}>
+      <motion.div 
+        className="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-600 rounded-full text-sm font-medium mb-6"
+        whileHover={{ scale: 1.05 }}
       >
-        <div className="max-w-7xl mx-auto">
-          <motion.div className="text-center mb-16" variants={itemVariants}>
-            <motion.div 
-              className="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-600 rounded-full text-sm font-medium mb-6"
-              whileHover={{ scale: 1.05 }}
-            >
-              <Users className="w-4 h-4 mr-2" />
-              Meet Our Experts
-            </motion.div>
-            <h2 className="text-3xl md:text-5xl font-extralight text-gray-900 mb-6">Who We Are</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Our team is composed of highly skilled and licensed professionals who bring a 
-              wealth of knowledge and experience to the table.
-            </p>
-          </motion.div>
+        <Users className="w-4 h-4 mr-2" />
+        Meet Our Experts
+      </motion.div>
+      <h2 className="text-3xl md:text-5xl font-extralight text-gray-900 mb-6">Who We Are</h2>
+      <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+        Our team is composed of highly skilled and licensed professionals who bring a 
+        wealth of knowledge and experience to the table.
+      </p>
+    </motion.div>
 
-          <motion.div 
-            className="grid grid-cols-1 md:grid-cols-3 gap-8"
-            variants={containerVariants}
-          >
-            {teamMembers.map((member, index) => (
-              <motion.div
-                key={index}
-                className="group bg-white rounded-3xl p-8 shadow-sm border border-gray-100"
-                variants={scaleVariants}
-                whileHover={{ 
-                  y: -10,
-                  boxShadow: "0 25px 50px rgba(0,0,0,0.1)"
-                }}
-                transition={{ type: "spring", stiffness: 300 }}
+    <motion.div 
+      className="grid grid-cols-1 md:grid-cols-3 gap-8"
+      variants={containerVariants}
+    >
+      {teamMembers.map((member, index) => (
+        <motion.div
+          key={index}
+          className="group bg-white rounded-3xl p-8 shadow-sm border border-gray-100 flex flex-col"
+          variants={scaleVariants}
+          whileHover={{ 
+            y: -10,
+            boxShadow: "0 25px 50px rgba(0,0,0,0.1)"
+          }}
+          transition={{ type: "spring", stiffness: 300 }}
+        >
+          <motion.div className="relative mb-6">
+            <div className="relative">
+              <img 
+                src={member.image}
+                alt={member.name}
+                className="w-24 h-24 rounded-full mx-auto object-cover ring-4 ring-blue-100"
+              />
+              <motion.div 
+                className="absolute -bottom-2 -right-2 w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center ring-4 ring-white"
+                initial={{ scale: 0 }}
+                whileInView={{ scale: 1 }}
+                transition={{ delay: 0.2, type: "spring" }}
               >
-                <motion.div className="relative mb-6">
-                  <div className="relative">
-                    <img 
-                      src={member.image}
-                      alt={member.name}
-                      className="w-24 h-24 rounded-full mx-auto object-cover ring-4 ring-blue-100"
-                    />
-                    <motion.div 
-                      className="absolute -bottom-2 -right-2 w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center ring-4 ring-white"
-                      initial={{ scale: 0 }}
-                      whileInView={{ scale: 1 }}
-                      transition={{ delay: 0.2, type: "spring" }}
-                    >
-                      <CheckCircle className="w-4 h-4 text-white" />
-                    </motion.div>
-                  </div>
-                </motion.div>
-                
-                <div className="text-center space-y-4">
-                  <div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-1">{member.name}</h3>
-                    <p className="text-blue-600 font-medium">{member.role}</p>
-                    <p className="text-sm text-gray-500">{member.experience}</p>
-                  </div>
-                  
-                  <div className="pt-4 border-t border-gray-100">
-                    <p className="text-sm text-gray-600 mb-3">{member.specialization}</p>
-                    <div className="flex justify-center gap-2">
-                      {member.certifications.map((cert, certIndex) => (
-                        <motion.span 
-                          key={certIndex}
-                          className="px-2 py-1 bg-blue-50 text-blue-600 text-xs rounded-full font-medium"
-                          whileHover={{ scale: 1.1 }}
-                        >
-                          {cert}
-                        </motion.span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
+                <CheckCircle className="w-4 h-4 text-white" />
               </motion.div>
-            ))}
+            </div>
           </motion.div>
-        </div>
-      </motion.section> */}
+          
+          <div className="text-center space-y-4 flex-1 flex flex-col">
+            <div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-1">{member.name}</h3>
+              <p className="text-blue-600 font-medium">{member.role}</p>
+              <p className="text-sm text-gray-500">{member.experience}</p>
+            </div>
+            
+            <div className="pt-4 border-t border-gray-100">
+              <p className="text-sm text-gray-600 mb-3">{member.specialization}</p>
+              <div className="flex justify-center gap-2 mb-4">
+                {member.certifications.map((cert, certIndex) => (
+                  <motion.span 
+                    key={certIndex}
+                    className="px-2 py-1 bg-blue-50 text-blue-600 text-xs rounded-full font-medium"
+                    whileHover={{ scale: 1.1 }}
+                  >
+                    {cert}
+                  </motion.span>
+                ))}
+              </div>
+              {/* Description Section */}
+              <p className="text-sm text-gray-500 leading-relaxed">
+                {member.description}
+              </p>
+            </div>
+          </div>
+        </motion.div>
+      ))}
+    </motion.div>
+  </div>
+</motion.section>
+
 
       {/* Approach Section */}
       <motion.section 
