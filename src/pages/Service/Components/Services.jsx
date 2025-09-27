@@ -19,7 +19,8 @@ import {
   Mail,
   MapPin,
   Home,
-  PiggyBank
+  PiggyBank,
+  X
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -49,6 +50,8 @@ const AnimatedCounter = ({ end, duration = 2 }) => {
 
 const Services = () => {
   const [hoveredService, setHoveredService] = useState(null);
+  const [selectedService, setSelectedService] = useState(null);
+
 
 const services = [
   {
@@ -278,184 +281,172 @@ const iconContainerVariants = {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero Section */}
-      {/* <motion.section
-        initial="hidden"
-        animate="visible"
-        variants={containerVariants}
-        className="relative overflow-hidden px-6 py-20 bg-gradient-to-br from-blue-50 to-indigo-100"
-      >
-        <div className="max-w-6xl mx-auto text-center">
-          <motion.h1
-            variants={itemVariants}
-            className="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight"
-          >
-            SERVICES
-          </motion.h1>
-          
-          <motion.p
-            variants={itemVariants}
-            className="text-xl text-gray-600 mb-10 max-w-3xl mx-auto leading-relaxed"
-          >
-            Comprehensive financial solutions tailored to help you achieve your investment goals 
-            and secure your financial future with expert guidance and proven strategies.
-          </motion.p>
-        </div>
-      </motion.section> */}
-
-      {/* Stats Section */}
-      {/* <motion.section
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={containerVariants}
-        className="py-16 px-6 bg-white border-y border-gray-200"
-      >
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
-              <motion.div
-                key={index}
-                variants={itemVariants}
-                className="text-center"
-              >
-                <motion.div
-                  className="text-4xl md:text-5xl font-bold text-gray-900 mb-2"
-                  whileHover={{ scale: 1.1 }}
-                >
-                  <AnimatedCounter end={stat.number} />
-                  <span className="text-blue-600">{stat.suffix}</span>
-                </motion.div>
-                <div className="text-gray-600 font-medium">{stat.label}</div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </motion.section> */}
-
+      
       {/* Main Services Section */}
-      <motion.section
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={containerVariants}
-        className="py-14 md:py-20 px-4 md:px-6"
-      >
+      <motion.section className="py-14 md:py-20 px-4 md:px-6">
         <div className="max-w-7xl mx-auto space-y-20">
           {services.map((service, index) => (
             <motion.div
               key={service.id}
-              variants={itemVariants}
-              onHoverStart={() => setHoveredService(index)}
-              onHoverEnd={() => setHoveredService(null)}
-              className={`rounded-3xl overflow-hidden ${service.bgColor} ${
-                index === 1 ? 'shadow-2xl' : 'shadow-lg border border-gray-200'
-              }`}
+              className={`rounded-3xl overflow-hidden ${service.bgColor} shadow-lg border border-gray-200`}
             >
-              <div className={`grid lg:grid-cols-2 gap-0 ${
-                index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''
-              }`}>
+              <div className="grid lg:grid-cols-2 gap-0">
                 {/* Content Side */}
-                <div className={`p-5 lg:p-10 flex flex-col justify-center ${
-                  index % 2 === 1 ? 'lg:col-start-2' : ''
-                }`}>
-                  <motion.h2
+                <div className="p-5 lg:p-10 flex flex-col justify-center">
+                  <h2
                     className={`text-xl lg:text-2xl font-bold mb-2 ${service.textColor}`}
-                    whileHover={{ scale: 1.02 }}
                   >
                     {service.title}
-                  </motion.h2>
-                  
-                  <motion.p
-                    className={`text-base mb-8 leading-relaxed ${
-                      service.textColor === 'text-white' ? 'text-gray-300' : 'text-gray-600'
-                    }`}
-                  >
+                  </h2>
+
+                  <p className={`text-base mb-8 leading-relaxed ${service.textColor}`} >
                     {service.description}
-                  </motion.p>
-                  
+                  </p>
+
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-8">
                     {service.features.map((feature, featureIndex) => (
-                      <motion.div
-                        key={featureIndex}
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ delay: featureIndex * 0.1 }}
-                        className="flex items-center gap-3"
-                      >
-                        <CheckCircle className={`w-4 h-4 ${
-                          service.textColor === 'text-white' ? 'text-green-400' : 'text-green-500'
-                        }`} />
-                        <span className={`font-medium text-sm ${
-                          service.textColor === 'text-white' ? 'text-gray-200' : 'text-gray-700'
-                        }`}>
+                      <div key={featureIndex} className="flex items-center gap-3">
+                        <CheckCircle className="w-4 h-4 text-green-500" />
+                        <span className={`font-medium text-sm ${service.textColor}`}>
                           {feature}
                         </span>
-                      </motion.div>
+                      </div>
                     ))}
                   </div>
-                  
-                 <Link to="/contact">
+
+                  {/* Learn More opens popup */}
                   <motion.button
+                    onClick={() => setSelectedService(service)}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className={`inline-flex items-center gap-2 px-5 py-2 rounded-md font-semibold text-base transition-all duration-300 ${
-                      service.textColor === 'text-white'
-                        ? 'bg-white text-gray-900 hover:bg-gray-100'
-                        : 'bg-blue-600 text-white hover:bg-blue-700'
-                    } shadow-lg hover:shadow-xl`}
+                    className="inline-flex items-center gap-2 px-5 py-2 rounded-md font-semibold text-base bg-blue-600 text-white hover:bg-blue-700 shadow-lg hover:shadow-xl"
                   >
                     Learn More
                     <ArrowRight className="w-4 h-4" />
-                  </motion.button></Link>
+                  </motion.button>
                 </div>
-                
+
                 {/* Image Side */}
-                <div className={`relative overflow-hidden ${
-                  index % 2 === 1 ? 'lg:col-start-1' : ''
-                }`}>
-                  <motion.div
-                    className="h-80 lg:h-full w-full  flex items-center justify-center relative"
+                <div className="relative overflow-hidden">
+                  <motion.img
+                    src={service.image}
+                    alt={service.title}
+                    className="h-80 lg:h-full w-full object-cover"
                     whileHover={{ scale: 1.02 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    {/* Placeholder for financial imagery */}
-                    <div
-                     
-                      className="text-center w-full h-full"
-                    >
-
-                <img src={service.image} className='h-full w-full object-cover' alt="" />
-
-                      {/* {index === 0 && <img src="https://ploutia.com/images/services/mutual-fund.png" className='h-full w-full object-cover' alt="" /> }
-                      {index === 1 && <img src="https://ploutia.com/images/services/wealth-management.png " className='h-full w-full object-cover' alt="" />}
-                      {index === 2 && <img src="https://ploutia.com/images/services/personal-finance-coaching.png" className='h-full w-full object-cover' alt="" />}
-                      {index === 3 && <img src="https://ploutia.com/images/services/personal-finance-coaching.png" className='h-full w-full object-cover' alt="" />}
-                      {index === 4 && <img src="https://ploutia.com/images/services/personal-finance-coaching.png" className='h-full w-full object-cover' alt="" />}
-                      {index === 5 && <img src="https://ploutia.com/images/services/personal-finance-coaching.png" className='h-full w-full object-cover' alt="" />}
-                      {index === 6 && <img src="https://ploutia.com/images/services/personal-finance-coaching.png" className='h-full w-full object-cover' alt="" />} */}
-                      
-                      {/* <div className="text-white font-semibold text-lg opacity-90">
-                        {service.title}
-                      </div> */}
-                    </div>
-                    
-                    {/* Decorative elements */}
-                    <div className="absolute inset-0 bg-black bg-opacity-10"></div>
-                    <div className="absolute top-4 right-4">
-                      <motion.div
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                        className="w-8 h-8 border-2 border-white border-dashed rounded-full"
-                      ></motion.div>
-                    </div>
-                  </motion.div>
+                  />
                 </div>
               </div>
             </motion.div>
           ))}
         </div>
       </motion.section>
+
+      {/* Popup Modal */}
+      {selectedService && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            className="bg-white rounded-2xl shadow-xl max-h-[90vh] overflow-auto max-w-2xl w-full p-6 relative"
+          >
+            {/* Close Button */}
+            <button
+              onClick={() => setSelectedService(null)}
+              className="absolute top-4 right-4 text-gray-500 hover:text-gray-800"
+            >
+              <X className="w-6 h-6" />
+            </button>
+
+            {/* Modal Content */}
+        <div className="space-y-6 text-gray-700">
+  <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+    💰 Steps in Personal Financial Goal Planning
+  </h2>
+
+  <ol className="list-decimal pl-6 space-y-4 text-base leading-relaxed">
+    <li>
+      <span className="font-semibold">Identify Your Financial Needs</span>  
+      <p className="text-gray-600">
+        Think about what you want: saving, buying a house, child’s education, retirement, etc.
+      </p>
+    </li>
+
+    <li>
+      <span className="font-semibold">Set Clear Goals</span>  
+      <p className="text-gray-600">
+        Write them clearly (short-term, medium-term, long-term).
+      </p>
+    </li>
+
+    <li>
+      <span className="font-semibold">Make Them SMART</span>  
+      <ul className="list-disc pl-6 mt-2 space-y-1 text-gray-600">
+        <li>Specific (e.g., buy a car worth ₹6 lakh)</li>
+        <li>Measurable (how much money needed)</li>
+        <li>Achievable (realistic with your income)</li>
+        <li>Relevant (important for you)</li>
+        <li>Time-bound (set deadline, e.g., 3 years)</li>
+      </ul>
+    </li>
+
+    <li>
+      <span className="font-semibold">Prioritize Your Goals</span>  
+      <p className="text-gray-600">Decide which goal is most urgent or important.</p>
+    </li>
+
+    <li>
+      <span className="font-semibold">Check Your Current Financial Position</span>  
+      <p className="text-gray-600">
+        Income, expenses, savings, existing loans, and assets.
+      </p>
+    </li>
+
+    <li>
+      <span className="font-semibold">Estimate How Much You Need</span>  
+      <p className="text-gray-600">Calculate the future cost of each goal (consider inflation).</p>
+    </li>
+
+    <li>
+      <span className="font-semibold">Create an Action Plan</span>  
+      <p className="text-gray-600">
+        Decide how much to save or invest regularly (monthly SIPs, deposits, etc.).
+      </p>
+    </li>
+
+    <li>
+      <span className="font-semibold">Choose the Right Investment Options</span>  
+      <ul className="list-disc pl-6 mt-2 space-y-1 text-gray-600">
+        <li>Short-term goals → safer investments (FD, RD, liquid funds)</li>
+        <li>Long-term goals → growth investments (mutual funds, stocks, retirement plans)</li>
+      </ul>
+    </li>
+
+    <li>
+      <span className="font-semibold">Implement and Automate</span>  
+      <p className="text-gray-600">
+        Start saving/investing regularly, automate if possible.
+      </p>
+    </li>
+
+    <li>
+      <span className="font-semibold">Review and Adjust</span>  
+      <p className="text-gray-600">
+        Check progress yearly. Adjust plan if income, expenses, or goals change.
+      </p>
+    </li>
+
+    <li>
+      <span className="font-semibold">Celebrate Milestones</span>  
+      <p className="text-gray-600">Acknowledge achievements and stay motivated.</p>
+    </li>
+  </ol>
+</div>
+
+          </motion.div>
+        </div>
+      )}
+    
 
       {/* Additional Services */}
    <motion.section
@@ -587,59 +578,7 @@ const iconContainerVariants = {
 </motion.section>
 
 
-      {/* Contact CTA */}
-      {/* <motion.section
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={containerVariants}
-        className="py-20 px-6 bg-gradient-to-r from-blue-600 to-indigo-700"
-      >
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.div variants={itemVariants}>
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Start Your Investment Journey Today
-            </h2>
-            <p className="text-xl text-blue-100 mb-10 max-w-2xl mx-auto">
-              Get personalized financial advice and investment solutions from our certified professionals.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <motion.button
-                whileHover={{ 
-                  scale: 1.05, 
-                  boxShadow: "0 12px 24px rgba(0, 0, 0, 0.15)"
-                }}
-                whileTap={{ scale: 0.95 }}
-                className="px-10 py-4 bg-white text-blue-600 rounded-xl font-bold text-lg hover:bg-gray-50 transition-all duration-300 shadow-lg flex items-center justify-center gap-2"
-              >
-                <Phone className="w-5 h-5" />
-                Schedule Consultation
-              </motion.button>
-              
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-10 py-4 border-2 border-white text-white rounded-xl font-bold text-lg hover:bg-white hover:text-blue-600 transition-all duration-300 flex items-center justify-center gap-2"
-              >
-                <Calculator className="w-5 h-5" />
-                Use Calculators
-              </motion.button>
-            </div>
-            
-            <div className="flex flex-col sm:flex-row gap-8 justify-center mt-12 text-blue-100">
-              <div className="flex items-center gap-2">
-                <Mail className="w-5 h-5" />
-                <span>contact@ploutia.com</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Phone className="w-5 h-5" />
-                <span>+91-9876543210</span>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </motion.section> */}
+     
     </div>
   );
 }

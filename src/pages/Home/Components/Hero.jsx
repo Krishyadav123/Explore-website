@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, TrendingUp, Shield, Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import globimg from '../../../assets/globimg.jpg';
 
 const slides = [
   {
     title: "Global Investment Solutions for Indians and NRIs",
     description:
       "Serving clients across India and overseas, we combine market insight, innovation, and integrity to help you build a secure and prosperous future — wherever life takes you.",
-    image: "https://res.cloudinary.com/dhf8eyjee/image/upload/f_auto,q_auto,w_1200/v1755160727/dynamic-data-visualization-3d_jpemgp.jpg",
+    image: globimg,
     primaryButton: "Explore Solutions",
     secondaryButton: "Contact Us",
   },

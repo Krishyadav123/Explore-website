@@ -94,7 +94,7 @@ const PageName = ({name}) => {
                       transition={{ delay: 0.5, type: "spring" }}
                     >
                       <Zap className="w-4 h-4 mr-2 text-yellow-400" />
-                      Trusted by 500+ Investors
+                      Trusted by 1300+ Investors
                     </motion.div>
                     
                     <motion.h1 
