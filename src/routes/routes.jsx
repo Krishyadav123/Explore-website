@@ -50,7 +50,14 @@ import MfTrailingReturns from '@/pages/Mutual Funds/MfTrailingReturns/MfTrailing
 import MfCategoryReturns from '@/pages/Mutual Funds/MfCaregoryReturns/MfCaregoryReturns';
 import MfCategoryMonitor from '@/pages/Mutual Funds/MfCaregoryMonitor/MfCaregoryMonitor';
 import MfSipReturns from '@/pages/Mutual Funds/MfSipReturns/MfSipReturns';
-import ServiceDetail from '@/pages/Service/ServiceDetail/ServiceDetail';
+import ServiceDetailOne from '@/pages/Service/Components/ServiceDetailOne';
+import ServiceDetailTwo from '@/pages/Service/Components/ServiceDetailTwo';
+import ServiceDetailThree from '@/pages/Service/Components/ServiceDetailThree';
+import ServiceDetailFour from '@/pages/Service/Components/ServiceDetailFour';
+import ServiceDetailFive from '@/pages/Service/Components/ServiceDetailFive';
+import ServiceDetailSix from '@/pages/Service/Components/ServiceDetailSix';
+import ServiceDetailSeven from '@/pages/Service/Components/ServiceDetailSeven';
+// import ServiceDetail from '@/pages/Service/ServiceDetail/ServiceDetail';
 
 const AllRoutes = () => {
   return (
@@ -61,7 +68,15 @@ const AllRoutes = () => {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/services" element={<Service />} />
-        <Route path="/services/detail" element={<ServiceDetail/>}/>
+        {/* <Route path="/services/detail" element={<ServiceDetail/>}/> */}
+        <Route path="/service/1" element={<ServiceDetailOne/>}/>
+        <Route path="/service/2" element={<ServiceDetailTwo/>}/>
+        <Route path="/service/3" element={<ServiceDetailThree/>}/>
+        <Route path="/service/4" element={<ServiceDetailFour/>}/>
+        <Route path="/service/5" element={<ServiceDetailFive/>}/>
+        <Route path="/service/6" element={<ServiceDetailSix/>}/>
+        <Route path="/service/7" element={<ServiceDetailSeven/>}/>
+
         <Route path="/contact" element={<Contact />} />
         <Route path="/blogs" element={<Blog />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />

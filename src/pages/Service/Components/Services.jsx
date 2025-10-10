@@ -93,6 +93,7 @@ const Services = () => {
       image: "https://ploutia.com/images/services/mutual-fund.png",
       bgColor: "bg-white",
       textColor: "text-gray-900",
+      to : "/service/1"
     },
     {
       id: "comprehensive-portfolio-analysis",
@@ -109,6 +110,7 @@ const Services = () => {
       image: "https://ploutia.com/images/services/wealth-management.png",
       bgColor: "bg-gray-900",
       textColor: "text-white",
+      to : "/service/2"
     },
     {
       id: "risk-profiling",
@@ -125,6 +127,7 @@ const Services = () => {
         "https://res.cloudinary.com/dhf8eyjee/image/upload/v1755767516/ChatGPT_Image_Aug_21_2025_02_40_37_PM_eghemy.png",
       bgColor: "bg-white",
       textColor: "text-gray-900",
+      to : "/service/3"
     },
     {
       id: "retirement-planning",
@@ -141,6 +144,7 @@ const Services = () => {
         "https://res.cloudinary.com/dhf8eyjee/image/upload/v1755765700/Screenshot_2025-08-21_141122_ecnm8a.png",
       bgColor: "bg-gray-900",
       textColor: "text-white",
+      to : "/service/4"
     },
     {
       id: "child-education-planning",
@@ -157,6 +161,7 @@ const Services = () => {
         "https://res.cloudinary.com/dhf8eyjee/image/upload/v1755766133/Screenshot_2025-08-21_141837_tjtbxb.png",
       bgColor: "bg-white",
       textColor: "text-gray-900",
+      to : "/service/5"
     },
     {
       id: "child-marriage-planning",
@@ -173,6 +178,7 @@ const Services = () => {
         "https://res.cloudinary.com/dhf8eyjee/image/upload/v1755765929/Screenshot_2025-08-21_141516_lec5mq.png",
       bgColor: "bg-gray-900",
       textColor: "text-white",
+      to : "/service/6"
     },
     {
       id: "wealth-creation",
@@ -189,6 +195,7 @@ const Services = () => {
         "https://res.cloudinary.com/dhf8eyjee/image/upload/v1755766350/Screenshot_2025-08-21_142217_hcwst5.png",
       bgColor: "bg-white",
       textColor: "text-gray-900",
+      to : "/service/7"
     },
   ];
 
@@ -343,17 +350,15 @@ const Services = () => {
                   </div>
 
                   {/* Learn More -> Route */}
-                  <motion.button
-                    onClick={() =>
-                      navigate("/services/detail", { state: { service } })
-                    }
+                  <Link
+                    to={service.to}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     className="inline-flex items-center gap-2 px-5 py-2 rounded-md font-semibold text-base bg-blue-600 text-white hover:bg-blue-700 shadow-lg hover:shadow-xl"
                   >
                     Learn More
                     <ArrowRight className="w-4 h-4" />
-                  </motion.button>
+                  </Link>
                 </div>
 
                 {/* Image Side */}

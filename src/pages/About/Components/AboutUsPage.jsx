@@ -408,7 +408,7 @@ const AboutUsPage = () => {
                   href="https://login.exploremfs.com"
                   target="_blank" // optional: opens in new tab
                   rel="noopener noreferrer"
-                  className="group bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-2xl font-medium flex items-center gap-2 inline-flex"
+                  className="group bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-2xl font-medium flex items-center gap-2 "
                   whileHover={{
                     scale: 1.05,
                     boxShadow: "0 10px 30px rgba(59, 130, 246, 0.3)",
