@@ -151,7 +151,7 @@ const Navbar = () => {
           {/* Login */}
           <div className="flex items-center space-x-4 mt-3 md:mt-0">
             <a
-              href="https://alignmf4yieldfinance.themfbox.com/"
+              href="https://login.exploremfs.com"
               className="group relative bg-gradient-to-r from-orange-500 to-orange-600 px-10 md:px-6 py-2 rounded-full text-white text-sm font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-xl transform hover:scale-105"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>

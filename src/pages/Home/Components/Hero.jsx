@@ -1,8 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, TrendingUp, Shield, Users } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import globimg from '../../../assets/globimg.jpg';
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  ChevronLeft,
+  ChevronRight,
+  TrendingUp,
+  Shield,
+  Users,
+} from "lucide-react";
+import { Link } from "react-router-dom";
+import globimg from "../../../assets/globimg.jpg";
 
 const slides = [
   {
@@ -17,7 +23,8 @@ const slides = [
     title: "Where Intelligent Investing Meets Personalized Strategy",
     description:
       "With 13+ years of expertise and SEBI registration, Explore helps you turn your financial goals into reality. From buying your dream home to building long-term wealth, we design strategies tailored just for you.",
-    image: "https://res.cloudinary.com/dhf8eyjee/image/upload/v1755161109/imgi_1_home-about_fwt1au.png",
+    image:
+      "https://res.cloudinary.com/dhf8eyjee/image/upload/v1755161109/imgi_1_home-about_fwt1au.png",
     primaryButton: "Start Your Journey",
     secondaryButton: "Contact Us",
   },
@@ -25,16 +32,20 @@ const slides = [
     title: "Plan. Invest. Grow — With Clarity and Confidence",
     description:
       "Every financial journey is unique. Our AI-backed risk profiling and goal-based planning ensure your investments match your vision — whether it’s retirement, education, or wealth creation.",
-    image: "https://res.cloudinary.com/dhf8eyjee/image/upload/f_auto,q_auto,w_1200/v1755161588/green-arrow-is-going-up-stacks-coins-arranged-bar-graph_ti6ltr.jpg",
+    image:
+      "https://res.cloudinary.com/dhf8eyjee/image/upload/f_auto,q_auto,w_1200/v1755161588/green-arrow-is-going-up-stacks-coins-arranged-bar-graph_ti6ltr.jpg",
     primaryButton: "Get Risk Profile",
     secondaryButton: "Contact Us",
   },
 ];
 
-
 const imageVariants = {
   enter: { opacity: 0, scale: 0.95 },
-  center: { opacity: 1, scale: 1, transition: { duration: 0.8, ease: 'easeOut' } },
+  center: {
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 0.8, ease: "easeOut" },
+  },
   exit: { opacity: 0, scale: 1.05, transition: { duration: 0.5 } },
 };
 
@@ -91,13 +102,35 @@ const HeroCarousel = () => {
 
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link to="/services"><button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium transition-colors">
-                {slides[currentSlide].primaryButton}
-              </button></Link>
+              {slides[currentSlide].primaryButton === "Get Risk Profile" ? (
+                <Link to="/services#risk-profiling">
+                  <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium transition-colors">
+                    {slides[currentSlide].primaryButton}
+                  </button>
+                </Link>
+              ) : slides[currentSlide].primaryButton === "Start Your Journey" ? (
+                <a
+                  href="https://login.exploremfs.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium transition-colors">
+                    {slides[currentSlide].primaryButton}
+                  </button>
+                </a>
+              ) : (
+                <Link to="/services">
+                  <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium transition-colors">
+                    {slides[currentSlide].primaryButton}
+                  </button>
+                </Link>
+              )}
+
               <Link to="/contact">
-              <button className="border border-gray-600 hover:border-gray-500 text-white px-8 py-3 rounded-lg font-medium transition-colors">
-                {slides[currentSlide].secondaryButton}
-              </button></Link>
+                <button className="border border-gray-600 hover:border-gray-500 text-white px-8 py-3 rounded-lg font-medium transition-colors">
+                  {slides[currentSlide].secondaryButton}
+                </button>
+              </Link>
             </div>
 
             {/* Feature Icons */}
@@ -149,7 +182,7 @@ const HeroCarousel = () => {
                 key={index}
                 onClick={() => setCurrentSlide(index)}
                 className={`w-3 h-3 rounded-full transition-colors ${
-                  currentSlide === index ? 'bg-blue-500' : 'bg-gray-600'
+                  currentSlide === index ? "bg-blue-500" : "bg-gray-600"
                 }`}
               />
             ))}

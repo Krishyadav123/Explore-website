@@ -350,15 +350,23 @@ const AboutUsPage = () => {
                 </p>
 
                 <p>
-                 <span className="font-bold text-2xl text-blue-600"> Our mission :-</span> is to simplify mutual fund investing by offering a
+                  <span className="font-bold text-2xl text-blue-600">
+                    {" "}
+                    Our mission :-
+                  </span>{" "}
+                  is to simplify mutual fund investing by offering a
                   transparent, reliable, and user-friendly platform that helps
                   people grow wealth with confidence.
                 </p>
 
                 <p>
-                  <span className="font-bold text-2xl text-blue-600"> Our vision :-</span> is to be the most trusted digital platform for
-                  mutual fund investments, enabling everyone to explore
-                  opportunities and achieve financial freedom.
+                  <span className="font-bold text-2xl text-blue-600">
+                    {" "}
+                    Our vision :-
+                  </span>{" "}
+                  is to be the most trusted digital platform for mutual fund
+                  investments, enabling everyone to explore opportunities and
+                  achieve financial freedom.
                 </p>
               </div>
 
@@ -396,19 +404,20 @@ const AboutUsPage = () => {
 
               {/* Buttons */}
               <div className="flex items-center gap-6">
-                <Link to="/contact">
-                  <motion.button
-                    className="group bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-2xl font-medium flex items-center gap-2"
-                    whileHover={{
-                      scale: 1.05,
-                      boxShadow: "0 10px 30px rgba(59, 130, 246, 0.3)",
-                    }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    Start Your Journey
-                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-                  </motion.button>
-                </Link>
+                <motion.a
+                  href="https://login.exploremfs.com"
+                  target="_blank" // optional: opens in new tab
+                  rel="noopener noreferrer"
+                  className="group bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-2xl font-medium flex items-center gap-2 inline-flex"
+                  whileHover={{
+                    scale: 1.05,
+                    boxShadow: "0 10px 30px rgba(59, 130, 246, 0.3)",
+                  }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  Start Your Journey
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                </motion.a>
               </div>
             </motion.div>
 
