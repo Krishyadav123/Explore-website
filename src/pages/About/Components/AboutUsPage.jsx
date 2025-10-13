@@ -31,6 +31,7 @@ import profile01 from "../../../assets/profile01.jpg";
 import profile02 from "../../../assets/profile02.jpg";
 import profile03 from "../../../assets/profile03.jpg";
 import { Link } from "react-router-dom";
+import ExploreBrandSection from "./ExploreBrandSection";
 
 const AboutUsPage = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -470,73 +471,152 @@ const AboutUsPage = () => {
         </div>
       </motion.section>
 
-      {/* Philosophy Section with Tabs */}
-      <motion.section
-        className="py-10 md:py-24 px-4 bg-white"
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
+{/* Core Values Section */}
+<motion.section
+  className="py-24 px-4 bg-gradient-to-br from-gray-50 to-white"
+  variants={containerVariants}
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: true, amount: 0.2 }}
+>
+  <div className="max-w-7xl mx-auto">
+    <motion.div className="text-center mb-16" variants={itemVariants}>
+      <motion.div
+        className="inline-flex items-center px-4 py-2 bg-purple-100 text-purple-600 rounded-full text-sm font-medium mb-6"
+        whileHover={{ scale: 1.05 }}
       >
-        <div className="max-w-7xl mx-auto">
-          <motion.div className="text-center mb-16" variants={itemVariants}>
-            <h2 className="text-3xl md:text-5xl font-extralight text-gray-900 mb-6">
-              Our Philosophy
-            </h2>
-            <p className="text-base md:text-xl text-gray-600 max-w-3xl mx-auto">
-              At Explore, our philosophy is rooted in integrity, insight, and
-              innovation. We are committed to simplifying the investment journey
-              while maximizing outcomes through personalized, data-driven
-              strategies tailored to each client.
-            </p>
-          </motion.div>
+        <Shield className="w-4 h-4 mr-2" />
+        Our Foundation
+      </motion.div>
+      <h2 className="text-3xl md:text-5xl font-extralight text-gray-900 mb-6">
+        Core Values
+      </h2>
+      <p className="text-base md:text-xl text-gray-600 max-w-3xl mx-auto">
+        The principles that guide every decision we make and every service we provide
+      </p>
+    </motion.div>
+
+    <motion.div
+      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+      variants={containerVariants}
+    >
+      {[
+        {
+          icon: ShieldCheck,
+          title: "Trust & Transparency",
+          description: "We ensure honesty, integrity, and clarity in every transaction and communication.",
+          gradient: "from-blue-500 to-cyan-500",
+          iconColor: "text-blue-600",
+          bgColor: "bg-blue-50"
+        },
+        {
+          icon: Users,
+          title: "Customer-Centric Approach",
+          description: "We prioritize the needs, goals, and success of every investor.",
+          gradient: "from-purple-500 to-pink-500",
+          iconColor: "text-purple-600",
+          bgColor: "bg-purple-50"
+        },
+        {
+          icon: Zap,
+          title: "Innovation & Technology",
+          description: "We harness cutting-edge digital solutions to make investing simple, fast, and intuitive.",
+          gradient: "from-orange-500 to-red-500",
+          iconColor: "text-orange-600",
+          bgColor: "bg-orange-50"
+        },
+        {
+          icon: Lightbulb,
+          title: "Financial Empowerment",
+          description: "We promote financial literacy and help investors make informed decisions.",
+          gradient: "from-yellow-500 to-orange-500",
+          iconColor: "text-yellow-600",
+          bgColor: "bg-yellow-50"
+        },
+        {
+          icon: TrendingUp,
+          title: "Growth & Security",
+          description: "We focus on creating sustainable wealth while safeguarding investments with the highest standards.",
+          gradient: "from-green-500 to-emerald-500",
+          iconColor: "text-green-600",
+          bgColor: "bg-green-50"
+        },
+        {
+          icon: Globe,
+          title: "Accessibility & Inclusion",
+          description: "We aim to make quality investment opportunities available to everyone, everywhere.",
+          gradient: "from-indigo-500 to-blue-500",
+          iconColor: "text-indigo-600",
+          bgColor: "bg-indigo-50"
+        }
+      ].map((value, index) => {
+        const IconComponent = value.icon;
+        return (
           <motion.div
-            className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16"
-            variants={containerVariants}
+            key={index}
+            className="group relative bg-white rounded-3xl p-8 shadow-sm border border-gray-100 overflow-hidden"
+            variants={scaleVariants}
+            whileHover={{
+              y: -8,
+              boxShadow: "0 20px 40px rgba(0,0,0,0.1)",
+            }}
+            transition={{ type: "spring", stiffness: 300 }}
           >
-            {philosophyTabs.map((tab, index) => {
-              const IconComponent = tab.icon;
-              return (
+            {/* Background Gradient Effect */}
+            <motion.div
+              className={`absolute inset-0 bg-gradient-to-br ${value.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}
+            />
+
+            {/* Icon */}
+            <motion.div
+              className={`relative w-16 h-16 ${value.bgColor} rounded-2xl flex items-center justify-center mb-6`}
+              whileHover={{
+                scale: 1.1,
+                rotate: 5,
+              }}
+              transition={{ type: "spring", stiffness: 400 }}
+            >
+              <div className={`absolute inset-0 bg-gradient-to-br ${value.gradient} rounded-2xl opacity-10`} />
+              <IconComponent className={`relative w-8 h-8 ${value.iconColor}`} />
+            </motion.div>
+
+            {/* Content */}
+            <div className="relative">
+              <div className="flex items-start justify-between mb-3">
+                <h3 className="text-xl font-semibold text-gray-900 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:bg-clip-text group-hover:from-blue-600 group-hover:to-purple-600 transition-all duration-300">
+                  {value.title}
+                </h3>
                 <motion.div
-                  key={index}
-                  className={`p-8 rounded-3xl cursor-pointer transition-all duration-500 ${
-                    activeTab === index
-                      ? "bg-gradient-to-br from-blue-600 to-purple-600 text-white shadow-2xl shadow-blue-500/25"
-                      : "bg-gray-50 hover:bg-gray-100 text-gray-600"
-                  }`}
-                  variants={scaleVariants}
-                  onClick={() => setActiveTab(index)}
-                  whileHover={{
-                    scale: 1.02,
-                    y: -5,
-                  }}
-                  whileTap={{ scale: 0.98 }}
+                  className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  initial={{ x: -10 }}
+                  whileHover={{ x: 0 }}
                 >
-                  <div
-                    className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 ${
-                      activeTab === index ? "bg-white/20" : "bg-white shadow-lg"
-                    }`}
-                  >
-                    <IconComponent
-                      className={`w-8 h-8 ${
-                        activeTab === index ? "text-white" : "text-blue-600"
-                      }`}
-                    />
-                  </div>
-                  <h3 className="text-xl font-semibold mb-4">{tab.title}</h3>
-                  <p
-                    className={`leading-relaxed ${
-                      activeTab === index ? "opacity-90" : "opacity-70"
-                    }`}
-                  >
-                    {tab.content}
-                  </p>
+                  <ArrowRight className="w-5 h-5 text-blue-600" />
                 </motion.div>
-              );
-            })}
+              </div>
+              <p className="text-gray-600 leading-relaxed">
+                {value.description}
+              </p>
+            </div>
+
+            {/* Number Badge */}
+            <motion.div
+              className="absolute top-4 right-4 w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-gray-400 text-sm font-semibold"
+              initial={{ scale: 0 }}
+              whileInView={{ scale: 1 }}
+              transition={{ delay: index * 0.1 }}
+            >
+              {index + 1}
+            </motion.div>
           </motion.div>
-        </div>
-      </motion.section>
+        );
+      })}
+    </motion.div>
+  </div>
+</motion.section>
+
+
+<ExploreBrandSection />
 
       {/* Team Section */}
 
