@@ -72,98 +72,109 @@ const WealthCreationForm = () => {
 
   if (showResults) {
     return (
-      <div className="bg-gray-100 min-h-screen py-10 flex items-center justify-center">
-        <div className="max-w-6xl w-full mx-auto p-10 bg-white shadow-2xl rounded-2xl">
-          <div className="flex justify-between items-center mb-8">
-            <h2 className="text-3xl font-bold text-gray-800">Goal Summary</h2>
-            <button 
-              onClick={() => setShowResults(false)}
-              className="bg-orange-500 text-white p-3 rounded-full hover:bg-orange-600 transition"
-            >
-              ← Back
-            </button>
-          </div>
+<div className="bg-gray-100 min-h-screen py-12 flex items-center justify-center">
+  <div className="max-w-6xl w-full mx-auto p-10 bg-white shadow-2xl rounded-2xl">
+    {/* Header */}
+    <div className="flex justify-between items-center mb-10">
+      <h2 className="text-3xl font-bold text-gray-800">Goal Summary</h2>
+      <button
+        onClick={() => setShowResults(false)}
+        className="bg-orange-500 text-white px-5 py-2 rounded-full hover:bg-orange-600 transition duration-300 shadow-md"
+      >
+        ← Back
+      </button>
+    </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-            {/* Current Target Amount */}
-            <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-md">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-gray-800 mb-4">
-                  ₹ {formatNumber(calculations.targetAmount)}
-                </div>
-                <div className="bg-black text-white py-3 px-4 rounded">
-                  <div className="font-semibold">Your Targeted Amount</div>
-                  <div className="text-sm">(in today's value)</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Future Value */}
-            <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-md">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-gray-800 mb-4">
-                  ₹ {formatNumber(calculations.futureValue)}
-                </div>
-                <div className="bg-black text-white py-3 px-4 rounded">
-                  <div className="font-semibold">Future value of your Wealth Creation</div>
-                  <div className="text-sm">(adjusting for {form.inflation}% inflation)</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Number of Years */}
-            <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-md">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-gray-800 mb-4">
-                  {calculations.timeHorizon}
-                </div>
-                <div className="bg-black text-white py-3 px-4 rounded">
-                  <div className="font-semibold">Number of Years</div>
-                  <div className="text-sm">You Need To Save</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Monthly SIP Required */}
-            <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-md">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-gray-800 mb-4">
-                  ₹ {formatNumber(calculations.monthlySIP)}
-                </div>
-                <div className="bg-black text-white py-3 px-4 rounded">
-                  <div className="font-semibold">Monthly SIP Investment</div>
-                  <div className="text-sm">Required</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Calculation Details */}
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-8">
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">Calculation Details:</h3>
-            <div className="space-y-2 text-sm text-gray-700">
-              <p><strong>Current Age:</strong> {calculations.currentAge} years</p>
-              <p><strong>Risk Profile:</strong> {form.risk}</p>
-              <p><strong>Expected Annual Return:</strong> {calculations.expectedReturn}%</p>
-              <p><strong>Inflation Rate:</strong> {form.inflation}%</p>
-              <p><strong>Investment Period:</strong> {calculations.timeHorizon} years</p>
-            </div>
-          </div>
-
-          {/* Action Buttons */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="bg-orange-500 text-white rounded-lg p-6 text-center cursor-pointer hover:bg-orange-600 transition">
-              <h3 className="font-semibold mb-2">Are you an existing client?</h3>
-              <p className="text-sm">If yes, please click here and map your existing investments to this goal</p>
-            </div>
-            
-            <div className="border-2 border-orange-500 text-orange-600 rounded-lg p-6 text-center cursor-pointer hover:bg-orange-50 transition">
-              <h3 className="font-semibold mb-2">No, I do not have investments with you</h3>
-              <p className="text-sm">Take me to the plan without mapping any existing investments</p>
-            </div>
-          </div>
+    {/* Summary Cards */}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+      {/* Target Amount */}
+      <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-md text-center">
+        <div className="text-2xl font-bold text-gray-800 mb-4">
+          ₹ {formatNumber(calculations.targetAmount)}
+        </div>
+        <div className="bg-black text-white py-3 px-4 rounded">
+          <div className="font-semibold">Your Targeted Amount</div>
+          <div className="text-sm">(in today's value)</div>
         </div>
       </div>
+
+      {/* Future Value */}
+      <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-md text-center">
+        <div className="text-2xl font-bold text-gray-800 mb-4">
+          ₹ {formatNumber(calculations.futureValue)}
+        </div>
+        <div className="bg-black text-white py-3 px-4 rounded">
+          <div className="font-semibold">Future Value of Your Wealth Creation</div>
+          <div className="text-sm">(adjusting for {form.inflation}% inflation)</div>
+        </div>
+      </div>
+
+      {/* Number of Years */}
+      <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-md text-center">
+        <div className="text-2xl font-bold text-gray-800 mb-4">
+          {calculations.timeHorizon}
+        </div>
+        <div className="bg-black text-white py-3 px-4 rounded">
+          <div className="font-semibold">Number of Years</div>
+          <div className="text-sm">You Need To Save</div>
+        </div>
+      </div>
+
+      {/* Monthly SIP */}
+      <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-md text-center">
+        <div className="text-2xl font-bold text-gray-800 mb-4">
+          ₹ {formatNumber(calculations.monthlySIP)}
+        </div>
+        <div className="bg-black text-white py-3 px-4 rounded">
+          <div className="font-semibold">Monthly SIP Investment</div>
+          <div className="text-sm">Required</div>
+        </div>
+      </div>
+    </div>
+
+    {/* Calculation Details */}
+    <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-10">
+      <h3 className="text-lg font-semibold text-gray-800 mb-4">Calculation Details:</h3>
+      <div className="space-y-2 text-sm text-gray-700">
+        <p><strong>Current Age:</strong> {calculations.currentAge} years</p>
+        <p><strong>Risk Profile:</strong> {form.risk}</p>
+        <p><strong>Expected Annual Return:</strong> {calculations.expectedReturn}%</p>
+        <p><strong>Inflation Rate:</strong> {form.inflation}%</p>
+        <p><strong>Investment Period:</strong> {calculations.timeHorizon} years</p>
+      </div>
+    </div>
+
+    {/* Action Options */}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+      <div className="bg-orange-500 text-white rounded-lg p-6 text-center cursor-pointer hover:bg-orange-600 transition duration-300 shadow-md">
+        <h3 className="font-semibold mb-2 text-lg">Are you an existing client?</h3>
+        <p className="text-sm opacity-90">
+          If yes, please click here and map your existing investments to this goal.
+        </p>
+      </div>
+
+      <div className="border-2 border-orange-500 text-orange-600 rounded-lg p-6 text-center cursor-pointer hover:bg-orange-50 transition duration-300">
+        <h3 className="font-semibold mb-2 text-lg">
+          No, I do not have investments with you
+        </h3>
+        <p className="text-sm opacity-90">
+          Take me to the plan without mapping any existing investments.
+        </p>
+      </div>
+    </div>
+
+    {/* Final CTA */}
+    <div className="text-center">
+      <a
+        href="/signup"
+        className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold text-lg px-10 py-4 rounded-full shadow-lg transition-transform transform hover:-translate-y-1 duration-300"
+      >
+        Sign up to start your Wealth Creation Journey 🚀
+      </a>
+    </div>
+  </div>
+</div>
+
     );
   }
 

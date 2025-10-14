@@ -1,5 +1,6 @@
 import React from "react";
-import { CheckCircle2, Target, TrendingUp, PiggyBank, Calendar, Calculator, Sparkles } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { ArrowLeft, CheckCircle2, Target, TrendingUp, PiggyBank, Calendar, Calculator, Sparkles } from "lucide-react";
 import Navbar from "@/component/Navbar";
 import Footer from "@/component/Footer";
 
@@ -73,6 +74,7 @@ const steps = [
 ];
 
 const ServiceDetailOne = () => {
+  const navigate = useNavigate();
   return (
 
     <>
@@ -90,6 +92,13 @@ const ServiceDetailOne = () => {
         </div>
 
         <div className="max-w-7xl mx-auto px-6 py-20 md:py-32 relative z-10">
+          <button 
+            onClick={() => navigate(-1)} 
+            className="absolute top-8 left-6 flex items-center gap-2 text-white bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-4 py-2 text-sm font-medium hover:bg-white/20 transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Back
+          </button>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Text Content */}
             <div className="text-white space-y-6">
@@ -202,6 +211,16 @@ const ServiceDetailOne = () => {
               <p className="text-lg md:text-xl font-medium text-blue-100">
                 🌟 Plan smart, stay consistent, and achieve your financial dreams!
               </p>
+              <div className="mt-8">
+                <a 
+                  href="https://login.exploremfs.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-block bg-blue-600 text-white font-bold text-lg px-8 py-3 rounded-full hover:bg-blue-700 transition-colors duration-300 shadow-lg"
+                >
+                  Sign Up for Goal Planning
+                </a>
+              </div>
             </div>
           </div>
         </div>

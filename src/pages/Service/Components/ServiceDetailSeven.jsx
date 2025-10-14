@@ -1,7 +1,8 @@
 import React from "react";
-import { CheckCircle2, TrendingUp, Target, Calendar, BarChart3 } from "lucide-react";
+import { CheckCircle2, TrendingUp, Target, Calendar, BarChart3, ArrowLeft } from "lucide-react";
 import Navbar from "@/component/Navbar";
 import Footer from "@/component/Footer";
+import { Link, useNavigate } from "react-router-dom";
 
 const steps = [
   {
@@ -50,7 +51,9 @@ const steps = [
   },
 ];
 
+
 const ServiceDetailSeven = () => {
+  const navigate = useNavigate();
   return (
 
     <>
@@ -67,6 +70,13 @@ const ServiceDetailSeven = () => {
         </div>
 
         <div className="max-w-7xl mx-auto px-6 py-20 md:py-32 relative z-10">
+          <button 
+            onClick={() => navigate(-1)} 
+            className="absolute top-8 left-6 flex items-center gap-2 text-white bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-4 py-2 text-sm font-medium hover:bg-white/20 transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Back
+          </button>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Text Content */}
             <div className="text-white space-y-6">
@@ -170,18 +180,32 @@ const ServiceDetailSeven = () => {
         </div>
 
         {/* Final Summary Section */}
-        <div className="mt-16 bg-gradient-to-br from-indigo-900 via-blue-900 to-purple-900 rounded-3xl p-8 md:p-12 text-white relative overflow-hidden">
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-0 left-0 w-64 h-64 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl animate-pulse"></div>
-            <div className="absolute bottom-0 right-0 w-64 h-64 bg-purple-400 rounded-full mix-blend-multiply filter blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-          </div>
+<div className="mt-16 bg-gradient-to-br from-indigo-900 via-blue-900 to-purple-900 rounded-3xl p-8 md:p-16 text-white relative overflow-hidden flex flex-col items-center justify-center text-center space-y-8">
+  {/* Background Glow Effects */}
+  <div className="absolute inset-0 opacity-10">
+    <div className="absolute top-0 left-0 w-64 h-64 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl animate-pulse"></div>
+    <div
+      className="absolute bottom-0 right-0 w-64 h-64 bg-purple-400 rounded-full mix-blend-multiply filter blur-3xl animate-pulse"
+      style={{ animationDelay: "1s" }}
+    ></div>
+  </div>
 
-          <div className="relative z-10 text-center">
-            <p className="text-xl md:text-2xl font-medium text-blue-100">
-              💡 Patience, consistency, and smart fund selection turn investments into substantial wealth over time.
-            </p>
-          </div>
-        </div>
+  {/* Text Content */}
+  <div className="relative z-10 max-w-3xl">
+    <p className="text-2xl md:text-3xl font-medium text-blue-100 leading-relaxed">
+      💡 Patience, consistency, and smart fund selection turn investments into substantial wealth over time.
+    </p>
+  </div>
+
+  {/* Button */}
+  <Link
+    to="/goal/wealth-creation"
+    className="relative z-10 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-lg px-10 py-3 rounded-full shadow-xl transition-transform transform hover:-translate-y-1 duration-300"
+  >
+    Wealth Creation Planner
+  </Link>
+</div>
+
       </div>
     </div>
 

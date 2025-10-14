@@ -149,6 +149,14 @@ const ChildWeddingForm = () => {
               </p>
             </div>
           </div>
+          <div className="text-center mt-5">
+      <a
+        href="/signup"
+        className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold text-lg px-10 py-4 rounded-full shadow-lg transition-transform transform hover:-translate-y-1 duration-300"
+      >
+        Sign up to start your Child Wedding Journey 🚀
+      </a>
+    </div>
         </div>
       </div>
     );
