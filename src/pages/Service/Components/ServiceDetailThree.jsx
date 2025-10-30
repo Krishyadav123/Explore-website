@@ -253,7 +253,7 @@ const ServiceDetailThree = () => {
             </div>
 
             <div className="mt-8 flex justify-center">
-      <a href="https://login.exploremfs.com" className="inline-block bg-blue-600 text-white font-bold text-lg px-8 py-3 rounded-full hover:bg-blue-700 transition-colors duration-300 shadow-lg">
+      <a href="https://login.exploremfs.com/signup" className="inline-block bg-blue-600 text-white font-bold text-lg px-8 py-3 rounded-full hover:bg-blue-700 transition-colors duration-300 shadow-lg">
         Click here to do Risk Profiling
       </a>
     </div>

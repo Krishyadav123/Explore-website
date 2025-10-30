@@ -213,7 +213,7 @@ const ServiceDetailOne = () => {
               </p>
               <div className="mt-8">
                 <a 
-                  href="https://login.exploremfs.com" 
+                  href="https://login.exploremfs.com/signup" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="inline-block bg-blue-600 text-white font-bold text-lg px-8 py-3 rounded-full hover:bg-blue-700 transition-colors duration-300 shadow-lg"

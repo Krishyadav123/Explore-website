@@ -21,40 +21,43 @@ const SpendingLessCalculator = () => {
   const [personalLoan, setPersonalLoan] = useState(20000);
   const [lessShopping, setLessShopping] = useState(10000);
 
-  // Memoized calculations matching reference website
+  // Memoized calculations
   const calculations = useMemo(() => {
     const yearsToRetirement = retirementAge - currentAge;
     
     // Calculate total annual savings from spending reductions
-    // All values seem to be treated as annual amounts in reference
+    // House defer, new car are one-time, others are monthly
     const totalAnnualSavings = houseDefer + (homeLoanEMI * 12) + newCar + (familyEating * 12) + 
                               (lifestyleSpending * 12) + (fewerHolidays * 12) + (publicTransport * 12) + 
                               (creditCardInterest * 12) + (personalLoan * 12) + (lessShopping * 12);
     
     const monthlySavings = totalAnnualSavings / 12;
     
-    // Based on reference output (Rs. 70,60,651 for Rs. 9,60,000 annual for 35 years)
-    // It appears they're using simple interest or very conservative calculation
-    // Let's reverse engineer: 70,60,651 / 960,000 = 7.355 years worth
-    // This suggests they're using simple interest with tax implications
+    // Calculate real rate of return after tax and inflation
+    const postTaxReturn = savingsRate * (1 - incomeTaxRate / 100);
+    const realReturn = postTaxReturn - inflationRate;
+    const annualRate = realReturn / 100;
     
-    // Applying a conservative calculation similar to reference
-    // Seems like they apply tax and inflation adjustments
-    const effectiveRate = Math.max(0, savingsRate - incomeTaxRate - inflationRate);
-    const realAnnualRate = effectiveRate / 100;
-    
-    // Simple future value with conservative real returns
+    // Calculate future value using compound interest formula
     let futureValue = 0;
-    let totalInvested = totalAnnualSavings * yearsToRetirement;
+    let totalInvested = 0;
     
-    if (realAnnualRate > 0) {
-      // Conservative calculation - seems to match reference better
-      futureValue = totalInvested * (1 + (realAnnualRate * yearsToRetirement * 0.3)); // Reduced multiplier
-    } else {
+    if (annualRate > 0) {
+      // FV = P * [((1 + r)^n - 1) / r]
+      // Where P = annual savings, r = annual rate, n = years
+      futureValue = totalAnnualSavings * (Math.pow(1 + annualRate, yearsToRetirement) - 1) / annualRate;
+      totalInvested = totalAnnualSavings * yearsToRetirement;
+    } else if (annualRate === 0) {
+      // If real return is zero, just sum up the contributions
+      totalInvested = totalAnnualSavings * yearsToRetirement;
       futureValue = totalInvested;
+    } else {
+      // If real return is negative, calculate depreciation
+      totalInvested = totalAnnualSavings * yearsToRetirement;
+      futureValue = totalAnnualSavings * (1 - Math.pow(1 + annualRate, yearsToRetirement)) / (-annualRate);
     }
     
-    const totalGrowth = futureValue - totalInvested;
+    const totalGrowth = Math.max(0, futureValue - totalInvested);
     
     return {
       totalAnnualSavings: Math.round(totalAnnualSavings),
@@ -63,7 +66,7 @@ const SpendingLessCalculator = () => {
       totalInvested: Math.round(totalInvested),
       totalGrowth: Math.round(totalGrowth),
       yearsToRetirement,
-      effectiveRate: Math.round(effectiveRate * 100) / 100
+      effectiveRate: Math.round(realReturn * 100) / 100
     };
   }, [currentAge, retirementAge, savingsRate, incomeTaxRate, inflationRate, 
       houseDefer, homeLoanEMI, newCar, familyEating, lifestyleSpending, 
@@ -71,8 +74,8 @@ const SpendingLessCalculator = () => {
 
   // Pie chart data
   const pieData = [
-    { name: 'Amount Invested', value: calculations.totalInvested, color: '#f59e0b' }, // Orange color
-    { name: 'Total Growth', value: calculations.totalGrowth, color: '#1f2937' } // Dark gray/black color
+    { name: 'Amount Invested', value: calculations.totalInvested, color: '#f59e0b' },
+    { name: 'Total Growth', value: calculations.totalGrowth, color: '#1f2937' }
   ];
 
   const formatCurrency = (amount) => {
@@ -120,12 +123,12 @@ const SpendingLessCalculator = () => {
           <div className="glass-effect rounded-3xl shadow-md w-full p-7 card-hover mx-auto">
             
             {/* Personal Details Section */}
-            <div className="mb-8 p-4 bg-black text-white rounded-lg">
+            <div className="mb-8 p-4 bg-white text-black rounded-lg">
               <h3 className="text-lg font-semibold mb-4">Personal Details</h3>
               
               {/* Current Age */}
               <div className="mb-6">
-                <label className="block text-white font-medium mb-3">Your Current age (in years)</label>
+                <label className="block text-black font-medium mb-3">Your Current age (in years)</label>
                 <input
                   type="number"
                   value={currentAge}
@@ -138,7 +141,7 @@ const SpendingLessCalculator = () => {
 
               {/* Retirement Age */}
               <div className="mb-6">
-                <label className="block text-white font-medium mb-3">Age at which you want to retire (in years)</label>
+                <label className="block text-black font-medium mb-3">Age at which you want to retire (in years)</label>
                 <input
                   type="number"
                   value={retirementAge}
@@ -151,7 +154,7 @@ const SpendingLessCalculator = () => {
 
               {/* Savings Rate */}
               <div className="mb-6">
-                <label className="block text-white font-medium mb-3">Savings or interest rate of your current investments (% per annum)</label>
+                <label className="block text-black font-medium mb-3">Savings or interest rate of your current investments (% per annum)</label>
                 <input
                   type="number"
                   value={savingsRate}
@@ -165,7 +168,7 @@ const SpendingLessCalculator = () => {
 
               {/* Income Tax Rate */}
               <div className="mb-6">
-                <label className="block text-white font-medium mb-3">Income Tax rate (% per annum)</label>
+                <label className="block text-black font-medium mb-3">Income Tax rate (% per annum)</label>
                 <input
                   type="number"
                   value={incomeTaxRate}
@@ -179,7 +182,7 @@ const SpendingLessCalculator = () => {
 
               {/* Inflation Rate */}
               <div className="mb-6">
-                <label className="block text-white font-medium mb-3">Current Inflation rate (% per annum)</label>
+                <label className="block text-black font-medium mb-3">Current Inflation rate (% per annum)</label>
                 <input
                   type="number"
                   value={inflationRate}
@@ -193,12 +196,12 @@ const SpendingLessCalculator = () => {
             </div>
 
             {/* Spending Details Section */}
-            <div className="mb-8 p-4 bg-black text-white rounded-lg">
+            <div className="mb-8 p-4 bg-white text-black rounded-lg">
               <h3 className="text-lg font-semibold mb-4">Spending Details</h3>
               
               {/* House Deferral */}
               <div className="mb-4">
-                <label className="block text-white font-medium mb-2">Deferring purchase of a house / flat (Rs.)</label>
+                <label className="block text-black font-medium mb-2">Deferring purchase of a house / flat (Rs.)</label>
                 <input
                   type="number"
                   value={houseDefer}
@@ -210,7 +213,7 @@ const SpendingLessCalculator = () => {
 
               {/* Home Loan EMI */}
               <div className="mb-4">
-                <label className="block text-white font-medium mb-2">Reducing the Home Loan EMI (Rs.)</label>
+                <label className="block text-black font-medium mb-2">Reducing the Home Loan EMI (Rs.)</label>
                 <input
                   type="number"
                   value={homeLoanEMI}
@@ -222,7 +225,7 @@ const SpendingLessCalculator = () => {
 
               {/* New Car */}
               <div className="mb-4">
-                <label className="block text-white font-medium mb-2">Waiting to buy a new car (Rs.)</label>
+                <label className="block text-black font-medium mb-2">Waiting to buy a new car (Rs.)</label>
                 <input
                   type="number"
                   value={newCar}
@@ -234,7 +237,7 @@ const SpendingLessCalculator = () => {
 
               {/* Family Eating */}
               <div className="mb-4">
-                <label className="block text-white font-medium mb-2">Eating out less with family (Rs.)</label>
+                <label className="block text-black font-medium mb-2">Eating out less with family (Rs.)</label>
                 <input
                   type="number"
                   value={familyEating}
@@ -246,7 +249,7 @@ const SpendingLessCalculator = () => {
 
               {/* Lifestyle Spending */}
               <div className="mb-4">
-                <label className="block text-white font-medium mb-2">Reduce lifestyle spending (Rs.)</label>
+                <label className="block text-black font-medium mb-2">Reduce lifestyle spending (Rs.)</label>
                 <input
                   type="number"
                   value={lifestyleSpending}
@@ -258,7 +261,7 @@ const SpendingLessCalculator = () => {
 
               {/* Fewer Holidays */}
               <div className="mb-4">
-                <label className="block text-white font-medium mb-2">Taking fewer holidays (Rs.)</label>
+                <label className="block text-black font-medium mb-2">Taking fewer holidays (Rs.)</label>
                 <input
                   type="number"
                   value={fewerHolidays}
@@ -270,7 +273,7 @@ const SpendingLessCalculator = () => {
 
               {/* Public Transport */}
               <div className="mb-4">
-                <label className="block text-white font-medium mb-2">Taking public transport (Rs.)</label>
+                <label className="block text-black font-medium mb-2">Taking public transport (Rs.)</label>
                 <input
                   type="number"
                   value={publicTransport}
@@ -282,7 +285,7 @@ const SpendingLessCalculator = () => {
 
               {/* Credit Card Interest */}
               <div className="mb-4">
-                <label className="block text-white font-medium mb-2">Reducing the credit card interest (Rs.)</label>
+                <label className="block text-black font-medium mb-2">Reducing the credit card interest (Rs.)</label>
                 <input
                   type="number"
                   value={creditCardInterest}
@@ -294,7 +297,7 @@ const SpendingLessCalculator = () => {
 
               {/* Personal Loan */}
               <div className="mb-4">
-                <label className="block text-white font-medium mb-2">Closing the personal loan (Rs.)</label>
+                <label className="block text-black font-medium mb-2">Closing the personal loan (Rs.)</label>
                 <input
                   type="number"
                   value={personalLoan}
@@ -306,7 +309,7 @@ const SpendingLessCalculator = () => {
 
               {/* Less Shopping */}
               <div className="mb-4">
-                <label className="block text-white font-medium mb-2">Doing less shopping (Rs.)</label>
+                <label className="block text-black font-medium mb-2">Doing less shopping (Rs.)</label>
                 <input
                   type="number"
                   value={lessShopping}
@@ -439,6 +442,46 @@ const SpendingLessCalculator = () => {
                     {calculations.yearsToRetirement} Years
                   </span>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-16 bg-gradient-to-br from-indigo-900 via-blue-900 to-purple-900 rounded-3xl p-8 md:p-12 text-black relative overflow-hidden">
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute top-0 left-0 w-64 h-64 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl animate-pulse"></div>
+            <div className="absolute bottom-0 right-0 w-64 h-64 bg-purple-400 rounded-full mix-blend-multiply filter blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+          </div>
+
+          <div className="relative z-10">
+            <div className="text-center mb-8">
+              <h3 className="text-2xl md:text-3xl font-bold mb-4 text-white">
+                🌟 Ready to Save More & Grow Wealth?
+              </h3>
+            </div>
+
+            <div className="text-center space-y-3 text-base md:text-lg">
+              <p className="text-blue-100">
+                Small changes in spending habits can lead to significant wealth accumulation over time.
+              </p>
+              <p className="text-blue-100">
+                Our calculator helps you visualize the long-term impact of reducing unnecessary expenses.
+              </p>
+            </div>
+
+            <div className="mt-10 text-center">
+              <p className="text-lg md:text-xl font-medium text-blue-100">
+                🌟 Spend wisely, save consistently, and build your financial future!
+              </p>
+              <div className="mt-8">
+                <a
+                  href="https://login.exploremfs.com/signup"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block bg-blue-600 text-white font-bold text-lg px-8 py-3 rounded-full hover:bg-blue-700 transition-colors duration-300 shadow-lg"
+                >
+                  Start Saving Smart
+                </a>
               </div>
             </div>
           </div>

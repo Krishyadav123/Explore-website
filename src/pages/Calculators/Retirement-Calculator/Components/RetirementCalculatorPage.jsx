@@ -387,6 +387,46 @@ const RetirementCalculatorPage = () => {
             </div>
           </div>
         </div>
+
+        <div className="mt-16 bg-gradient-to-br from-indigo-900 via-blue-900 to-purple-900 rounded-3xl p-8 md:p-12 text-white relative overflow-hidden">
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute top-0 left-0 w-64 h-64 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl animate-pulse"></div>
+            <div className="absolute bottom-0 right-0 w-64 h-64 bg-purple-400 rounded-full mix-blend-multiply filter blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+          </div>
+
+          <div className="relative z-10">
+            <div className="text-center mb-8">
+              <h3 className="text-2xl md:text-3xl font-bold mb-4">
+                🌟 Ready to Plan Your Retirement?
+              </h3>
+            </div>
+
+            <div className="text-center space-y-3 text-base md:text-lg">
+              <p className="text-blue-100">
+                Retirement planning is crucial for a secure and comfortable future.
+              </p>
+              <p className="text-blue-100">
+                Our calculator helps you visualize and plan for your golden years.
+              </p>
+            </div>
+
+            <div className="mt-10 text-center">
+              <p className="text-lg md:text-xl font-medium text-blue-100">
+                🌟 Plan smart, save consistently, and enjoy a worry-free retirement!
+              </p>
+              <div className="mt-8">
+                <a
+                  href="https://login.exploremfs.com/signup"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block bg-blue-600 text-white font-bold text-lg px-8 py-3 rounded-full hover:bg-blue-700 transition-colors duration-300 shadow-lg"
+                >
+                  Plan Your Retirement Now
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
