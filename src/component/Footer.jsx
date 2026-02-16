@@ -13,6 +13,7 @@ import {
   ChevronUp,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import Logo from "../assets/Logo.png";
 
 const Footer = () => {
   const scrollToTop = () => {
@@ -73,6 +74,7 @@ const Footer = () => {
         <div className="flex flex-col lg:flex-row justify-between gap-10 w-full">
           {/* Company Info */}
           <div className="max-w-[400px] w-full space-y-6">
+            {/* Logo and Powered By */}
             <div>
               <h3 className="text-xl font-bold mb-4 text-blue-400">Address</h3>
               <div className="space-y-4">
@@ -107,6 +109,7 @@ const Footer = () => {
                 </div>
               </div>
             </div>
+
           </div>
 
           {/* Useful Links / Offerings / Goal Planners */}
@@ -166,6 +169,8 @@ const Footer = () => {
               </ul>
             </div>
           </div>
+
+
         </div>
 
         {/* Disclaimer */}
