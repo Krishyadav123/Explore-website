@@ -170,13 +170,13 @@ const Navbar = () => {
           <div className="flex justify-between items-center py-2">
             {/* Logo */}
             <div className="flex flex-col items-start space-y-1.5 max-w-[200px] sm:max-w-none">
-              <Link to="/" className="w-full">
-                <img src={Logo} className="w-full h-14 object-contain" alt="Logo" />
+              <Link to="/" className="inline-flex items-center">
+                <img src={Logo} className="h-14 w-auto object-contain" alt="Logo" />
               </Link>
-              <p className="text-[9px] sm:text-[10px] md:text-[11px] text-gray-500 font-black leading-tight pt-0.5">
-                <span className="text-gray-400 uppercase tracking-wide">Powered By</span>
-                <span className="mx-1.5 text-gray-300">-</span>
-                <span className="text-teal-600 font-black">AlignMF4Yield Finserv Private Limited</span>
+              <p className="text-[9px] sm:text-[10px] md:text-[10px] text-gray-500 font-medium leading-tight pt-0.5">
+                <span className="text-gray-400 uppercase tracking-wide">Powered By -</span>
+                <br />
+                <span className="text-teal-600 font-medium">AlignMF4Yield Finserv Private Limited</span>
               </p>
             </div>
 

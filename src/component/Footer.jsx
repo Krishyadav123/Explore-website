@@ -75,6 +75,24 @@ const Footer = () => {
           {/* Company Info */}
           <div className="max-w-[400px] w-full space-y-6">
             {/* Logo and Powered By */}
+            <div className="flex flex-col items-start space-y-3">
+              <Link to="/">
+                <img
+                  src={Logo}
+                  alt="Logo"
+                  className="h-16 w-auto object-contain"
+                />
+              </Link>
+              <p className="text-[10px] sm:text-[11px] md:text-xs text-gray-400 font-normal leading-tight">
+                <span className="text-gray-500 uppercase tracking-wide">
+                  Powered By -
+                </span>
+                <br />
+                <span className="text-teal-400 font-semibold">
+                  AlignMF4Yield Finserv Private Limited
+                </span>
+              </p>
+            </div>
             <div>
               <h3 className="text-xl font-bold mb-4 text-blue-400">Address</h3>
               <div className="space-y-4">
